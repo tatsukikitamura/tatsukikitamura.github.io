@@ -19,8 +19,8 @@ function createStartPage() {
     <!-- Typing Intro Section (最初に表示) -->
     <section id="typing-intro" class="relative z-10 min-h-screen flex items-center justify-center px-6">
       <div class="text-center">
-        <div class="inline-block glass rounded-2xl px-6 py-4 text-left">
-          <div class="font-mono text-3xl md:text-3xl" id="typing-container">
+        <div class="inline-block glass rounded-2xl px-4 py-3 md:px-6 md:py-4 text-left">
+          <div class="font-mono text-sm md:text-xl lg:text-2xl" id="typing-container">
             <span class="text-indigo-500 cursor-blink">|</span>
           </div>
         </div>
@@ -35,7 +35,7 @@ function createStartPage() {
           
           <!-- Main Heading -->
           <h1 class="opacity-0 animate-on-show">
-            <span class="block text-6xl md:text-6xl lg:text-6xl font-bold tracking-tight text-zinc-700 mt-10 mb-10">
+            <span class="block text-2xl md:text-4xl lg:text-5xl font-bold tracking-tight text-zinc-700 mt-10 mb-10">
               👋 Hello, Bonjour, こんにちは,<br><br> 안녕하세요, 你好, 你好
             </span>
           </h1>
