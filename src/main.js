@@ -28,27 +28,27 @@ function createStartPage() {
     </section>
     
     <!-- Main Content (タイピング完了後に表示) -->
-    <div id="main-content" class="opacity-0 hidden">
+    <div id="main-content" class="hidden">
       <!-- Hero Section -->
       <main class="relative z-10 min-h-screen flex items-center justify-center px-6">
         <div class="max-w-4xl mx-auto text-center">
           
           <!-- Main Heading -->
-          <h1 class="opacity-0 animate-fade-in-up animation-delay-100">
+          <h1 class="opacity-0 animate-on-show">
             <span class="block text-6xl md:text-6xl lg:text-6xl font-bold tracking-tight text-zinc-700 mt-10 mb-10">
               👋 Hello, Bonjour, こんにちは,<br><br> 안녕하세요, 你好, 你好
             </span>
           </h1>
           
           <!-- Tagline -->
-          <p class="opacity-0 animate-fade-in-up animation-delay-200 mt-8 text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+          <p class="opacity-0 animate-on-show mt-8 text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
             <span class="gradient-text font-semibold">I'm a Software Engineer</span>
           </p>
           
        
     
           <!-- CTA Buttons -->
-          <div class="opacity-0 animate-fade-in-up animation-delay-400 mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div class="opacity-0 animate-on-show mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a href="/pages/projects/" class="btn-primary px-8 py-4 rounded-full text-white font-medium flex items-center gap-2 group">
               <span>View Projects</span>
               <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -160,20 +160,22 @@ function createStartPage() {
 
 // タイピングエフェクト用のコード行
 const codeLines = [
-  { text: 'const ', color: 'text-purple-500' },
+  { text: '定義 ', color: 'text-purple-500' },
   { text: 'Software.Developer', color: 'text-blue-500' },
   { text: ' = ', color: 'text-zinc-700' },
   { text: '{', color: 'text-zinc-500' },
   { text: '\n\n' },
-  { text: '  stack: ', color: 'text-zinc-700' },
+  { text: '  できること: ', color: 'text-zinc-700' },
   { text: '["Ruby on Rails", "Python", "JavaScript"]', color: 'text-green-500' },
   { text: ',', color: 'text-zinc-500' },
-  { text: '\n' },
-  { text: '  passion: ', color: 'text-zinc-700' },
+  { text: '\n\n' },
+  { text: '  好きなこと: ', color: 'text-zinc-700' },
   { text: '"Creating with code"', color: 'text-amber-500' },
-  { text: '\n' },
-  { text: '  location: ', color: 'text-zinc-700' },
+  { text: ',', color: 'text-zinc-500' },
+  { text: '\n\n' },
+  { text: '  場所: ', color: 'text-zinc-700' },
   { text: '"Japan"', color: 'text-blue-500' },
+  { text: ',', color: 'text-zinc-500' },
   { text: '\n\n' },
   { text: '}', color: 'text-zinc-700' },
   { text: '\n\n' },
@@ -194,12 +196,15 @@ function showMainContent() {
     
     // メインコンテンツを表示
     mainContent.classList.remove('hidden');
-    mainContent.style.transition = 'opacity 0.8s ease-in';
     
-    // 少し遅延してからフェードイン
-    setTimeout(() => {
-      mainContent.style.opacity = '1';
-    }, 50);
+    // 子要素のアニメーションを順番にトリガー
+    const animatedElements = mainContent.querySelectorAll('.animate-on-show');
+    animatedElements.forEach((el, index) => {
+      setTimeout(() => {
+        el.classList.add('animate-fade-in-up');
+        el.style.opacity = '1';
+      }, index * 100);
+    });
   }, 500);
 }
 
