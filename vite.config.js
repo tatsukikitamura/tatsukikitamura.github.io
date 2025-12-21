@@ -3,6 +3,7 @@ import { resolve } from 'path';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  base: '/', // GitHub Pages用（username.github.io形式なのでルート）
   plugins: [tailwindcss()],
   build: {
     rollupOptions: {
