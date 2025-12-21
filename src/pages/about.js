@@ -10,7 +10,7 @@ function createAboutPage() {
     <!-- Page Header -->
     <div class="mb-12 opacity-0 animate-fade-in-up mt-16">
       <h1 class="text-3xl md:text-4xl font-bold tracking-tight">About</h1>
-      <p class="text-gray-500 mt-2">北村健紀について</p>
+      <p class="text-gray-500 mt-2">私について</p>
     </div>
     
     <!-- Profile Section -->

@@ -1,5 +1,6 @@
 import './style.css';
 import { createHeader, initHeaderEvents } from './components/header.js';
+import { getFooterHTML } from './components/footer.js';
 
 function createStartPage() {
   const container = document.createElement('div');
@@ -15,52 +16,51 @@ function createStartPage() {
     <div class="orb w-80 h-80 bg-purple-500 bottom-[10%] right-[-5%] animate-float-delayed"></div>
     <div class="orb w-64 h-64 bg-blue-500 top-[60%] left-[10%] animate-float" style="animation-delay: -2s;"></div>
     
-    <!-- Hero Section -->
-    <main class="relative z-10 min-h-screen flex items-center justify-center px-6">
-      <div class="max-w-4xl mx-auto text-center">
-        
-        <!-- Status Badge -->
-
-        
-        <!-- Main Heading -->
-        <h1 class="opacity-0 animate-fade-in-up animation-delay-100">
-          <span class="block text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-zinc-400 mt-10 mb-10">
-            Tatsuki Kitamura
-          </span>
-        </h1>
-        
-        <!-- Tagline -->
-        <p class="opacity-0 animate-fade-in-up animation-delay-200 mt-8 text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
-          <span class="gradient-text font-semibold">Software Engineer</span>
-        </p>
-        
-        <!-- Code snippet -->
-        <div class="opacity-0 animate-fade-in-up animation-delay-300 mt-10 inline-block glass rounded-2xl px-6 py-4 text-left">
-          <div class="font-mono text-lg md:text-base">
-            <span class="text-purple-400">const</span> <span class="text-blue-300">software developer</span> <span class="text-white">=</span> <span class="text-zinc-400">{</span><br>
-            <span class="text-zinc-500 ml-4">stack:</span> <span class="text-green-300">["Rails", "Python", "JavaScript"]</span><span class="text-zinc-400">,</span><br>
-            <span class="text-zinc-500 ml-4">passion:</span> <span class="text-amber-300">"Creating with code"</span><br>
-            <span class="text-zinc-500 ml-4">location:</span> <span class="text-blue-300">"Japan"</span><br>
-            <span class="text-zinc-400">}</span><span class="text-indigo-400 cursor-blink">|</span>
+    <!-- Typing Intro Section (最初に表示) -->
+    <section id="typing-intro" class="relative z-10 min-h-screen flex items-center justify-center px-6">
+      <div class="text-center">
+        <div class="inline-block glass rounded-2xl px-6 py-4 text-left">
+          <div class="font-mono text-3xl md:text-3xl" id="typing-container">
+            <span class="text-indigo-500 cursor-blink">|</span>
           </div>
         </div>
-        
-        
-        
-        <!-- CTA Buttons -->
-        <div class="opacity-0 animate-fade-in-up animation-delay-400 mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a href="/pages/projects/" class="btn-primary px-8 py-4 rounded-full text-white font-medium flex items-center gap-2 group">
-            <span>View Projects</span>
-            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
-            </svg>
-          </a>
-          <a href="/pages/about.html" class="btn-secondary px-8 py-4 rounded-full text-zinc-600 font-medium">
-            About Me
-          </a>
-        </div>
       </div>
-    </main>
+    </section>
+    
+    <!-- Main Content (タイピング完了後に表示) -->
+    <div id="main-content" class="opacity-0 hidden">
+      <!-- Hero Section -->
+      <main class="relative z-10 min-h-screen flex items-center justify-center px-6">
+        <div class="max-w-4xl mx-auto text-center">
+          
+          <!-- Main Heading -->
+          <h1 class="opacity-0 animate-fade-in-up animation-delay-100">
+            <span class="block text-6xl md:text-6xl lg:text-6xl font-bold tracking-tight text-zinc-700 mt-10 mb-10">
+              👋 Hello, Bonjour, こんにちは,<br><br> 안녕하세요, 你好, 你好
+            </span>
+          </h1>
+          
+          <!-- Tagline -->
+          <p class="opacity-0 animate-fade-in-up animation-delay-200 mt-8 text-lg md:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+            <span class="gradient-text font-semibold">I'm a Software Engineer</span>
+          </p>
+          
+       
+    
+          <!-- CTA Buttons -->
+          <div class="opacity-0 animate-fade-in-up animation-delay-400 mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="/pages/projects/" class="btn-primary px-8 py-4 rounded-full text-white font-medium flex items-center gap-2 group">
+              <span>View Projects</span>
+              <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+              </svg>
+            </a>
+            <a href="/pages/about.html" class="btn-secondary px-8 py-4 rounded-full text-zinc-600 font-medium">
+              About Me
+            </a>
+          </div>
+        </div>
+      </main>
     <!-- Featured Section Preview -->
     <section class="relative z-10 py-4 px-6">
       <div class="max-w-6xl mx-auto">
@@ -149,23 +149,8 @@ function createStartPage() {
       </div>
     </section>
     
-    <!-- Footer -->
-    <footer class="relative z-10 border-t border-white/10 py-12 px-6">
-      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <p class="text-zinc-500 text-sm">© 2025 Tatsuki Kitamura. All rights reserved.</p>
-        <div class="flex items-center gap-6">
-          <a href="https://github.com/tatsukikitamura" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-white transition-colors text-sm">
-            GitHub
-          </a>
-          <a href="https://atcoder.jp/users/oreccchi" target="_blank" rel="noopener noreferrer" class="text-zinc-500 hover:text-white transition-colors text-sm">
-            AtCoder
-          </a>
-          <a href="/pages/contact.html" class="text-zinc-500 hover:text-white transition-colors text-sm">
-            Contact
-          </a>
-        </div>
-      </div>
-    </footer>
+      ${getFooterHTML()}
+    </div>
   `;
   
   container.appendChild(content);
@@ -173,10 +158,120 @@ function createStartPage() {
   return container;
 }
 
+// タイピングエフェクト用のコード行
+const codeLines = [
+  { text: 'const ', color: 'text-purple-500' },
+  { text: 'Software.Developer', color: 'text-blue-500' },
+  { text: ' = ', color: 'text-zinc-700' },
+  { text: '{', color: 'text-zinc-500' },
+  { text: '\n\n' },
+  { text: '  stack: ', color: 'text-zinc-700' },
+  { text: '["Ruby on Rails", "Python", "JavaScript"]', color: 'text-green-500' },
+  { text: ',', color: 'text-zinc-500' },
+  { text: '\n' },
+  { text: '  passion: ', color: 'text-zinc-700' },
+  { text: '"Creating with code"', color: 'text-amber-500' },
+  { text: '\n' },
+  { text: '  location: ', color: 'text-zinc-700' },
+  { text: '"Japan"', color: 'text-blue-500' },
+  { text: '\n\n' },
+  { text: '}', color: 'text-zinc-700' },
+  { text: '\n\n' },
+  { text: 'TatsukiKitamura = new Software.Developer()', color: 'text-zinc-700' },
+];
+
+function showMainContent() {
+  const typingIntro = document.getElementById('typing-intro');
+  const mainContent = document.getElementById('main-content');
+  
+  // タイピングセクションをフェードアウト
+  typingIntro.style.transition = 'opacity 0.5s ease-out';
+  typingIntro.style.opacity = '0';
+  
+  setTimeout(() => {
+    // タイピングセクションを非表示にする
+    typingIntro.style.display = 'none';
+    
+    // メインコンテンツを表示
+    mainContent.classList.remove('hidden');
+    mainContent.style.transition = 'opacity 0.8s ease-in';
+    
+    // 少し遅延してからフェードイン
+    setTimeout(() => {
+      mainContent.style.opacity = '1';
+    }, 50);
+  }, 500);
+}
+
+function typeCode() {
+  const container = document.getElementById('typing-container');
+  if (!container) return;
+  
+  let lineIndex = 0;
+  let charIndex = 0;
+  let currentSpan = null;
+  
+  function type() {
+    if (lineIndex >= codeLines.length) {
+      // タイピング完了時、少し待ってからメインコンテンツを表示
+      setTimeout(showMainContent, 800);
+      return;
+    }
+    
+    const line = codeLines[lineIndex];
+    const text = line.text;
+    
+    // 新しいspanを作成（色がある場合）
+    if (charIndex === 0) {
+      // 既存のカーソルを削除
+      const cursor = container.querySelector('.cursor-blink');
+      if (cursor) cursor.remove();
+      
+      currentSpan = document.createElement('span');
+      if (line.color) {
+        currentSpan.className = line.color;
+      }
+      container.appendChild(currentSpan);
+    }
+    
+    // 1文字追加
+    if (charIndex < text.length) {
+      const char = text[charIndex];
+      if (char === '\n') {
+        container.appendChild(document.createElement('br'));
+      } else {
+        currentSpan.textContent += char;
+      }
+      charIndex++;
+      
+      // カーソルを追加
+      const existingCursor = container.querySelector('.cursor-blink');
+      if (existingCursor) existingCursor.remove();
+      const cursor = document.createElement('span');
+      cursor.className = 'text-indigo-500 cursor-blink';
+      cursor.textContent = '|';
+      container.appendChild(cursor);
+      
+      // 次の文字へ（ランダムな遅延でよりリアルに）
+      const delay = char === '\n' ? 100 : Math.random() * 50 + 30;
+      setTimeout(type, delay);
+    } else {
+      // 次の行へ
+      lineIndex++;
+      charIndex = 0;
+      setTimeout(type, 50);
+    }
+  }
+  
+  // 少し遅延してからタイピング開始
+  setTimeout(type, 800);
+}
+
 function init() {
   const app = document.getElementById('app');
   app.appendChild(createStartPage());
   initHeaderEvents();
+  typeCode();
 }
 
 document.addEventListener('DOMContentLoaded', init);
