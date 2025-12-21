@@ -13,7 +13,7 @@ export function createHeader() {
         <li><a href="/pages/about.html" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">About</a></li>
         <li><a href="/pages/projects/" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">Projects</a></li>
         <li><a href="/pages/experience.html" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">Experience</a></li>
-        <li><a href="/pages/contact.html" class="btn-primary px-5 py-2 rounded-full text-sm font-medium text-white">Contact</a></li>
+        <li><a href="/pages/contact.html" class="btn-primary px-5 py-2 rounded-full text-sm font-medium text-white">Hire Me!!</a></li>
       </ul>
       
       <!-- Mobile Menu Button -->
@@ -30,7 +30,7 @@ export function createHeader() {
         <li><a href="/pages/about.html" class="block text-zinc-700 hover:text-white transition-colors">About</a></li>
         <li><a href="/pages/projects/" class="block text-zinc-700 hover:text-white transition-colors">Projects</a></li>
         <li><a href="/pages/experience.html" class="block text-zinc-700 hover:text-white transition-colors">Experience</a></li>
-        <li><a href="/pages/contact.html" class="block text-zinc-700 hover:text-white transition-colors">Contact</a></li>
+        <li><a href="/pages/contact.html" class="block text-zinc-700 hover:text-white transition-colors">Hire Me!!</a></li>
       </ul>
     </div>
   `;

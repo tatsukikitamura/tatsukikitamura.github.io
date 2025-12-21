@@ -63,7 +63,6 @@ function createAboutPage() {
             <span class="px-3 py-1.5 bg-red-50 text-red-700 rounded-full text-sm">Ruby</span>
             <span class="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-full text-sm">Python</span>
             <span class="px-3 py-1.5 bg-yellow-50 text-yellow-700 rounded-full text-sm">JavaScript</span>
-            <span class="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm">TypeScript</span>
             <span class="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm">C++</span>
           </div>
         </div>
