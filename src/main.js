@@ -19,8 +19,8 @@ function createStartPage() {
     <!-- Typing Intro Section (最初に表示) -->
     <section id="typing-intro" class="relative z-10 min-h-screen flex items-center justify-center px-6">
       <div class="text-center">
-        <div class="inline-block glass rounded-2xl px-4 py-3 md:px-6 md:py-4 text-left">
-          <div class="font-mono text-sm md:text-xl lg:text-2xl" id="typing-container">
+        <div class="inline-block rounded-2xl px-4 py-3 md:px-6 md:py-4 text-left">
+          <div class="font-mono text-xs md:text-lg lg:text-2xl" id="typing-container">
             <span class="text-indigo-500 cursor-blink">|</span>
           </div>
         </div>
@@ -75,7 +75,7 @@ function createStartPage() {
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           <!-- MBTI App -->
-          <a href="/pages/projects/mbti-app.html" class="glass rounded-3xl p-8 card-hover group block">
+          <a href="/pages/projects/mbti-app.html" class="rounded-3xl p-8 card-hover group block border-zinc-300">
             <div class="text-4xl mb-6">🧠</div>
             <h3 class="text-xl font-bold text-zinc-600 mb-3">MBTI × 生成AI</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
@@ -95,7 +95,7 @@ function createStartPage() {
           </a>
           
           <!-- PLATEAU Map -->
-          <a href="/pages/projects/plateau.html" class="glass rounded-3xl p-8 card-hover group block">
+          <a href="/pages/projects/plateau.html" class="rounded-3xl p-8 card-hover group block border-zinc-300">
             <div class="text-4xl mb-6">🗺️</div>
             <h3 class="text-xl font-bold text-zinc-600 mb-3">ちば観光マップ</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
@@ -115,7 +115,7 @@ function createStartPage() {
           </a>
           
           <!-- AtCoder -->
-          <a href="/pages/projects/atcoder.html" class="glass rounded-3xl p-8 card-hover group block md:col-span-2 lg:col-span-1">
+          <a href="/pages/projects/atcoder.html" class="rounded-3xl p-8 card-hover group block md:col-span-2 lg:col-span-1 border-black">
             <div class="text-4xl mb-6">⚡</div>
             <h3 class="text-xl font-bold text-zinc-600 mb-3">Competitive Programming</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
@@ -161,7 +161,7 @@ function createStartPage() {
 // タイピングエフェクト用のコード行
 const codeLines = [
   { text: '定義 ', color: 'text-purple-500' },
-  { text: 'Software.Developer', color: 'text-blue-500' },
+  { text: 'Software.Developer()', color: 'text-blue-500' },
   { text: ' = ', color: 'text-zinc-700' },
   { text: '{', color: 'text-zinc-500' },
   { text: '\n\n' },
@@ -174,12 +174,13 @@ const codeLines = [
   { text: ',', color: 'text-zinc-500' },
   { text: '\n\n' },
   { text: '  場所: ', color: 'text-zinc-700' },
-  { text: '"Japan"', color: 'text-blue-500' },
+  { text: '"Japan"', color: 'text-red-500' },
   { text: ',', color: 'text-zinc-500' },
   { text: '\n\n' },
   { text: '}', color: 'text-zinc-700' },
   { text: '\n\n' },
-  { text: 'TatsukiKitamura = new Software.Developer()', color: 'text-zinc-700' },
+  { text: 'TatsukiKitamura = new ', color: 'text-zinc-700' },
+  { text: 'Software.Developer()', color: 'text-blue-500' },
 ];
 
 function showMainContent() {

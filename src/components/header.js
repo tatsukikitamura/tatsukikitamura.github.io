@@ -10,10 +10,11 @@ export function createHeader() {
       
       <!-- Desktop Navigation -->
       <ul class="hidden md:flex items-center gap-8">
-        <li><a href="/pages/about.html" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">About</a></li>
-        <li><a href="/pages/projects/" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">Projects</a></li>
-        <li><a href="/pages/experience.html" class="text-zinc-700 hover:text-white transition-colors text-sm tracking-wide">Experience</a></li>
-        <li><a href="/pages/contact.html" class="btn-primary px-5 py-2 rounded-full text-sm font-medium text-white">Hire Me!!</a></li>
+        <li><a href="/pages/about.html" class="text-zinc-800 hover:text-white transition-colors text-sm tracking-wide">About</a></li>
+        <li><a href="/pages/projects/" class="text-zinc-800 hover:text-white transition-colors text-sm tracking-wide">Projects</a></li>
+        <li><a href="/pages/experience.html" class="text-zinc-800 hover:text-white transition-colors text-sm tracking-wide">Experience</a></li>
+        <li><a href="/pages/blog.html" class="text-zinc-800 hover:text-white transition-colors text-sm tracking-wide">Blog</a></li>
+        <li><a href="/pages/contact.html" class="text-zinc-800 hover:text-white transition-colors text-sm tracking-wide">Hire Me!!</a></li>
       </ul>
       
       <!-- Mobile Menu Button -->
@@ -25,12 +26,13 @@ export function createHeader() {
     </div>
     
     <!-- Mobile Menu -->
-    <div id="mobile-menu" class="hidden md:hidden glass border-t border-white/10">
+    <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-200">
       <ul class="px-6 py-6 space-y-4">
-        <li><a href="/pages/about.html" class="block text-zinc-700 hover:text-white transition-colors">About</a></li>
-        <li><a href="/pages/projects/" class="block text-zinc-700 hover:text-white transition-colors">Projects</a></li>
-        <li><a href="/pages/experience.html" class="block text-zinc-700 hover:text-white transition-colors">Experience</a></li>
-        <li><a href="/pages/contact.html" class="block text-zinc-700 hover:text-white transition-colors">Hire Me!!</a></li>
+        <li><a href="/pages/about.html" class="block text-gray-700 hover:text-indigo-600 transition-colors">About</a></li>
+        <li><a href="/pages/projects/" class="block text-gray-700 hover:text-indigo-600 transition-colors">Projects</a></li>
+        <li><a href="/pages/experience.html" class="block text-gray-700 hover:text-indigo-600 transition-colors">Experience</a></li>
+        <li><a href="/pages/blog.html" class="block text-gray-700 hover:text-indigo-600 transition-colors">Blog</a></li>
+        <li><a href="/pages/contact.html" class="block text-gray-700 hover:text-indigo-600 transition-colors">Hire Me!!</a></li>
       </ul>
     </div>
   `;

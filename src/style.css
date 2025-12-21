@@ -1,8 +1,5 @@
 @import "tailwindcss";
 
-/* Import fonts */
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
 /* CSS Variables */
 :root {
   --color-bg: #ffffff;
@@ -246,4 +243,58 @@ body {
 
 .animate-bounce-slow {
   animation: bounce 2s ease-in-out infinite;
+}
+
+/* Blog Content Styles */
+.blog-content {
+  color: #374151;
+  line-height: 1.75;
+}
+
+.blog-content h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: #111827;
+}
+
+.blog-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #1f2937;
+}
+
+.blog-content p {
+  margin-bottom: 1.25rem;
+}
+
+.blog-content ul,
+.blog-content ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+.blog-content pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin-bottom: 1.25rem;
+}
+
+.blog-content code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+}
+
+.blog-content pre code {
+  color: #f9fafb;
 }
