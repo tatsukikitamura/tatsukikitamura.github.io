@@ -152,15 +152,9 @@ function createExperiencePage() {
           <div class="flex items-start gap-4">
             <div class="text-2xl">🎓</div>
             <div>
-              <h3 class="font-bold">早稲田大学 教育学部 数学科</h3>
-              <p class="text-gray-500 text-sm">2023年4月〜2027年3月予定（3年次在籍）</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-4">
-            <div class="text-2xl">📖</div>
-            <div>
-              <h3 class="font-bold">芝浦工業大学柏中学・高校</h3>
-              <p class="text-gray-500 text-sm">浪人1年を経て早稲田大学に入学</p>
+              <h3 class="font-bold">早稲田大学</h3>
+              <br>
+              <p>数学専攻</p>
             </div>
           </div>
         </div>

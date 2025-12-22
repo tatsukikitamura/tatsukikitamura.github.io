@@ -18,11 +18,10 @@ function createAboutPage() {
       <div class="flex flex-col md:flex-row items-center md:items-start gap-8">
         <img src="/images/main.jpg" alt="Profile" class="w-32 h-32 rounded-full">
         <div class="text-center md:text-left">
-          <h2 class="text-2xl font-bold tracking-tight">北村 健紀</h2>
-          <p class="text-gray-500 mt-1">Kitamura Tatsuki</p>
+          <h2 class="text-2xl font-bold tracking-tight">Tatsuki Kitamura</h2>
           <div class="mt-4 space-y-2 text-sm text-gray-600">
-            <p>📍 千葉県在住</p>
-            <p>🎓 早稲田大学 教育学部 数学科 3年（2023年4月〜2027年3月予定）</p>
+            <p>📍 日本在住</p>
+            <p>🎓 早稲田大学 3年</p>
             <p>💻 プログラミング歴：約1年半（独学）</p>
             <p>🌐 TOEIC：700点</p>
           </div>

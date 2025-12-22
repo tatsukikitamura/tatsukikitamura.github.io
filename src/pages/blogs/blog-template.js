@@ -70,3 +70,4 @@ export function initBlogPost(post) {
   initHeaderEvents();
 }
 
+
