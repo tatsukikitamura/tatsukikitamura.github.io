@@ -75,7 +75,7 @@ function createStartPage() {
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           <!-- MBTI App -->
-          <a href="/pages/projects/mbti-app.html" class="rounded-3xl p-8 card-hover group block border-zinc-300">
+          <a href="/pages/projects/mbti-app.html" class="rounded-3xl p-8 card-hover group block border border-black">
             <div class="text-4xl mb-6">🧠</div>
             <h3 class="text-xl font-bold text-zinc-600 mb-3">MBTI × 生成AI</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
@@ -94,17 +94,17 @@ function createStartPage() {
             </div>
           </a>
           
-          <!-- PLATEAU Map -->
-          <a href="/pages/projects/plateau.html" class="rounded-3xl p-8 card-hover group block border-zinc-300">
-            <div class="text-4xl mb-6">🗺️</div>
-            <h3 class="text-xl font-bold text-zinc-600 mb-3">ちば観光マップ</h3>
+          <!-- OpenData App -->
+          <a href="/pages/projects/opendata.html" class="rounded-3xl p-8 card-hover group block border border-black">
+            <div class="text-4xl mb-6">🚃</div>
+            <h3 class="text-xl font-bold text-zinc-600 mb-3">ノー遅延乗り換え</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
-              PLATEAU 3D都市モデルとAIチャットを連携した観光案内システム。
+              未来の遅延リスクを予測するルート検索アプリ。公共交通オープンデータチャレンジ2025出品。
             </p>
             <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-3 py-1 bg-red-500/20 text-red-500 rounded-full">Rails</span>
+              <span class="text-xs px-3 py-1 bg-blue-500/20 text-blue-500 rounded-full">Python</span>
               <span class="text-xs px-3 py-1 bg-green-500/20 text-green-500 rounded-full">FastAPI</span>
-              <span class="text-xs px-3 py-1 bg-blue-500/20 text-blue-500 rounded-full">CesiumJS</span>
+              <span class="text-xs px-3 py-1 bg-sky-500/20 text-sky-500 rounded-full">Vite</span>
             </div>
             <div class="text-sm text-indigo-400 flex items-center gap-2 group-hover:gap-3 transition-all">
               詳しく見る
@@ -115,14 +115,15 @@ function createStartPage() {
           </a>
           
           <!-- AtCoder -->
-          <a href="/pages/projects/atcoder.html" class="rounded-3xl p-8 card-hover group block md:col-span-2 lg:col-span-1 border-black">
+          <a href="/pages/projects/atcoder.html" class="rounded-3xl p-8 card-hover group block md:col-span-2 lg:col-span-1 border border-black">
             <div class="text-4xl mb-6">⚡</div>
             <h3 class="text-xl font-bold text-zinc-600 mb-3">Competitive Programming</h3>
             <p class="text-zinc-400 text-sm leading-relaxed mb-6">
-              AtCoder Algorithm・Heuristic 両部門で茶色ランク。1年半継続中。
+              AtCoder Algorithm(茶色)・Heuristic(緑色)。1年半継続中。
             </p>
             <div class="flex flex-wrap gap-2 mb-6">
-              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-500 rounded-full">🏆 茶色</span>
+              <span class="text-xs px-3 py-1 bg-amber-500/20 text-amber-500 rounded-full">Algorithm 茶色</span>
+              <span class="text-xs px-3 py-1 bg-green-500/20 text-green-500 rounded-full">Heuristic 緑色</span>
               <span class="text-xs px-3 py-1 bg-zinc-500/20 text-zinc-500 rounded-full">Python</span>
               <span class="text-xs px-3 py-1 bg-zinc-500/20 text-zinc-500 rounded-full">C++</span>
             </div>

@@ -30,7 +30,7 @@ function createProjectPage() {
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
       <h2 class="text-xl font-bold tracking-tight mb-4">概要</h2>
       <p class="text-gray-600 leading-relaxed">
-        AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。約1年半にわたり継続的に取り組み、2部門で茶色ランクに到達。
+        AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。約1年半にわたり継続的に取り組み、Algorithmで茶色、Heuristicで緑色ランクに到達。
       </p>
     </section>
     
@@ -44,11 +44,11 @@ function createProjectPage() {
         </div>
       </div>
       
-      <div class="bg-amber-50 rounded-3xl border border-amber-200 p-8 opacity-0 animate-fade-in-up animation-delay-200">
+      <div class="bg-green-50 rounded-3xl border border-green-200 p-8 opacity-0 animate-fade-in-up animation-delay-200">
         <div class="text-center">
           <div class="text-4xl mb-2">🏆</div>
-          <h3 class="font-bold text-lg text-amber-800">Heuristic部門</h3>
-          <p class="text-amber-600 mt-2">茶色ランク到達</p>
+          <h3 class="font-bold text-lg text-green-800">Heuristic部門</h3>
+          <p class="text-green-600 mt-2">緑色ランク到達</p>
         </div>
       </div>
     </section>

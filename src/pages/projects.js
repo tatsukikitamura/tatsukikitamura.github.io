@@ -14,14 +14,14 @@ const projects = [
     link: '/pages/projects/mbti-app.html'
   },
   {
-    id: 'plateau',
-    title: 'ちば観光マップ（PLATEAU-1120）',
-    description: 'PLATEAU 3D都市モデルデータとAIチャットを連携させた観光案内Webアプリ。マイクロサービス設計を採用。',
-    period: '2024年9月〜（開発中）',
-    tags: ['Ruby on Rails', 'FastAPI', 'LangChain', 'CesiumJS', 'Leaflet'],
-    icon: '🗺️',
+    id: 'opendata',
+    title: 'ノー遅延乗り換え（Open Data Challenge 2025）',
+    description: '未来の遅延リスクを予測し、「絶対に遅刻できない人」を安全に目的地まで送り届けるルート検索アプリ。公共交通オープンデータチャレンジ2025出品作品。',
+    period: '2025年10月〜現在（個人開発）',
+    tags: ['Python (FastAPI)', 'Vite + Vanilla JS', 'PostgreSQL', 'OpenAI API'],
+    icon: '🚃',
     featured: true,
-    link: '/pages/projects/plateau.html'
+    link: '/pages/projects/opendata.html'
   },
   {
     id: 'atcoder',

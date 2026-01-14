@@ -28,7 +28,7 @@ const blogPosts = [
     date: '2025年12月5日',
     category: '技術',
     tags: ['FastAPI', 'Ruby on Rails', 'アーキテクチャ'],
-    excerpt: 'PLATEAUアプリ開発で採用した、RailsとFastAPIを組み合わせたマイクロサービス構成の設計思想と実装について。',
+    excerpt: '以前開発していた地図アプリで採用した、RailsとFastAPIを組み合わせたマイクロサービス構成の設計思想と実装について。',
     link: '/pages/blogs/microservices-blog.html'
   },
   {
