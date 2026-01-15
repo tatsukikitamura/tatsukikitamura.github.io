@@ -1,3 +1,4 @@
+
 @import "tailwindcss";
 
 /* CSS Variables */
@@ -12,9 +13,7 @@
 }
 
 /* Base styles */
-html {
-  scroll-behavior: smooth;
-}
+/* Note: scroll-behavior: smooth was removed for performance improvement */
 
 body {
   font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -84,6 +83,10 @@ body {
   filter: blur(80px);
   opacity: 0.5;
   pointer-events: none;
+  /* パフォーマンス最適化 */
+  will-change: transform;
+  contain: layout style paint;
+  transform: translateZ(0); /* GPU合成を強制 */
 }
 
 /* Code font */

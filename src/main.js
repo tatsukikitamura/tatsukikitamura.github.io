@@ -11,10 +11,10 @@ function createStartPage() {
   
   const content = document.createElement('div');
   content.innerHTML = `
-    <!-- Decorative Orbs -->
-    <div class="orb w-96 h-96 bg-indigo-500 top-[-10%] left-[-10%] animate-float"></div>
-    <div class="orb w-80 h-80 bg-purple-500 bottom-[10%] right-[-5%] animate-float-delayed"></div>
-    <div class="orb w-64 h-64 bg-blue-500 top-[60%] left-[10%] animate-float" style="animation-delay: -2s;"></div>
+    <!-- Decorative Orbs (position: fixed でスクロール時の再描画を防止) -->
+    <div class="orb w-96 h-96 bg-indigo-500 animate-float" style="position: fixed; top: -10%; left: -10%;"></div>
+    <div class="orb w-80 h-80 bg-purple-500 animate-float-delayed" style="position: fixed; bottom: 10%; right: -5%;"></div>
+    <div class="orb w-64 h-64 bg-blue-500 animate-float" style="position: fixed; top: 60%; left: 10%; animation-delay: -2s;"></div>
     
     <!-- Typing Intro Section (最初に表示) -->
     <section id="typing-intro" class="relative z-10 min-h-screen flex items-center justify-center px-6">
