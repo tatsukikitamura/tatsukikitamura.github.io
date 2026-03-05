@@ -77,7 +77,7 @@ export function createProfileCard({ name, title, description, image = null }) {
   return card;
 }
 
-export function createLinkCard({ title, url, icon = '🔗' }) {
+export function createLinkCard({ title, url, icon = null }) {
   const card = document.createElement('a');
   card.href = url;
   card.target = '_blank';
@@ -89,7 +89,7 @@ export function createLinkCard({ title, url, icon = '🔗' }) {
   `.trim().replace(/\s+/g, ' ');
   
   card.innerHTML = `
-    <span class="text-2xl">${icon}</span>
+    ${icon ? `<span class="text-2xl">${icon}</span>` : ''}
     <span class="font-medium text-gray-900">${title}</span>
     <svg class="w-4 h-4 ml-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>

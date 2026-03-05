@@ -17,12 +17,9 @@ function createProjectPage() {
     
     <!-- Project Header -->
     <div class="mb-12 opacity-0 animate-fade-in-up">
-      <div class="flex items-start gap-4">
-        <div class="text-5xl">⚡</div>
-        <div>
-          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">AtCoder</h1>
-          <p class="text-gray-500 mt-2">2024年4月〜2025年11月（約1年半）</p>
-        </div>
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">AtCoder</h1>
+        <p class="text-gray-500 mt-2">2024年4月〜2025年11月（約1年半）</p>
       </div>
     </div>
     
@@ -36,20 +33,14 @@ function createProjectPage() {
     
     <!-- Results -->
     <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="bg-amber-50 rounded-3xl border border-amber-200 p-8 opacity-0 animate-fade-in-up animation-delay-200">
-        <div class="text-center">
-          <div class="text-4xl mb-2">🏆</div>
-          <h3 class="font-bold text-lg text-amber-800">Algorithm部門</h3>
-          <p class="text-amber-600 mt-2">茶色ランク到達</p>
-        </div>
+      <div class="bg-amber-50 rounded-xl border border-amber-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
+        <h3 class="font-semibold text-amber-800">Algorithm部門</h3>
+        <p class="text-amber-600 mt-1 text-sm">茶色ランク到達</p>
       </div>
-      
-      <div class="bg-green-50 rounded-3xl border border-green-200 p-8 opacity-0 animate-fade-in-up animation-delay-200">
-        <div class="text-center">
-          <div class="text-4xl mb-2">🏆</div>
-          <h3 class="font-bold text-lg text-green-800">Heuristic部門</h3>
-          <p class="text-green-600 mt-2">緑色ランク到達</p>
-        </div>
+
+      <div class="bg-green-50 rounded-xl border border-green-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
+        <h3 class="font-semibold text-green-800">Heuristic部門</h3>
+        <p class="text-green-600 mt-1 text-sm">緑色ランク到達</p>
       </div>
     </section>
     
@@ -91,16 +82,16 @@ function createProjectPage() {
       
       <div class="space-y-4 text-gray-600 text-sm">
         <ul class="space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="text-lg">📚</span>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-300 mt-0.5">—</span>
             <span>わからない部分はAIに質問したり、体系的な書籍（「競技プログラミングの鉄則」など）で学んだりして、効率的に知識を吸収</span>
           </li>
-          <li class="flex items-start gap-3">
-            <span class="text-lg">🔄</span>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-300 mt-0.5">—</span>
             <span>解けなかった問題は、解説を読んで理解した後に必ず自分で実装し直すことで、知識を定着</span>
           </li>
-          <li class="flex items-start gap-3">
-            <span class="text-lg">🎯</span>
+          <li class="flex items-start gap-2">
+            <span class="text-gray-300 mt-0.5">—</span>
             <span>苦手な分野（グラフ、動的計画法など）を特定し、重点的に演習を積んだ</span>
           </li>
         </ul>

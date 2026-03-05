@@ -17,8 +17,7 @@ function createProjectPage() {
     
     <!-- Project Header -->
     <div class="mb-12 opacity-0 animate-fade-in-up">
-      <div class="flex items-start gap-4">
-        <div class="text-5xl">🚃</div>
+      <div>
         <div>
           <div class="flex items-center gap-3">
             <h1 class="text-3xl md:text-4xl font-bold tracking-tight">ノー遅延乗り換え</h1>

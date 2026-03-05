@@ -2,96 +2,84 @@ import '../style.css';
 import { createHeader, initHeaderEvents } from '../components/header.js';
 import { createFooter } from '../components/footer.js';
 
-// ブログ記事一覧データ
-const blogPosts = [
-  {
-    id: 'sample-blog',
-    title: 'Ruby on Railsでの生成AI連携の実装方法',
-    date: '2025年12月15日',
-    category: '技術',
-    tags: ['Ruby on Rails', 'OpenAI API', 'AI'],
-    excerpt: 'MBTIアプリ開発で学んだ、RailsアプリケーションにOpenAI APIを統合する実践的な方法をまとめました。',
-    link: '/pages/blogs/sample-blog.html'
-  },
-  {
-    id: 'atcoder-blog',
-    title: 'AtCoderで茶色になるまでにやったこと',
-    date: '2025年12月10日',
-    category: '競技プログラミング',
-    tags: ['AtCoder', 'Python', 'アルゴリズム'],
-    excerpt: '未経験から約1年半でAtCoder Algorithm・Heuristic両部門で茶色ランクに到達するまでの学習方法を振り返ります。',
-    link: '/pages/blogs/atcoder-blog.html'
-  },
-  {
-    id: 'microservices-blog',
-    title: 'FastAPIとRailsのマイクロサービス構成',
-    date: '2025年12月5日',
-    category: '技術',
-    tags: ['FastAPI', 'Ruby on Rails', 'アーキテクチャ'],
-    excerpt: '以前開発していた地図アプリで採用した、RailsとFastAPIを組み合わせたマイクロサービス構成の設計思想と実装について。',
-    link: '/pages/blogs/microservices-blog.html'
-  },
-  {
-    id: 'learning-blog',
-    title: '未経験から1年半でWeb開発を学んだ方法',
-    date: '2025年12月1日',
-    category: '学習',
-    tags: ['学習方法', '独学', 'Web開発'],
-    excerpt: '数学科の学生が独学でWeb開発を学び、個人開発までできるようになった学習ロードマップを公開します。',
-    link: '/pages/blogs/learning-blog.html'
-  }
-];
+// src/content/blogs/*.md を全て読み込む（_template.md は除外）
+const rawFiles = import.meta.glob('../content/blogs/*.md', { query: '?raw', import: 'default', eager: true });
+
+function parseFrontmatter(raw) {
+  const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  if (!match) return { meta: {}, content: raw };
+
+  const meta = {};
+  match[1].split('\n').forEach(line => {
+    const colonIdx = line.indexOf(':');
+    if (colonIdx === -1) return;
+    const key = line.slice(0, colonIdx).trim();
+    const value = line.slice(colonIdx + 1).trim();
+    meta[key] = key === 'tags' ? value.split(',').map(t => t.trim()) : value;
+  });
+
+  return { meta, content: match[2] };
+}
+
+const posts = Object.entries(rawFiles)
+  .map(([path, raw]) => {
+    const slug = path.split('/').pop().replace('.md', '');
+    const { meta } = parseFrontmatter(raw);
+    return {
+      slug,
+      title: meta.title || 'Untitled',
+      date: meta.date || '',
+      category: meta.category || '',
+      tags: Array.isArray(meta.tags) ? meta.tags : [],
+      excerpt: meta.excerpt || '',
+    };
+  })
+  .filter(p => !p.slug.startsWith('_'))
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 
 function createBlogPage() {
   const main = document.createElement('main');
-  main.className = 'pt-20 pb-8 px-4 max-w-4xl mx-auto';
-  
-  const blogCards = blogPosts.map((post, index) => `
-    <article class="bg-white rounded-3xl border border-gray-200 p-6 hover:border-gray-300 hover:shadow-lg transition-all opacity-0 animate-fade-in-up" style="animation-delay: ${(index + 1) * 100}ms">
-      <a href="${post.link}" class="block">
-        <div class="flex items-start justify-between gap-4 mb-4">
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full text-xs font-medium">${post.category}</span>
-          <span class="text-sm text-gray-500">${post.date}</span>
-        </div>
-        <h2 class="text-xl font-bold tracking-tight mb-3 hover:text-indigo-600 transition-colors">${post.title}</h2>
-        <p class="text-gray-600 text-sm mb-4 leading-relaxed">${post.excerpt}</p>
-        <div class="flex flex-wrap gap-2">
-          ${post.tags.map(tag => `
-            <span class="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full">#${tag}</span>
-          `).join('')}
-        </div>
-      </a>
-    </article>
-  `).join('');
-  
+  main.className = 'pt-24 pb-16 px-6';
+
+  const postsHTML = posts.length === 0
+    ? `<p class="text-gray-400 text-sm">まだ記事がありません。</p>`
+    : posts.map((post, i) => `
+        <article class="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow animate-fade-in" style="animation-delay: ${i * 80}ms">
+          <a href="/pages/blog-post.html?slug=${post.slug}" class="block group">
+            <div class="flex items-center justify-between gap-4 mb-3">
+              <span class="px-2.5 py-0.5 bg-blue-50 text-[#0a66c2] rounded text-xs font-medium">${post.category}</span>
+              <span class="text-xs text-gray-400">${post.date}</span>
+            </div>
+            <h2 class="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors">${post.title}</h2>
+            <p class="text-gray-500 text-sm leading-relaxed mb-3">${post.excerpt}</p>
+            <div class="flex flex-wrap gap-1.5">
+              ${post.tags.map(tag => `<span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-500 rounded">#${tag}</span>`).join('')}
+            </div>
+          </a>
+        </article>
+      `).join('');
+
   main.innerHTML = `
-    <!-- Page Header -->
-    <div class="mb-12 opacity-0 animate-fade-in-up mt-16">
-      <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Blog</h1>
-      <p class="text-gray-500 mt-2">技術記事・学習記録</p>
-    </div>
-    
-    <!-- Blog Posts List -->
-    <div class="space-y-6">
-      ${blogCards}
+    <div class="max-w-3xl mx-auto">
+      <div class="mb-10 animate-fade-in">
+        <h1 class="text-3xl font-bold text-gray-900">Blog</h1>
+        <p class="text-gray-500 mt-1 text-sm">技術記事・学習記録</p>
+      </div>
+      <div class="space-y-4">
+        ${postsHTML}
+      </div>
     </div>
   `;
-  
+
   return main;
 }
 
 function init() {
   const app = document.getElementById('app');
-  
   app.appendChild(createHeader());
   app.appendChild(createBlogPage());
   app.appendChild(createFooter());
-  
   initHeaderEvents();
 }
 
 document.addEventListener('DOMContentLoaded', init);
-
-
-
-

@@ -17,12 +17,9 @@ function createProjectPage() {
     
     <!-- Project Header -->
     <div class="mb-12 opacity-0 animate-fade-in-up">
-      <div class="flex items-start gap-4">
-        <div class="text-5xl">🧠</div>
-        <div>
-          <h1 class="text-3xl md:text-4xl font-bold tracking-tight">MBTI × 生成AI体験アプリ</h1>
-          <p class="text-gray-500 mt-2">2024年6月〜2024年8月（3ヵ月）</p>
-        </div>
+      <div>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">MBTI × 生成AI体験アプリ</h1>
+        <p class="text-gray-500 mt-2">2024年6月〜2024年8月（3ヵ月）</p>
       </div>
     </div>
     

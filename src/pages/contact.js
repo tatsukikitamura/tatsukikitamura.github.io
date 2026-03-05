@@ -9,13 +9,13 @@ function createContactPage() {
   main.innerHTML = `
     <!-- Page Header -->
     <div class="mb-12 opacity-0 animate-fade-in-up mt-20 text-center">
-      <h1 class="text-4xl md:text-5xl font-bold tracking-tight">🙋‍♂️ Please Give Me a Job!</h1>
+      <h1 class="text-4xl md:text-5xl font-bold tracking-tight">Please Give Me a Job!</h1>
       <p class="text-gray-500 mt-4 text-lg">2027年4月入社 新卒採用希望</p>
     </div>
     
     <!-- Hero Message -->
     <section class="rounded-3xl p-8 text-zinc-700 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
-      <h2 class="text-2xl font-bold mb-4">👋 はじめに</h2>
+      <h2 class="text-2xl font-bold mb-4">はじめに</h2>
       <p class="text-zinc-700 leading-relaxed">
         早稲田大学3年の北村健紀です。<br>
         独学でプログラミングを始めて約1年半。<br>
@@ -25,18 +25,18 @@ function createContactPage() {
     
     <!-- What I'm Looking For -->
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
-      <h2 class="text-xl font-bold tracking-tight mb-6">🎯 希望する環境</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-6">希望する環境</h2>
       <ul class="space-y-4 text-gray-600">
-        <li class="flex items-starにt gap-3">
-          <span class="text-green-500 text-xl">✓</span>
+        <li class="flex items-start gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <span><strong>自社開発</strong>で、プロダクトに愛着を持てる環境</span>
         </li>
         <li class="flex items-start gap-3">
-          <span class="text-green-500 text-xl">✓</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <span><strong>技術力</strong>を磨きながら、ビジネスも学べる環境</span>
         </li>
         <li class="flex items-start gap-3">
-          <span class="text-green-500 text-xl">✓</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0a66c2]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>
           <span><strong>若手でも挑戦</strong>できる、成長機会のある環境</span>
         </li>
       </ul>
@@ -44,29 +44,26 @@ function createContactPage() {
     
     <!-- Why Me -->
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
-      <h2 class="text-xl font-bold tracking-tight mb-6">💪 私の強み</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="text-center p-4">
-          <div class="text-4xl mb-3">🚀</div>
-          <h3 class="font-bold mb-2">独学でやり抜く力</h3>
-          <p class="text-sm text-gray-500">1年半でRails・Python・競プロまで</p>
+      <h2 class="text-xl font-bold tracking-tight mb-6">私の強み</h2>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="border border-gray-200 rounded-xl p-4">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm">独学でやり抜く力</h3>
+          <p class="text-xs text-gray-500">1年半でRails・Python・競プロまで</p>
         </div>
-        <div class="text-center p-4">
-          <div class="text-4xl mb-3">💡</div>
-          <h3 class="font-bold mb-2">アイデアを形に</h3>
-          <p class="text-sm text-gray-500">MBTI診断アプリを個人開発</p>
+        <div class="border border-gray-200 rounded-xl p-4">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm">アイデアを形に</h3>
+          <p class="text-xs text-gray-500">MBTI診断アプリを個人開発</p>
         </div>
-        <div class="text-center p-4">
-          <div class="text-4xl mb-3">🧮</div>
-          <h3 class="font-bold mb-2">数学的思考</h3>
-          <p class="text-sm text-gray-500">数学科＋AtCoder茶色</p>
+        <div class="border border-gray-200 rounded-xl p-4">
+          <h3 class="font-semibold text-gray-900 mb-1 text-sm">数学的思考</h3>
+          <p class="text-xs text-gray-500">数学科＋AtCoder茶色</p>
         </div>
       </div>
     </section>
     
     <!-- Quick Stats -->
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-6">📊 スペック</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-6">スペック</h2>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
         <div class="bg-gray-50 rounded-2xl p-4">
           <p class="text-2xl font-bold text-indigo-600">1.5年</p>
@@ -89,7 +86,7 @@ function createContactPage() {
     
     <!-- CTA -->
     <section class=" from-gray-900 to-gray-800 rounded-3xl p-8 text-zinc-700 text-center opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-2xl font-bold mb-4">📮 お声がけください！</h2>
+      <h2 class="text-2xl font-bold mb-4">お声がけください！</h2>
       <p class="text-zinc-700 mb-6">カジュアル面談、大歓迎です</p>
       <div class="flex flex-col sm:flex-row justify-center gap-4">
         <a href="https://github.com/tatsukikitamura" target="_blank" rel="noopener noreferrer" 

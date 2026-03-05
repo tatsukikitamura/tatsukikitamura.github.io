@@ -9,7 +9,7 @@ const projects = [
     description: 'MBTI診断と生成AIを組み合わせた体験型Webアプリ。物語形式の診断モードで、無意識の価値観を引き出す新しいアプローチを実装。',
     period: '2024年6月〜2024年8月（3ヵ月）',
     tags: ['Ruby on Rails', 'OpenAI API', 'Redis', 'Heroku'],
-    icon: '🧠',
+    icon: null,
     featured: true,
     link: '/pages/projects/mbti-app.html'
   },
@@ -19,7 +19,7 @@ const projects = [
     description: '未来の遅延リスクを予測し、「絶対に遅刻できない人」を安全に目的地まで送り届けるルート検索アプリ。公共交通オープンデータチャレンジ2025出品作品。',
     period: '2025年10月〜現在（個人開発）',
     tags: ['Python (FastAPI)', 'Vite + Vanilla JS', 'PostgreSQL', 'OpenAI API'],
-    icon: '🚃',
+    icon: null,
     featured: true,
     link: '/pages/projects/opendata.html'
   },
@@ -29,7 +29,7 @@ const projects = [
     description: 'Algorithm・Heuristic両部門で茶色ランク到達。約1年半継続的に取り組み中。',
     period: '2024年4月〜2025年11月（約1年半）',
     tags: ['Python', 'C++', 'アルゴリズム'],
-    icon: '⚡',
+    icon: null,
     featured: false,
     link: '/pages/projects/atcoder.html'
   }
@@ -41,8 +41,7 @@ function createProjectsPage() {
   
   const projectCards = projects.map((project, index) => `
     <a href="${project.link}" class="bg-white rounded-3xl border border-gray-200 p-6 hover:border-gray-300 hover:bg-gray-50/50 transition-all opacity-0 animate-fade-in-up" style="animation-delay: ${(index + 1) * 100}ms">
-      <div class="flex items-start gap-4">
-        <div class="text-3xl">${project.icon}</div>
+      <div>
         <div class="flex-1">
           <h3 class="font-bold text-lg tracking-tight">${project.title}</h3>
           <p class="text-gray-500 text-sm mt-1">${project.period}</p>

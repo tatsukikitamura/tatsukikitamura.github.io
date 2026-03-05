@@ -4,19 +4,18 @@
 /* CSS Variables */
 :root {
   --color-bg: #ffffff;
-  --color-bg-secondary: #12121a;
-  --color-accent: #6366f1;
-  --color-accent-glow: rgba(99, 102, 241, 0.4);
-  --color-text: #000000;
-  --color-text-muted: #71717a;
-  --gradient-hero: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  --color-bg-secondary: #f3f4f6;
+  --color-accent: #0a66c2;
+  --color-accent-glow: rgba(10, 102, 194, 0.2);
+  --color-text: #111827;
+  --color-text-muted: #6b7280;
 }
 
 /* Base styles */
 /* Note: scroll-behavior: smooth was removed for performance improvement */
 
 body {
-  font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--color-bg);
@@ -41,19 +40,9 @@ body {
   background-size: 60px 60px;
 }
 
-/* Animated gradient text */
+/* Accent text */
 .gradient-text {
-  background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #667eea);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  animation: gradientShift 8s ease infinite;
-}
-
-@keyframes gradientShift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  color: var(--color-accent);
 }
 
 /* Floating animation */
@@ -208,24 +197,23 @@ body {
 
 /* Button styles */
 .btn-primary {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  transition: all 0.3s ease;
+  background: var(--color-accent);
+  transition: background 0.2s ease;
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+  background: #004182;
 }
 
 .btn-secondary {
   background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+  border: 1px solid #d1d5db;
+  color: #374151;
+  transition: border-color 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: #9ca3af;
 }
 
 /* Cursor blink */
