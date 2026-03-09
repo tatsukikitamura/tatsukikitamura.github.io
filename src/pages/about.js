@@ -117,26 +117,15 @@ function createAboutPage() {
         </div>
       </section>
 
-      <!-- Values Section -->
+      <!-- Story Section -->
       <section class="bg-white border border-gray-200 rounded-xl p-6 mb-5 animate-fade-in animation-delay-200">
-        <h2 class="font-semibold text-gray-900 mb-4">いま大事にしていること</h2>
-        <ul class="space-y-3">
-          <li class="flex items-start gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2] mt-0.5">${ICONS.idea}</span>
-            <span class="text-sm text-gray-600 leading-relaxed">自分のアイデアを、動くサービスとして形にすること</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2] mt-0.5">${ICONS.refresh}</span>
-            <span class="text-sm text-gray-600 leading-relaxed">作って終わりではなく、「ユーザーの手元でちゃんと動き続けること」</span>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="flex-shrink-0 w-7 h-7 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2] mt-0.5">${ICONS.rocket}</span>
-            <span class="text-sm text-gray-600 leading-relaxed">失敗を恐れずに試し、その結果から学び続けること</span>
-          </li>
-        </ul>
-        <p class="mt-5 text-sm text-gray-800 font-medium border-l-2 pl-3" style="border-color: #0a66c2;">
-          「技術を使って、新しい体験や価値をつくること」に一番ワクワクする。
-        </p>
+        <h2 class="font-semibold text-gray-900 mb-4">プログラミングを始めたきっかけ</h2>
+        <div class="space-y-3 text-sm text-gray-600 leading-relaxed">
+          <p>中学3年生のとき、Fortniteしかしていなかった自分に、父がUnityの本を買ってきた。やってみたけどすぐ飽きた。本の通りに作るのが面白くなかった。</p>
+          <p>その後、サーバーの立て方がわからないまま、好きなラッパーのサイトを自分で作って自分だけで見ていた。今思うと相当ニッチな遊びだった。</p>
+          <p>大学3年でエンジニアを目指したのは、最初は数学科、就活しんどそうという理由だった。でもProgateを触ったらふつうにハマって、そこからAtCoderや個人開発やコンテスト提出まで手が広がった。</p>
+          <p>もともと本の通りに作るのが嫌いだった人間が、今は自分のアイデアを実装まで持っていくのが一番の楽しみになっている。</p>
+        </div>
       </section>
 
       <!-- Tech Stack Section -->
@@ -151,36 +140,6 @@ function createAboutPage() {
         </div>
       </section>
 
-      <!-- Career Vision -->
-      <section class="bg-white border border-gray-200 rounded-xl p-6 animate-fade-in animation-delay-400">
-        <h2 class="font-semibold text-gray-900 mb-5">将来像</h2>
-
-        <div class="space-y-4">
-          <div class="flex gap-4 items-start">
-            <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: #0a66c2;">1</div>
-            <div>
-              <h3 class="font-medium text-gray-900 text-sm">エンジニアとして技術力を磨く</h3>
-              <p class="text-gray-500 text-xs mt-1 leading-relaxed">バックエンドなどサービスを安定して動かし続けるための技術力を身につける</p>
-            </div>
-          </div>
-
-          <div class="flex gap-4 items-start">
-            <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: #0a66c2;">2</div>
-            <div>
-              <h3 class="font-medium text-gray-900 text-sm">技術がわかるPM（プロダクトマネージャー）になる</h3>
-              <p class="text-gray-500 text-xs mt-1 leading-relaxed">ビジネスサイドとエンジニアの橋渡しができる存在を目指す</p>
-            </div>
-          </div>
-
-          <div class="flex gap-4 items-start">
-            <div class="flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold text-white" style="background: #0a66c2;">3</div>
-            <div>
-              <h3 class="font-medium text-gray-900 text-sm">経営者として事業をつくる</h3>
-              <p class="text-gray-500 text-xs mt-1 leading-relaxed">他の誰かを幸せにできる事業を自分の手でつくりたい</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
     </div>
   `;

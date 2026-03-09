@@ -5,6 +5,7 @@ import { createFooter } from '../components/footer.js';
 // Simple SVG icons for each category
 const ICONS = {
   work: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7H4a2 2 0 00-2 2v10a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>`,
+  hackathon: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
   event: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0"/></svg>`,
   teach: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0v6m0-6l-4.243 2.371M12 20l4.243-2.371"/></svg>`,
   music: `<svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"/></svg>`,
@@ -105,7 +106,7 @@ function createExperiencePage() {
                 <div class="space-y-4 text-sm text-gray-600 mt-4">
                   <div>
                     <h4 class="font-medium text-gray-800 mb-1.5">概要</h4>
-                    <p class="text-xs leading-relaxed">渋谷のライブハウス「SHIBUYA DAIA」を会場とした卒業生追い出しイベント（約60名規模）を企画・運営。企画段階から当日運営、会計まで一貫して担当。</p>
+                    <p class="text-xs leading-relaxed">渋谷のライブハウス「SHIBUYA DAIA」を会場とした卒業生追い出しイベント（約75名規模）を企画・運営。企画段階から当日運営、会計まで一貫して担当。</p>
                   </div>
                   <div>
                     <h4 class="font-medium text-gray-800 mb-1.5">担当したこと</h4>
@@ -129,8 +130,53 @@ function createExperiencePage() {
               </div>
             </article>
 
-            <!-- Tutor -->
+            <!-- PR TIMES Hackathon -->
             <article class="relative pl-14 animate-fade-in animation-delay-300">
+              <div class="absolute left-3 top-1 w-4 h-4 rounded-full bg-white border-2 flex items-center justify-center" style="border-color: #0a66c2;">
+                <div class="w-1.5 h-1.5 rounded-full" style="background: #0a66c2;"></div>
+              </div>
+              <div class="bg-white border border-gray-200 rounded-xl p-6">
+                <div class="flex items-start gap-3 mb-3">
+                  <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2]">
+                    ${ICONS.hackathon}
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                      <h3 class="font-semibold text-gray-900">PR TIMESハッカソン</h3>
+                      <span class="text-xs text-gray-400">2025年8月（3日間）</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-0.5">PR TIMES主催 / 4人チーム</p>
+                  </div>
+                </div>
+
+                <div class="space-y-4 text-sm text-gray-600 mt-4">
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1.5">概要</h4>
+                    <p class="text-xs leading-relaxed">「プレスリリースをAIで添削する」WebアプリをPR TIMES主催のハッカソンで4人チームが開発。3日間の短期集中開発。</p>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1.5">担当</h4>
+                    <ul class="space-y-1 text-xs leading-relaxed">
+                      <li class="flex gap-2"><span class="text-gray-300 mt-0.5">—</span><span>バックエンド担当として、AI APIを呼び出すエンドポイントを実装</span></li>
+                      <li class="flex gap-2"><span class="text-gray-300 mt-0.5">—</span><span>Gitブランチ運用・プルリクエストベースのチーム開発フローを整備</span></li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1.5">学び</h4>
+                    <p class="text-xs leading-relaxed">短期チーム開発では「最低限のGit運用ルールとコーディング規約を揃えること」が開発スピードと品質の両方に直結することを実感した。</p>
+                  </div>
+                </div>
+
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">チーム開発</span>
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">生成AI</span>
+                  <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">Git運用</span>
+                </div>
+              </div>
+            </article>
+
+            <!-- Tutor -->
+            <article class="relative pl-14 animate-fade-in animation-delay-400">
               <div class="absolute left-3 top-1 w-4 h-4 rounded-full bg-white border-2 flex items-center justify-center" style="border-color: #0a66c2;">
                 <div class="w-1.5 h-1.5 rounded-full" style="background: #0a66c2;"></div>
               </div>
@@ -160,7 +206,7 @@ function createExperiencePage() {
             </article>
 
             <!-- DJ -->
-            <article class="relative pl-14 animate-fade-in animation-delay-400">
+            <article class="relative pl-14 animate-fade-in animation-delay-500">
               <div class="absolute left-3 top-1 w-4 h-4 rounded-full bg-white border-2 flex items-center justify-center" style="border-color: #0a66c2;">
                 <div class="w-1.5 h-1.5 rounded-full" style="background: #0a66c2;"></div>
               </div>

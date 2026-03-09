@@ -26,8 +26,8 @@ const projects = [
   {
     id: 'atcoder',
     title: 'AtCoder（競技プログラミング）',
-    description: 'Algorithm・Heuristic両部門で茶色ランク到達。約1年半継続的に取り組み中。',
-    period: '2024年4月〜2025年11月（約1年半）',
+    description: 'Algorithm 茶色・Heuristic 水色ランク到達。直近AHCにて78位・黄色パフォーマンスを記録。約2年継続的に取り組み中。',
+    period: '2024年4月〜2026年1月（継続中）',
     tags: ['Python', 'C++', 'アルゴリズム'],
     icon: null,
     featured: false,

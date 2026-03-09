@@ -19,7 +19,7 @@ function createProjectPage() {
     <div class="mb-12 opacity-0 animate-fade-in-up">
       <div>
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight">AtCoder</h1>
-        <p class="text-gray-500 mt-2">2024年4月〜2025年11月（約1年半）</p>
+        <p class="text-gray-500 mt-2">2024年4月〜2026年1月（継続中）</p>
       </div>
     </div>
     
@@ -27,20 +27,25 @@ function createProjectPage() {
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
       <h2 class="text-xl font-bold tracking-tight mb-4">概要</h2>
       <p class="text-gray-600 leading-relaxed">
-        AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。約1年半にわたり継続的に取り組み、Algorithmで茶色、Heuristicで緑色ランクに到達。
+        AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。継続的に取り組み、Algorithm部門で茶色、Heuristic部門で水色ランクに到達。直近のAHCでは78位・黄色パフォーマンスを記録。
       </p>
     </section>
     
     <!-- Results -->
-    <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
       <div class="bg-amber-50 rounded-xl border border-amber-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
         <h3 class="font-semibold text-amber-800">Algorithm部門</h3>
         <p class="text-amber-600 mt-1 text-sm">茶色ランク到達</p>
       </div>
 
-      <div class="bg-green-50 rounded-xl border border-green-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
-        <h3 class="font-semibold text-green-800">Heuristic部門</h3>
-        <p class="text-green-600 mt-1 text-sm">緑色ランク到達</p>
+      <div class="bg-cyan-50 rounded-xl border border-cyan-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
+        <h3 class="font-semibold text-cyan-800">Heuristic部門</h3>
+        <p class="text-cyan-600 mt-1 text-sm">水色ランク到達</p>
+      </div>
+
+      <div class="bg-yellow-50 rounded-xl border border-yellow-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
+        <h3 class="font-semibold text-yellow-800">AHC最高成績</h3>
+        <p class="text-yellow-600 mt-1 text-sm">78位・黄色パフォーマンス</p>
       </div>
     </section>
     
