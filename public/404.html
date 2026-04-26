@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tatsuki.dev</title>
+    <script>
+      // SPA fallback for GitHub Pages.
+      // Encodes the current path/query into a single ?/...&... query string, then
+      // redirects to the SPA root. index.html decodes this back to the real URL
+      // so React Router can handle it client-side.
+      (function () {
+        var l = window.location;
+        l.replace(
+          l.protocol +
+            '//' +
+            l.hostname +
+            (l.port ? ':' + l.port : '') +
+            '/?/' +
+            l.pathname.slice(1).replace(/&/g, '~and~') +
+            (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
+            l.hash,
+        );
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

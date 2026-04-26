@@ -9,9 +9,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <title>Tatsuki.dev - Portfolio</title>
+    <script>
+      // Decode SPA-redirect query produced by 404.html so React Router sees the
+      // original deep-link path. Must run before the bundle loads.
+      (function () {
+        var l = window.location;
+        if (l.search.startsWith('?/')) {
+          var decoded = l.search
+            .slice(2)
+            .split('&')
+            .map(function (s) {
+              return s.replace(/~and~/g, '&');
+            });
+          var path = '/' + decoded[0];
+          var query = decoded.slice(1).join('&');
+          window.history.replaceState(null, '', path + (query ? '?' + query : '') + l.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
