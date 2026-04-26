@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../components/Icons';
 
-const ASCII = String.raw`
-████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗
-╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║ ██╔╝██║
-   ██║   ███████║   ██║   ███████╗██║   ██║█████╔╝ ██║
-   ██║   ██╔══██║   ██║   ╚════██║██║   ██║██╔═██╗ ██║
-   ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║  ██╗██║
-   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝`;
+const ASCII_LINES = [
+  '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
+  '╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║ ██╔╝██║',
+  '   ██║   ███████║   ██║   ███████╗██║   ██║█████╔╝ ██║',
+  '   ██║   ██╔══██║   ██║   ╚════██║██║   ██║██╔═██╗ ██║',
+  '   ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║  ██╗██║',
+  '   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝',
+];
 
 const ROLES = [
   'Software Engineer',
@@ -134,12 +135,25 @@ export default function Home() {
             <span className="text-[#0a66c2]">●</span>&nbsp;&nbsp;ONLINE — TOKYO
           </div>
 
-          <pre
-            className="m-0 font-mono font-bold text-gray-900 leading-none animate-fade-in animation-delay-100 overflow-hidden"
-            style={{ fontSize: 'clamp(8px, 2.4vw, 13px)', letterSpacing: 0 }}
+          <div
+            className="font-mono text-gray-900 animate-fade-in animation-delay-100 inline-block"
+            style={{
+              fontSize: 'clamp(8px, 2.4vw, 13px)',
+              lineHeight: 1,
+              letterSpacing: 0,
+              fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+            }}
           >
-            {ASCII}
-          </pre>
+            {ASCII_LINES.map((line, i) => (
+              <div
+                key={i}
+                className="whitespace-pre"
+                style={{ marginLeft: `${(ASCII_LINES.length - 1 - i) * 0.6}em` }}
+              >
+                {line}
+              </div>
+            ))}
+          </div>
 
           <div className="mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg animate-fade-in animation-delay-200">
             <span className="text-gray-400">&gt;</span>
