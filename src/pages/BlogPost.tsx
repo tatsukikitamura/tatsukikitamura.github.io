@@ -68,7 +68,10 @@ export default function BlogPost() {
             </div>
           </div>
 
-          <div className="blog-content" dangerouslySetInnerHTML={{ __html: bodyHTML }} />
+          <div
+            className="prose prose-slate max-w-none prose-pre:bg-gray-800 prose-pre:text-gray-50"
+            dangerouslySetInnerHTML={{ __html: bodyHTML }}
+          />
         </article>
       </div>
     </main>

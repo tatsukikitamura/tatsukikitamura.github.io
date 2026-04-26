@@ -1,173 +1,29 @@
-
 @import "tailwindcss";
-
-/* CSS Variables */
-:root {
-  --color-bg: #ffffff;
-  --color-bg-secondary: #f3f4f6;
-  --color-accent: #0a66c2;
-  --color-accent-glow: rgba(10, 102, 194, 0.2);
-  --color-text: #111827;
-  --color-text-muted: #6b7280;
-}
-
-/* Base styles */
-/* Note: scroll-behavior: smooth was removed for performance improvement */
+@plugin "@tailwindcss/typography";
 
 body {
   font-family: 'Sora', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--color-bg);
-  color: var(--color-text);
+  background: #ffffff;
+  color: #111827;
 }
 
-/* Hero Background */
-.hero-bg {
-  background: 
-    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(99, 102, 241, 0.3), transparent),
-    radial-gradient(ellipse 60% 40% at 80% 60%, rgba(168, 85, 247, 0.15), transparent),
-    radial-gradient(ellipse 50% 30% at 20% 80%, rgba(59, 130, 246, 0.15), transparent),
-    var(--color-bg);
-  min-height: 100vh;
-}
-
-/* Grid pattern overlay */
-.grid-pattern {
-  background-image: 
-    linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
-  background-size: 60px 60px;
-}
-
-/* Accent text */
-.gradient-text {
-  color: var(--color-accent);
-}
-
-/* Floating animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-.animate-float-delayed {
-  animation: float 6s ease-in-out infinite;
-  animation-delay: -3s;
-}
-
-/* Glow effect */
-.glow {
-  box-shadow: 0 0 60px var(--color-accent-glow);
-}
-
-/* Orb decorations */
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.5;
-  pointer-events: none;
-  /* パフォーマンス最適化 */
-  will-change: transform;
-  contain: layout style paint;
-  transform: translateZ(0); /* GPU合成を強制 */
-}
-
-/* Code font */
-.font-mono {
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* Custom utilities for Bento Grid */
-@layer utilities {
-  .grid-bento {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 1rem;
-  }
-  
-  @media (min-width: 768px) {
-    .grid-bento {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-  }
-  
-  @media (min-width: 1024px) {
-    .grid-bento {
-      grid-template-columns: repeat(4, 1fr);
-    }
-  }
-}
-
-/* Animation utilities */
+/* Fade-in animations used across pages via animate-fade-in / animate-fade-in-up
+   plus animation-delay-100..800 utilities. opacity:0 is set inline so the
+   element stays hidden until the keyframe runs. */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeIn {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
-@keyframes slideInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.9);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px var(--color-accent-glow); }
-  50% { box-shadow: 0 0 40px var(--color-accent-glow), 0 0 60px var(--color-accent-glow); }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.7s ease-out forwards;
-}
-
-.animate-fade-in {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animate-slide-in-left {
-  animation: slideInLeft 0.7s ease-out forwards;
-}
-
-.animate-scale-in {
-  animation: scaleIn 0.6s ease-out forwards;
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
+.animate-fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+.animate-fade-in    { animation: fadeIn   0.6s ease-out forwards; }
 
 .animation-delay-100 { animation-delay: 0.1s; }
 .animation-delay-200 { animation-delay: 0.2s; }
@@ -178,114 +34,10 @@ body {
 .animation-delay-700 { animation-delay: 0.7s; }
 .animation-delay-800 { animation-delay: 0.8s; }
 
-/* Card hover effects */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-}
-
-/* Glass morphism */
-.glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Button styles */
-.btn-primary {
-  background: var(--color-accent);
-  transition: background 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: #004182;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #d1d5db;
-  color: #374151;
-  transition: border-color 0.2s ease;
-}
-
-.btn-secondary:hover {
-  border-color: #9ca3af;
-}
-
-/* Cursor blink */
+/* Typing-cursor blink for the Home hero. */
 @keyframes blink {
-  0%, 50% { opacity: 1; }
+  0%, 50%   { opacity: 1; }
   51%, 100% { opacity: 0; }
 }
 
-.cursor-blink {
-  animation: blink 1s infinite;
-}
-
-/* Scroll indicator */
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(10px); }
-}
-
-.animate-bounce-slow {
-  animation: bounce 2s ease-in-out infinite;
-}
-
-/* Blog Content Styles */
-.blog-content {
-  color: #374151;
-  line-height: 1.75;
-}
-
-.blog-content h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  margin-top: 2rem;
-  margin-bottom: 1rem;
-  color: #111827;
-}
-
-.blog-content h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-top: 1.5rem;
-  margin-bottom: 0.75rem;
-  color: #1f2937;
-}
-
-.blog-content p {
-  margin-bottom: 1.25rem;
-}
-
-.blog-content ul,
-.blog-content ol {
-  margin-bottom: 1.25rem;
-  padding-left: 1.5rem;
-}
-
-.blog-content li {
-  margin-bottom: 0.5rem;
-}
-
-.blog-content pre {
-  background-color: #1f2937;
-  color: #f9fafb;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  overflow-x: auto;
-  margin-bottom: 1.25rem;
-}
-
-.blog-content code {
-  font-family: 'Courier New', monospace;
-  font-size: 0.875rem;
-}
-
-.blog-content pre code {
-  color: #f9fafb;
-}
+.cursor-blink { animation: blink 1s infinite; }
