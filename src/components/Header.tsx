@@ -5,7 +5,7 @@ const navItems = [
   { to: '/about', label: 'About' },
   { to: '/projects', label: 'Projects' },
   { to: '/experience', label: 'Experience' },
-  { to: '/blog', label: 'Blog' },
+  { to: '/problem', label: 'Problem' },
 ];
 
 export default function Header() {

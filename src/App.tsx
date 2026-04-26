@@ -8,8 +8,7 @@ import ProjectOpendata from './pages/ProjectOpendata';
 import ProjectAtcoder from './pages/ProjectAtcoder';
 import ProjectYamatomo from './pages/ProjectYamatomo';
 import Experience from './pages/Experience';
-import Blog from './pages/Blog';
-import BlogPost from './pages/BlogPost';
+import Problem from './pages/Problem';
 import Contact from './pages/Contact';
 import NotFound from './pages/NotFound';
 
@@ -25,8 +24,7 @@ export default function App() {
         <Route path="/projects/opendata" element={<ProjectOpendata />} />
         <Route path="/projects/atcoder" element={<ProjectAtcoder />} />
         <Route path="/experience" element={<Experience />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
+        <Route path="/problem" element={<Problem />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="*" element={<NotFound />} />
       </Route>

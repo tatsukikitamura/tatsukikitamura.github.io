@@ -135,8 +135,8 @@ export default function Home() {
           </div>
 
           <pre
-            className="m-0 font-mono font-bold text-gray-900 leading-none animate-fade-in animation-delay-100"
-            style={{ fontSize: 13, letterSpacing: 0 }}
+            className="m-0 font-mono font-bold text-gray-900 leading-none animate-fade-in animation-delay-100 overflow-hidden"
+            style={{ fontSize: 'clamp(8px, 2.4vw, 13px)', letterSpacing: 0 }}
           >
             {ASCII}
           </pre>
@@ -155,26 +155,26 @@ export default function Home() {
             // Rails / React / SwiftUI
           </div>
 
-          <div className="mt-7 flex flex-wrap gap-3 font-mono text-sm animate-fade-in animation-delay-400">
+          <div className="mt-7 flex flex-nowrap gap-2 sm:gap-3 font-mono text-[11px] sm:text-sm animate-fade-in animation-delay-400">
             <Link
               to="/projects"
-              className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors whitespace-nowrap"
             >
-              ./view-projects.sh
+              projects
             </Link>
             <Link
               to="/experience"
-              className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors whitespace-nowrap"
             >
-              cat experience.md
+              experience
             </Link>
             <a
               href="https://github.com/tatsukikitamura"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors inline-flex items-center gap-2"
+              className="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
             >
-              <GitHubIcon className="w-4 h-4" /> github
+              <GitHubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> github
             </a>
           </div>
         </div>
