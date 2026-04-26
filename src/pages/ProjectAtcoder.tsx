@@ -1,4 +1,5 @@
 import ProjectBackLink from '../components/ProjectBackLink';
+import { getTechIcon } from '../lib/techIcons';
 
 export default function ProjectAtcoder() {
   return (
@@ -6,7 +7,16 @@ export default function ProjectAtcoder() {
       <ProjectBackLink />
 
       <div className="mb-12 opacity-0 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">AtCoder</h1>
+        <a
+          href="https://atcoder.jp/users/oreccchi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block group"
+        >
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight group-hover:underline underline-offset-4 decoration-2">
+            AtCoder
+          </h1>
+        </a>
         <p className="text-gray-500 mt-2">2024年4月〜2026年1月（継続中）</p>
       </div>
 
@@ -37,8 +47,20 @@ export default function ProjectAtcoder() {
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
         <h2 className="text-xl font-bold tracking-tight mb-4">使用言語</h2>
         <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm">Python</span>
-          <span className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm">C++</span>
+          {['Python', 'C++'].map((name) => {
+            const icon = getTechIcon(name);
+            return (
+              <span
+                key={name}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-blue-50 text-blue-700 rounded-full text-sm"
+              >
+                {icon && (
+                  <img src={icon} className="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />
+                )}
+                {name}
+              </span>
+            );
+          })}
         </div>
       </section>
 

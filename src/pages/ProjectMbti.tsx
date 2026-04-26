@@ -1,5 +1,13 @@
 import ProjectBackLink from '../components/ProjectBackLink';
 import { GitHubIcon } from '../components/Icons';
+import { getTechIcon } from '../lib/techIcons';
+
+const TECHS: { name: string; cls: string }[] = [
+  { name: 'Ruby on Rails', cls: 'bg-red-50 text-red-700' },
+  { name: 'OpenAI API', cls: 'bg-gray-100 text-gray-700' },
+  { name: 'Redis', cls: 'bg-red-50 text-red-700' },
+  { name: 'Heroku', cls: 'bg-purple-50 text-purple-700' },
+];
 
 export default function ProjectMbti() {
   return (
@@ -7,7 +15,14 @@ export default function ProjectMbti() {
       <ProjectBackLink />
 
       <div className="mb-12 opacity-0 animate-fade-in-up">
-        <h1 className="text-3xl md:text-4xl font-bold tracking-tight">MBTI × 生成AI体験アプリ</h1>
+        <div className="flex items-center gap-3 flex-wrap">
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight">
+            MBTI × 生成AI体験アプリ
+          </h1>
+          <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+            公開終了
+          </span>
+        </div>
         <p className="text-gray-500 mt-2">2024年6月〜2024年8月（3ヵ月）</p>
       </div>
 
@@ -21,16 +36,20 @@ export default function ProjectMbti() {
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
         <h2 className="text-xl font-bold tracking-tight mb-4">使用技術</h2>
         <div className="flex flex-wrap gap-2">
-          <span className="px-3 py-1.5 bg-red-50 text-red-700 rounded-full text-sm">
-            Ruby on Rails
-          </span>
-          <span className="px-3 py-1.5 bg-gray-100 text-gray-700 rounded-full text-sm">
-            OpenAI API
-          </span>
-          <span className="px-3 py-1.5 bg-red-50 text-red-700 rounded-full text-sm">Redis</span>
-          <span className="px-3 py-1.5 bg-purple-50 text-purple-700 rounded-full text-sm">
-            Heroku
-          </span>
+          {TECHS.map(({ name, cls }) => {
+            const icon = getTechIcon(name);
+            return (
+              <span
+                key={name}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 ${cls} rounded-full text-sm`}
+              >
+                {icon && (
+                  <img src={icon} className="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />
+                )}
+                {name}
+              </span>
+            );
+          })}
         </div>
       </section>
 
@@ -94,7 +113,7 @@ export default function ProjectMbti() {
 
       <section className="bg-gradient-to-b from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
         <h2 className="text-xl font-bold tracking-tight mb-4">リンク</h2>
-        <div className="flex flex-wrap gap-4">
+        <div className="flex flex-wrap gap-4 items-center">
           <a
             href="https://github.com/tatsukikitamura"
             target="_blank"
@@ -104,14 +123,7 @@ export default function ProjectMbti() {
             <GitHubIcon />
             GitHub
           </a>
-          <a
-            href="https://mbti-search-854b363bf31b.herokuapp.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-          >
-            URL
-          </a>
+          <span className="text-sm text-white/60">※ デモサイトは現在公開を終了しています</span>
         </div>
       </section>
     </main>

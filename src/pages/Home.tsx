@@ -94,6 +94,54 @@ export default function Home() {
 
           <div className="grid md:grid-cols-3 gap-4">
             <Link
+              to="/projects/yamatomo"
+              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
+            >
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
+                Yamatomo
+              </h3>
+              <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                登山者同士が繋がるコミュニティアプリ。iOS（SwiftUI）とWeb（React）を並行開発。
+              </p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                <span className="text-xs px-2 py-0.5 bg-orange-50 text-orange-700 rounded font-medium">
+                  SwiftUI
+                </span>
+                <span className="text-xs px-2 py-0.5 bg-sky-50 text-sky-600 rounded font-medium">
+                  React
+                </span>
+                <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded font-medium">
+                  Firebase
+                </span>
+              </div>
+              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
+            </Link>
+
+            <Link
+              to="/projects/atcoder"
+              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
+            >
+              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
+                Competitive Programming
+              </h3>
+              <p className="text-gray-500 text-xs leading-relaxed mb-4">
+                AtCoder Algorithm（茶色）・Heuristic（水色）。約2年継続中。
+              </p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
+                <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded font-medium">
+                  Algorithm 茶
+                </span>
+                <span className="text-xs px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded font-medium">
+                  Heuristic 水
+                </span>
+                <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">
+                  Python / C++
+                </span>
+              </div>
+              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
+            </Link>
+
+            <Link
               to="/projects/mbti-app"
               className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
             >
@@ -112,54 +160,6 @@ export default function Home() {
                 </span>
                 <span className="text-xs px-2 py-0.5 bg-purple-50 text-purple-600 rounded font-medium">
                   Redis
-                </span>
-              </div>
-              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
-            </Link>
-
-            <Link
-              to="/projects/opendata"
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
-            >
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
-                ノー遅延乗り換え
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                未来の遅延リスクを予測するルート検索アプリ。公共交通オープンデータチャレンジ2025出品。
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded font-medium">
-                  Python
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded font-medium">
-                  FastAPI
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-sky-50 text-sky-600 rounded font-medium">
-                  Vite
-                </span>
-              </div>
-              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
-            </Link>
-
-            <Link
-              to="/projects/atcoder"
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
-            >
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
-                Competitive Programming
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                AtCoder Algorithm（茶色）・Heuristic（緑色）。1年半継続中。
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded font-medium">
-                  Algorithm 茶
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded font-medium">
-                  Heuristic 緑
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">
-                  Python / C++
                 </span>
               </div>
               <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>

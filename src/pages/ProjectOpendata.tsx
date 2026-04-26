@@ -1,4 +1,5 @@
 import ProjectBackLink from '../components/ProjectBackLink';
+import { getTechIcon } from '../lib/techIcons';
 
 export default function ProjectOpendata() {
   return (
@@ -10,6 +11,9 @@ export default function ProjectOpendata() {
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight">ノー遅延乗り換え</h1>
           <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">
             公共交通オープンデータチャレンジ2025
+          </span>
+          <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">
+            公開終了
           </span>
         </div>
         <p className="text-gray-500 mt-2">2025年10月〜現在（個人開発）</p>
@@ -39,11 +43,20 @@ export default function ProjectOpendata() {
             { name: 'Vite + JS', cls: 'bg-purple-50 text-purple-700' },
             { name: 'Tailwind CSS', cls: 'bg-cyan-50 text-cyan-700' },
             { name: 'GitHub Actions', cls: 'bg-gray-100 text-gray-700' },
-          ].map(({ name, cls }) => (
-            <span key={name} className={`px-3 py-1.5 ${cls} rounded-full text-sm`}>
-              {name}
-            </span>
-          ))}
+          ].map(({ name, cls }) => {
+            const icon = getTechIcon(name);
+            return (
+              <span
+                key={name}
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 ${cls} rounded-full text-sm`}
+              >
+                {icon && (
+                  <img src={icon} className="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />
+                )}
+                {name}
+              </span>
+            );
+          })}
         </div>
       </section>
 
@@ -91,15 +104,7 @@ export default function ProjectOpendata() {
 
       <section className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
         <h2 className="text-xl font-bold tracking-tight mb-4">リンク</h2>
-        <div className="flex flex-wrap gap-4">
-          <a
-            href="https://opendata.tatsuki.dev"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 rounded-full hover:bg-blue-700 transition-colors font-medium"
-          >
-            デモサイト
-          </a>
+        <div className="flex flex-wrap gap-4 items-center">
           <a
             href="https://challenge2025.odpt.org/"
             target="_blank"
@@ -108,6 +113,7 @@ export default function ProjectOpendata() {
           >
             コンテスト
           </a>
+          <span className="text-sm text-white/60">※ デモサイトは現在公開を終了しています</span>
         </div>
       </section>
     </main>
