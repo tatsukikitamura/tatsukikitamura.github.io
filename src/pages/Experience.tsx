@@ -7,6 +7,7 @@ import {
   MusicIcon,
   EduIcon,
 } from '../components/Icons';
+import PageHeader from '../components/PageHeader';
 
 type TimelineItem = {
   title: string;
@@ -178,10 +179,7 @@ export default function Experience() {
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
-        <div className="mb-10 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Experience</h1>
-          <p className="text-gray-500 mt-1 text-sm">経験・実績</p>
-        </div>
+        <PageHeader command="git log --pretty=experience" title="Experience" subtitle="経験・実績" />
 
         <section className="mb-12">
           <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6">

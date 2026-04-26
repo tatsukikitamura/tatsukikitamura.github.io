@@ -1,5 +1,6 @@
-import { GitHubIcon } from '../components/Icons';
+import { GitHubIcon, MailIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
+import PageHeader from '../components/PageHeader';
 
 const TECH_STACK: Record<'frontend' | 'backend' | 'infra', string[]> = {
   frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Next.js'],
@@ -21,18 +22,12 @@ function TechTag({ name, color }: { name: string; color: string }) {
 
 export default function Contact() {
   return (
-    <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
-      <div className="mb-12 opacity-0 animate-fade-in-up mt-20 text-center">
-        <span className="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-medium tracking-wide mb-6">
-          NOW ACCEPTING REQUESTS
-        </span>
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
-          Web制作のご依頼、承ります
-        </h1>
-        <p className="text-gray-500 mt-4 text-lg">
-          就活も終わり、本格的にWeb制作のお仕事を受け付けはじめました
-        </p>
-      </div>
+    <main className="pt-24 pb-8 px-4 max-w-4xl mx-auto">
+      <PageHeader
+        command="cat contact.md"
+        title="Web制作のご依頼、承ります"
+        subtitle="就活も終わり、本格的にWeb制作のお仕事を受け付けはじめました"
+      />
 
       <section className="rounded-3xl p-8 text-zinc-700 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
         <h2 className="text-2xl font-bold mb-4">はじめに</h2>
@@ -159,20 +154,7 @@ export default function Contact() {
             href="mailto:tatukikitamura123456@gmail.com"
             className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={1.8}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-              />
-            </svg>
+            <MailIcon />
             メールで相談する
           </a>
           <a

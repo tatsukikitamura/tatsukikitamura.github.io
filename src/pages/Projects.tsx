@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import type { Project } from '../types';
 import { GitHubIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
+import PageHeader from '../components/PageHeader';
 
 const projects: Project[] = [
   {
@@ -50,10 +51,7 @@ export default function Projects() {
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
-        <div className="mb-10 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Projects</h1>
-          <p className="text-gray-500 mt-1 text-sm">開発したプロジェクト</p>
-        </div>
+        <PageHeader command="ls -la projects/" title="Projects" subtitle="開発したプロジェクト" />
 
         <div className="grid grid-cols-1 gap-5">
           {projects.map((project, index) => (
@@ -63,8 +61,11 @@ export default function Projects() {
               className="bg-white rounded-xl border border-gray-200 p-6 hover:border-gray-300 hover:bg-gray-50/50 transition-all animate-fade-in"
               style={{ animationDelay: `${(index + 1) * 100}ms` }}
             >
+              <div className="font-mono text-[10px] text-gray-400 mb-1.5">
+                [{String(index + 1).padStart(2, '0')}]
+              </div>
               <h3 className="font-semibold text-gray-900">{project.title}</h3>
-              <p className="text-gray-500 text-xs mt-1">{project.period}</p>
+              <p className="text-gray-500 text-xs mt-1 font-mono">{project.period}</p>
               <p className="text-gray-600 mt-3 text-sm leading-relaxed">{project.description}</p>
               <div className="flex flex-wrap gap-2 mt-4">
                 {project.tags.map((tag) => {

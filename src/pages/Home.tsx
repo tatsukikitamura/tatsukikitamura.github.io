@@ -1,190 +1,219 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { GitHubIcon } from '../components/Icons';
 
-const TYPING_TEXT = 'Software Engineer';
+const ASCII = String.raw`
+████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗
+╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║ ██╔╝██║
+   ██║   ███████║   ██║   ███████╗██║   ██║█████╔╝ ██║
+   ██║   ██╔══██║   ██║   ╚════██║██║   ██║██╔═██╗ ██║
+   ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║  ██╗██║
+   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝`;
+
+const ROLES = [
+  'Software Engineer',
+  'Web Developer',
+  'Competitive Programmer',
+];
+
+type Phase = 'typing' | 'hold' | 'erasing';
+
+const FEATURED = [
+  {
+    id: '01',
+    to: '/projects/yamatomo',
+    title: 'Yamatomo',
+    sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。',
+    tag: 'SwiftUI · React · Firebase',
+  },
+  {
+    id: '02',
+    to: '/projects/atcoder',
+    title: 'AtCoder',
+    sub: 'Algorithm 茶 / Heuristic 水。約2年継続中。',
+    tag: 'Python · C++',
+  },
+  {
+    id: '03',
+    to: '/projects/mbti-app',
+    title: 'MBTI × AI',
+    sub: '物語形式の MBTI 診断 × 生成AI。',
+    tag: 'Rails · OpenAI · Redis',
+  },
+];
 
 export default function Home() {
-  const typingRef = useRef<HTMLSpanElement>(null);
+  const [idx, setIdx] = useState(0);
+  const [partial, setPartial] = useState('');
+  const [phase, setPhase] = useState<Phase>('typing');
+  const noiseRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const el = typingRef.current;
-    if (!el) return;
-    el.textContent = '';
-
-    let i = 0;
-    let cancelled = false;
-    const timeouts: ReturnType<typeof setTimeout>[] = [];
-
-    const type = () => {
-      if (cancelled) return;
-      if (i < TYPING_TEXT.length) {
-        el.textContent = TYPING_TEXT.slice(0, i + 1);
-        i++;
-        timeouts.push(setTimeout(type, 80));
+    const target = ROLES[idx]!;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    if (phase === 'typing') {
+      if (partial.length < target.length) {
+        timer = setTimeout(() => setPartial(target.slice(0, partial.length + 1)), 65);
       } else {
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor-blink';
-        cursor.textContent = '|';
-        el.appendChild(cursor);
+        timer = setTimeout(() => setPhase('hold'), 1400);
       }
+    } else if (phase === 'hold') {
+      timer = setTimeout(() => setPhase('erasing'), 800);
+    } else {
+      if (partial.length > 0) {
+        timer = setTimeout(() => setPartial(target.slice(0, partial.length - 1)), 28);
+      } else {
+        setIdx((i) => (i + 1) % ROLES.length);
+        setPhase('typing');
+      }
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
     };
+  }, [partial, phase, idx]);
 
-    timeouts.push(setTimeout(type, 700));
+  useEffect(() => {
+    const canvas = noiseRef.current;
+    if (!canvas) return;
+    const parent = canvas.parentElement;
+    if (!parent) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const resize = () => {
+      const w = parent.offsetWidth;
+      const h = parent.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = `${w}px`;
+      canvas.style.height = `${h}px`;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+    window.addEventListener('resize', resize);
+
+    let raf = 0;
+    let t = 0;
+    let alive = true;
+    const draw = () => {
+      if (!alive) return;
+      const w = canvas.width / dpr;
+      const h = canvas.height / dpr;
+      ctx.clearRect(0, 0, w, h);
+      const cols = Math.floor(w / 20);
+      const rows = Math.floor(h / 20);
+      const sx = w / cols;
+      const sy = h / rows;
+      for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+          const n = (Math.sin(i * 0.4 + t * 0.6) + Math.cos(j * 0.5 - t * 0.5)) * 0.5 + 0.5;
+          const a = n * 0.18 + 0.04;
+          ctx.fillStyle = `rgba(10,102,194,${a})`;
+          ctx.fillRect(i * sx + sx / 2 - 0.6, j * sy + sy / 2 - 0.6, 1.2, 1.2);
+        }
+      }
+      t += 0.012;
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
 
     return () => {
-      cancelled = true;
-      timeouts.forEach(clearTimeout);
+      alive = false;
+      cancelAnimationFrame(raf);
+      window.removeEventListener('resize', resize);
     };
   }, []);
 
   return (
     <>
-      <section className="pt-32 pb-16 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 animate-fade-in">
-            Tatsuki Kitamura
-          </h1>
-          <div
-            className="text-lg font-medium mb-5 h-7 animate-fade-in animation-delay-100"
-            style={{ color: '#0a66c2' }}
-          >
-            <span ref={typingRef} />
+      <section className="relative overflow-hidden">
+        <canvas ref={noiseRef} className="absolute inset-0 pointer-events-none" />
+        <div className="relative max-w-5xl mx-auto px-6 pt-32 pb-12">
+          <div className="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-5 animate-fade-in">
+            <span className="text-[#0a66c2]">●</span>&nbsp;&nbsp;ONLINE — TOKYO
           </div>
-          <p className="text-gray-500 text-sm mb-8 animate-fade-in animation-delay-200">
-            早稲田大学 数学科 &nbsp;·&nbsp; Tokyo, Japan
-          </p>
-          <div className="flex flex-wrap items-center gap-3 animate-fade-in animation-delay-300">
+
+          <pre
+            className="m-0 font-mono font-bold text-gray-900 leading-none animate-fade-in animation-delay-100"
+            style={{ fontSize: 13, letterSpacing: 0 }}
+          >
+            {ASCII}
+          </pre>
+
+          <div className="mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg animate-fade-in animation-delay-200">
+            <span className="text-gray-400">&gt;</span>
+            <span className="text-gray-900">I am a</span>
+            <span className="font-semibold text-[#0a66c2] border-b border-[#0a66c2]/30 pb-0.5 min-w-[260px] inline-flex items-center">
+              {'​'}
+              {partial}
+              <span className="inline-block w-2 h-[18px] bg-[#0a66c2] ml-0.5 cursor-blink" />
+            </span>
+          </div>
+
+          <div className="mt-3 font-mono text-xs sm:text-sm text-gray-500 animate-fade-in animation-delay-300">
+            // Rails / React / SwiftUI
+          </div>
+
+          <div className="mt-7 flex flex-wrap gap-3 font-mono text-sm animate-fade-in animation-delay-400">
+            <Link
+              to="/projects"
+              className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
+            >
+              ./view-projects.sh
+            </Link>
+            <Link
+              to="/experience"
+              className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
+            >
+              cat experience.md
+            </Link>
             <a
               href="https://github.com/tatsukikitamura"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:border-gray-500 text-sm font-medium transition-colors"
+              className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors inline-flex items-center gap-2"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-              </svg>
-              GitHub
+              <GitHubIcon className="w-4 h-4" /> github
             </a>
-            <Link
-              to="/experience"
-              className="px-5 py-2 rounded-lg text-white text-sm font-medium transition-colors bg-[#0a66c2] hover:bg-[#004182]"
-            >
-              Experience
-            </Link>
-            <Link
-              to="/projects"
-              className="px-5 py-2 border border-gray-300 rounded-lg text-gray-700 hover:border-gray-500 text-sm font-medium transition-colors"
-            >
-              Projects
-            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-14 px-6 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">Featured Work</h2>
-          <p className="text-gray-500 text-sm mb-8">アイデアを形にしたプロジェクト</p>
-
-          <div className="grid md:grid-cols-3 gap-4">
-            <Link
-              to="/projects/yamatomo"
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
-            >
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
-                Yamatomo
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                登山者同士が繋がるコミュニティアプリ。iOS（SwiftUI）とWeb（React）を並行開発。
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                <span className="text-xs px-2 py-0.5 bg-orange-50 text-orange-700 rounded font-medium">
-                  SwiftUI
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-sky-50 text-sky-600 rounded font-medium">
-                  React
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded font-medium">
-                  Firebase
-                </span>
-              </div>
-              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
-            </Link>
-
-            <Link
-              to="/projects/atcoder"
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
-            >
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
-                Competitive Programming
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                AtCoder Algorithm（茶色）・Heuristic（水色）。約2年継続中。
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                <span className="text-xs px-2 py-0.5 bg-amber-50 text-amber-700 rounded font-medium">
-                  Algorithm 茶
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-cyan-50 text-cyan-700 rounded font-medium">
-                  Heuristic 水
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">
-                  Python / C++
-                </span>
-              </div>
-              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
-            </Link>
-
-            <Link
-              to="/projects/mbti-app"
-              className="block bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow group"
-            >
-              <h3 className="font-semibold text-gray-900 mb-2 group-hover:text-[#0a66c2] transition-colors text-sm">
-                MBTI × 生成AI
-              </h3>
-              <p className="text-gray-500 text-xs leading-relaxed mb-4">
-                物語形式のMBTI診断。生成AIで無意識の価値観を引き出す体験型アプリ。
-              </p>
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                <span className="text-xs px-2 py-0.5 bg-red-50 text-red-600 rounded font-medium">
-                  Rails
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-green-50 text-green-700 rounded font-medium">
-                  OpenAI
-                </span>
-                <span className="text-xs px-2 py-0.5 bg-purple-50 text-purple-600 rounded font-medium">
-                  Redis
-                </span>
-              </div>
-              <span className="text-xs font-medium text-[#0a66c2]">詳しく見る →</span>
-            </Link>
+      <section className="px-6 py-14">
+        <div className="max-w-5xl mx-auto">
+          <div className="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-4">
+            ━━━ FEATURED WORK ━━━
           </div>
-
-          <div className="mt-6">
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#0a66c2] transition-colors"
-            >
-              すべてのプロジェクトを見る
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
+          <div className="grid md:grid-cols-3 gap-4">
+            {FEATURED.map((p) => (
+              <Link
+                key={p.id}
+                to={p.to}
+                className="block border border-gray-200 bg-gray-50 hover:bg-[#eef5fc] hover:border-[#0a66c2] transition-colors p-5 rounded font-mono"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
+                <div className="text-[11px] text-gray-400 mb-2">[{p.id}]</div>
+                <div
+                  className="text-lg font-bold text-gray-900 mb-1.5"
+                  style={{ fontFamily: 'Sora, system-ui, sans-serif' }}
+                >
+                  {p.title}
+                </div>
+                <div
+                  className="text-xs text-gray-600 mb-3 leading-relaxed"
+                  style={{ fontFamily: 'Sora, system-ui, sans-serif' }}
+                >
+                  {p.sub}
+                </div>
+                <div className="text-[10px] font-semibold tracking-wide text-[#0a66c2]">
+                  {p.tag}
+                </div>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-7 font-mono text-xs text-gray-500">
+            <Link to="/projects" className="text-[#0a66c2] hover:underline">
+              $ ls projects/ --all →
             </Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { getAllPosts } from '../lib/blog';
+import PageHeader from '../components/PageHeader';
 
 const posts = getAllPosts();
 
@@ -7,10 +8,7 @@ export default function Blog() {
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">
-        <div className="mb-10 animate-fade-in">
-          <h1 className="text-3xl font-bold text-gray-900">Blog</h1>
-          <p className="text-gray-500 mt-1 text-sm">技術記事・学習記録</p>
-        </div>
+        <PageHeader command="cat blog/index.md" title="Blog" subtitle="技術記事・学習記録" />
         <div className="space-y-4">
           {posts.length === 0 ? (
             <p className="text-gray-400 text-sm">まだ記事がありません。</p>
