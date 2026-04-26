@@ -5,7 +5,9 @@
       "Bash(node:*)",
       "Bash(winget:*)",
       "Bash(npm install:*)",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(git pull *)",
+      "Bash(npm run *)"
     ]
   }
 }

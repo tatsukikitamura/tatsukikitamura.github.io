@@ -1,115 +1,188 @@
 import { GitHubIcon } from '../components/Icons';
+import { getTechIcon } from '../lib/techIcons';
+
+const TECH_STACK: Record<'frontend' | 'backend' | 'infra', string[]> = {
+  frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Next.js'],
+  backend: ['Ruby on Rails', 'Python', 'PostgreSQL', 'MySQL'],
+  infra: ['GitHub Pages', 'Vercel', 'AWS', 'Docker', 'Git'],
+};
+
+function TechTag({ name, color }: { name: string; color: string }) {
+  const icon = getTechIcon(name);
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-medium ${color}`}
+    >
+      {icon && <img src={icon} className="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />}
+      {name}
+    </span>
+  );
+}
 
 export default function Contact() {
   return (
     <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
       <div className="mb-12 opacity-0 animate-fade-in-up mt-20 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">Please Give Me a Job!</h1>
-        <p className="text-gray-500 mt-4 text-lg">2027年4月入社 新卒採用希望</p>
+        <span className="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-700 text-xs font-medium tracking-wide mb-6">
+          NOW ACCEPTING REQUESTS
+        </span>
+        <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+          Web制作のご依頼、承ります
+        </h1>
+        <p className="text-gray-500 mt-4 text-lg">
+          就活も終わり、本格的にWeb制作のお仕事を受け付けはじめました
+        </p>
       </div>
 
       <section className="rounded-3xl p-8 text-zinc-700 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
         <h2 className="text-2xl font-bold mb-4">はじめに</h2>
-        <p className="text-zinc-700 leading-relaxed">
-          早稲田大学3年の北村健紀です。
+        <p className="leading-relaxed">
+          早稲田大学4年の北村健紀です。
           <br />
-          独学でプログラミングを始めて約1年半。
+          独学でプログラミングを始めて約1年半、ReactやRailsを使ったWeb開発を続けてきました。
           <br />
-          いまだにわからないことだらけですが少しずつ成長しています。そのはずです。
+          就活がひと段落したので、これからはWeb制作のご依頼を積極的に受け付けていこうと思っています。
+          <br />
+          小規模なLPから個人開発レベルのWebアプリまで、お気軽にご相談ください。
         </p>
       </section>
 
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
-        <h2 className="text-xl font-bold tracking-tight mb-6">希望する環境</h2>
-        <ul className="space-y-4 text-gray-600">
+        <h2 className="text-xl font-bold tracking-tight mb-6">対応できる制作内容</h2>
+        <div className="grid md:grid-cols-2 gap-4">
           {[
-            <>
-              <strong>自社開発</strong>で、プロダクトに愛着を持てる環境
-            </>,
-            <>
-              <strong>技術力</strong>を磨きながら、ビジネスも学べる環境
-            </>,
-            <>
-              <strong>若手でも挑戦</strong>できる、成長機会のある環境
-            </>,
-          ].map((children, i) => (
-            <li key={i} className="flex items-start gap-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-5 h-5 flex-shrink-0 mt-0.5 text-[#0a66c2]"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>{children}</span>
-            </li>
+            {
+              title: 'ランディングページ (LP)',
+              desc: '商品・サービス紹介のための1枚もののページ',
+            },
+            {
+              title: 'コーポレート / ポートフォリオサイト',
+              desc: '数ページ構成の小〜中規模サイト',
+            },
+            {
+              title: 'Webアプリケーション',
+              desc: 'ログイン機能・DB連携を伴う動的なサービス',
+            },
+            {
+              title: '既存サイトの改修・機能追加',
+              desc: 'デザイン修正、レスポンシブ対応、新機能追加など',
+            },
+          ].map((item, i) => (
+            <div key={i} className="border border-gray-200 rounded-2xl p-5">
+              <h3 className="font-semibold text-gray-900 mb-1">{item.title}</h3>
+              <p className="text-sm text-gray-500">{item.desc}</p>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
 
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
-        <h2 className="text-xl font-bold tracking-tight mb-6">私の強み</h2>
-        <div className="grid md:grid-cols-3 gap-4">
-          <div className="border border-gray-200 rounded-xl p-4">
-            <h3 className="font-semibold text-gray-900 mb-1 text-sm">独学でやり抜く力</h3>
-            <p className="text-xs text-gray-500">1年半でRails・Python・競プロまで</p>
+        <h2 className="text-xl font-bold tracking-tight mb-6">使用技術</h2>
+        <div className="space-y-5">
+          <div>
+            <p className="text-xs font-semibold text-gray-500 mb-2 tracking-wide">FRONTEND</p>
+            <div className="flex flex-wrap gap-2">
+              {TECH_STACK.frontend.map((name) => (
+                <TechTag key={name} name={name} color="bg-indigo-50 text-indigo-700" />
+              ))}
+            </div>
           </div>
-          <div className="border border-gray-200 rounded-xl p-4">
-            <h3 className="font-semibold text-gray-900 mb-1 text-sm">アイデアを形に</h3>
-            <p className="text-xs text-gray-500">MBTI診断アプリを個人開発</p>
+          <div>
+            <p className="text-xs font-semibold text-gray-500 mb-2 tracking-wide">BACKEND</p>
+            <div className="flex flex-wrap gap-2">
+              {TECH_STACK.backend.map((name) => (
+                <TechTag key={name} name={name} color="bg-emerald-50 text-emerald-700" />
+              ))}
+            </div>
           </div>
-          <div className="border border-gray-200 rounded-xl p-4">
-            <h3 className="font-semibold text-gray-900 mb-1 text-sm">数学的思考</h3>
-            <p className="text-xs text-gray-500">数学科＋AtCoder茶色</p>
+          <div>
+            <p className="text-xs font-semibold text-gray-500 mb-2 tracking-wide">INFRA / OTHERS</p>
+            <div className="flex flex-wrap gap-2">
+              {TECH_STACK.infra.map((name) => (
+                <TechTag key={name} name={name} color="bg-amber-50 text-amber-700" />
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-        <h2 className="text-xl font-bold tracking-tight mb-6">スペック</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-          <div className="bg-gray-50 rounded-2xl p-4">
-            <p className="text-2xl font-bold text-indigo-600">1.5年</p>
-            <p className="text-xs text-gray-500 mt-1">プログラミング歴</p>
-          </div>
-          <div className="bg-gray-50 rounded-2xl p-4">
-            <p className="text-2xl font-bold text-amber-600">茶色</p>
-            <p className="text-xs text-gray-500 mt-1">AtCoderランク</p>
-          </div>
-          <div className="bg-gray-50 rounded-2xl p-4">
-            <p className="text-2xl font-bold text-green-600">700</p>
-            <p className="text-xs text-gray-500 mt-1">TOEIC</p>
-          </div>
-          <div className="bg-gray-50 rounded-2xl p-4">
-            <p className="text-2xl font-bold text-red-600">3個</p>
-            <p className="text-xs text-gray-500 mt-1">個人開発プロジェクト</p>
-          </div>
-        </div>
+        <h2 className="text-xl font-bold tracking-tight mb-6">制作の流れ</h2>
+        <ol className="space-y-4">
+          {[
+            { step: '01', title: 'お問い合わせ', desc: 'メールやXなどからお気軽にご連絡ください' },
+            { step: '02', title: 'ヒアリング', desc: 'やりたいこと・予算・納期などを伺います' },
+            { step: '03', title: 'お見積り・ご提案', desc: '内容に応じて金額とスケジュールをご提示します' },
+            { step: '04', title: '制作・納品', desc: '進捗を共有しながら制作を進め、納品します' },
+          ].map((item) => (
+            <li key={item.step} className="flex items-start gap-4">
+              <span className="flex-shrink-0 w-10 h-10 rounded-full bg-gray-900 text-white text-sm font-semibold flex items-center justify-center">
+                {item.step}
+              </span>
+              <div>
+                <h3 className="font-semibold text-gray-900">{item.title}</h3>
+                <p className="text-sm text-gray-500 mt-0.5">{item.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      <section className="from-gray-900 to-gray-800 rounded-3xl p-8 text-zinc-700 text-center opacity-0 animate-fade-in-up animation-delay-500">
-        <h2 className="text-2xl font-bold mb-4">お声がけください！</h2>
-        <p className="text-zinc-700 mb-6">カジュアル面談、大歓迎です</p>
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
+      <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-500">
+        <h2 className="text-xl font-bold tracking-tight mb-6">料金の目安</h2>
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="bg-gray-50 rounded-2xl p-5 text-center">
+            <p className="text-sm text-gray-500 mb-1">LP制作</p>
+            <p className="text-2xl font-bold text-gray-900">要相談</p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-5 text-center">
+            <p className="text-sm text-gray-500 mb-1">コーポレートサイト</p>
+            <p className="text-2xl font-bold text-gray-900">要相談</p>
+          </div>
+          <div className="bg-gray-50 rounded-2xl p-5 text-center">
+            <p className="text-sm text-gray-500 mb-1">Webアプリ</p>
+            <p className="text-2xl font-bold text-gray-900">要相談</p>
+          </div>
+        </div>
+        <p className="text-xs text-gray-500 mt-4 text-center">
+          ※ 学生のため柔軟に対応可能です。内容に応じて調整しますので、まずはご相談ください。
+        </p>
+      </section>
+
+      <section className="rounded-3xl p-8 text-center opacity-0 animate-fade-in-up animation-delay-500 bg-gradient-to-br from-indigo-50 to-white border border-indigo-100">
+        <h2 className="text-2xl font-bold mb-3 text-gray-900">お問い合わせ</h2>
+        <p className="text-gray-600 mb-6">
+          ご相談・お見積りは無料です。お気軽にご連絡ください。
+        </p>
+        <div className="flex flex-col sm:flex-row justify-center gap-3">
+          <a
+            href="mailto:tatukikitamura123456@gmail.com"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-gray-900 text-white rounded-full font-medium hover:bg-gray-800 transition-colors"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={1.8}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+              />
+            </svg>
+            メールで相談する
+          </a>
           <a
             href="https://github.com/tatsukikitamura"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-gray-900 rounded-full font-medium hover:bg-gray-100 transition-colors"
+            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-900 rounded-full font-medium hover:bg-gray-50 transition-colors"
           >
             <GitHubIcon />
             GitHub
-          </a>
-          <a
-            href="https://x.com/oreennginia"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white/10 text-zinc-700 rounded-full font-medium hover:bg-white/20 transition-colors"
-          >
-            X (Twitter)
           </a>
         </div>
       </section>

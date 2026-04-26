@@ -4,7 +4,6 @@ import {
   CodeIcon,
   LangIcon,
   GitHubIcon,
-  XIcon,
   AtCoderIcon,
 } from '../components/Icons';
 
@@ -119,15 +118,6 @@ export default function About() {
               aria-label="GitHub"
             >
               <GitHubIcon />
-            </a>
-            <a
-              href="https://x.com/oreennginia"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-400 hover:text-gray-700 transition-colors"
-              aria-label="X (Twitter)"
-            >
-              <XIcon />
             </a>
             <a
               href="https://atcoder.jp/users/oreccchi"

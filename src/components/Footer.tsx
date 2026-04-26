@@ -28,7 +28,7 @@ export default function Footer() {
             to="/contact"
             className="text-gray-500 hover:text-[#0a66c2] transition-colors text-sm"
           >
-            Hire Me!!
+            Request
           </Link>
         </div>
       </div>

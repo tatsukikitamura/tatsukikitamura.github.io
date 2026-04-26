@@ -38,7 +38,7 @@ export default function Header() {
               className="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors"
               style={{ background: '#0a66c2' }}
             >
-              Hire Me
+              Request
             </Link>
           </li>
         </ul>
@@ -79,7 +79,7 @@ export default function Header() {
                 onClick={() => setOpen(false)}
                 className="block text-gray-600 hover:text-[#0a66c2] transition-colors text-sm"
               >
-                Hire Me
+                Request
               </NavLink>
             </li>
           </ul>
