@@ -27,3 +27,6 @@ dist-ssr
 # 就活関連資料（個人情報含む）
 shuukatsu/
 .cursor/
+
+# Claude Code local settings
+.claude/settings.local.json
