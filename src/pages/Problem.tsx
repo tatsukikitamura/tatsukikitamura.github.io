@@ -21,7 +21,7 @@ type Line = {
 type Problem = {
   id: number;
   title: string;
-  intro: string[];
+  hint: string[];
   files: Record<string, string>;
   helpLines: string[];
   customCommands?: Record<string, string[]>;
@@ -36,7 +36,7 @@ const PROBLEMS: Problem[] = [
   {
     id: 1,
     title: 'Problem 1: 答えを読め',
-    intro: ['ヒント: まず周りに何があるか確かめてみよう。'],
+    hint: ['まず周りに何があるか確かめてみよう。'],
     files: {
       'answer.md': 'success',
     },
@@ -44,6 +44,7 @@ const PROBLEMS: Problem[] = [
       'available commands:',
       '  ls            list directory contents',
       '  cat <file>    print file contents',
+      '  hint          show a hint for this problem',
       '  clear         clear the screen',
       '  next          go to the next problem',
     ],
@@ -52,7 +53,7 @@ const PROBLEMS: Problem[] = [
   {
     id: 2,
     title: 'Problem 2: 紛れたコマンドを探せ',
-    intro: ['ヒント: help の中に一つだけ毛色の違うやつがいる。'],
+    hint: ['help の中に一つだけ毛色の違うやつがいる。'],
     files: {},
     helpLines: [
       'available commands:',
@@ -61,6 +62,7 @@ const PROBLEMS: Problem[] = [
       '  pwd           print working directory',
       '  echo <text>   display a line of text',
       '  whoami        print effective user',
+      '  hint          show a hint for this problem',
       '  clear         clear the terminal',
       '  hadouken      ???',
     ],
@@ -72,10 +74,10 @@ const PROBLEMS: Problem[] = [
   {
     id: 3,
     title: 'Problem 3: 隠されたメッセージ',
-    intro: ['ヒント: README から読み始めよう。表に出ていないものもある。'],
+    hint: ['`ls` はデフォルトでは全部を見せない。'],
     files: {
       'README.md':
-        'まず `ls -a` で隠しファイルを探せ。\n中身は rot13 で暗号化されている。`decode <text>` で復号できる。',
+        'メッセージは表に出していない。\n中身は 13 文字ずらしてある。',
       '.encoded': 'fhpprff',
     },
     helpLines: [
@@ -83,6 +85,7 @@ const PROBLEMS: Problem[] = [
       '  ls [-a]         list directory contents (-a: include hidden)',
       '  cat <file>      print file contents',
       '  decode <text>   rot13 decode',
+      '  hint            show a hint for this problem',
       '  clear           clear the screen',
       '  next            go to the next problem',
     ],
@@ -91,10 +94,10 @@ const PROBLEMS: Problem[] = [
   {
     id: 4,
     title: 'Problem 4: 鍵を探して暗号を解け',
-    intro: ['ヒント: README → 環境 → 鍵付きファイル の順に探る。鍵は表に出ていない。'],
+    hint: ['鍵は普段見えない場所に置かれているもの。'],
     files: {
       'README.md':
-        'lock.txt はシーザー暗号で暗号化されている。\n鍵 (シフト量) は環境ファイルに置いた。\n`caesar <text> <n>` で n 文字シフトできる (負の値で逆方向)。',
+        'lock.txt はシーザー暗号でロックした。\n鍵 (シフト量) は環境ファイルに保存してある。',
       '.env': 'KEY=7',
       'lock.txt': 'zbjjlzz',
     },
@@ -104,6 +107,7 @@ const PROBLEMS: Problem[] = [
       '  cat <file>           print file contents',
       '  caesar <text> <n>    Caesar shift by n (negative reverses)',
       '  decode <text>        rot13 decode',
+      '  hint                 show a hint for this problem',
       '  clear                clear the screen',
       '  next                 go to the next problem',
     ],
@@ -112,13 +116,10 @@ const PROBLEMS: Problem[] = [
   {
     id: 5,
     title: 'Problem 5: 文書化されていないもの',
-    intro: [
-      'ヒント: 3つの ritual のうち正しく invoke できるのは1つだけ。',
-      '       README → .rituals → man の順に追え。',
-    ],
+    hint: ['ドキュメントが揃っているものだけが本物。'],
     files: {
       'README.md':
-        '3つの ritual がある。だが正しく invoke できるのは1つだけ。\n各 ritual を man で調べ、無事に起動できる名前を見つけよ。',
+        '3つの ritual がある。正しく invoke できるのは1つだけ。\n.rituals を読み、各 ritual を確認せよ。',
       '.rituals': 'nheben\nrpyvcfr\nfbyfgvpr',
     },
     helpLines: [
@@ -128,6 +129,7 @@ const PROBLEMS: Problem[] = [
       '  man <cmd>            show manual page for cmd',
       '  decode <text>        rot13 decode',
       '  invoke <ritual>      perform a registered ritual',
+      '  hint                 show a hint for this problem',
       '  clear                clear the screen',
       '  next                 go to the next problem',
     ],
@@ -292,7 +294,6 @@ function buildIntro(problem: Problem): Line[] {
     { text: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', variant: 'dim' },
     { text: problem.title, variant: 'success' },
     { text: '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', variant: 'dim' },
-    ...problem.intro.map((t) => ({ text: t, variant: 'dim' as const })),
     { text: '' },
   ];
 }
@@ -385,6 +386,10 @@ export default function Problem() {
       }
       case 'help':
         return { output: current.helpLines.map((t) => ({ text: t })) };
+      case 'hint':
+        return {
+          output: current.hint.map((t) => ({ text: t, variant: 'dim' as const })),
+        };
       case 'clear':
         return { output: [], clear: true };
       case 'pwd':
