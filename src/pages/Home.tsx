@@ -31,7 +31,7 @@ const FEATURED = [
     id: '02',
     to: '/projects/atcoder',
     title: 'AtCoder',
-    sub: 'Algorithm 茶 / Heuristic 水。約2年継続中。',
+    sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。',
     tag: 'Python · C++',
   },
   {

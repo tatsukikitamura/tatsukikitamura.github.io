@@ -19,7 +19,7 @@ const projects: Project[] = [
     id: 'atcoder',
     title: 'AtCoder（競技プログラミング）',
     description:
-      'Algorithm 茶色・Heuristic 水色ランク到達。直近AHCにて78位・黄色パフォーマンスを記録。約2年継続的に取り組み中。',
+      'Algorithm 茶色・Heuristic 青色ランク（最高レート1603）到達。直近AHCにて78位・黄色パフォーマンスを記録。約2年継続的に取り組み中。',
     period: '2024年4月〜2026年1月（継続中）',
     tags: ['Python', 'C++', 'アルゴリズム'],
     featured: true,

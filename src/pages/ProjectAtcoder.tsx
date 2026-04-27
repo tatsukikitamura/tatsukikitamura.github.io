@@ -23,7 +23,7 @@ export default function ProjectAtcoder() {
       <section className="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
         <h2 className="text-xl font-bold tracking-tight mb-4">概要</h2>
         <p className="text-gray-600 leading-relaxed">
-          AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。継続的に取り組み、Algorithm部門で茶色、Heuristic部門で水色ランクに到達。直近のAHCでは78位・黄色パフォーマンスを記録。
+          AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。継続的に取り組み、Algorithm部門で茶色、Heuristic部門で青色ランク（最高レート1603）に到達。直近のAHCでは78位・黄色パフォーマンスを記録。
         </p>
       </section>
 
@@ -33,9 +33,9 @@ export default function ProjectAtcoder() {
           <p className="text-amber-600 mt-1 text-sm">茶色ランク到達</p>
         </div>
 
-        <div className="bg-cyan-50 rounded-xl border border-cyan-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
-          <h3 className="font-semibold text-cyan-800">Heuristic部門</h3>
-          <p className="text-cyan-600 mt-1 text-sm">水色ランク到達</p>
+        <div className="bg-blue-50 rounded-xl border border-blue-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
+          <h3 className="font-semibold text-blue-800">Heuristic部門</h3>
+          <p className="text-blue-600 mt-1 text-sm">青色ランク到達（最高レート1603）</p>
         </div>
 
         <div className="bg-yellow-50 rounded-xl border border-yellow-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
