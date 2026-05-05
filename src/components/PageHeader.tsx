@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 
 type PageHeaderProps = {
   command: string;
-  title: string;
+  title: ReactNode;
   subtitle?: string;
   delay?: number;
 };

@@ -23,6 +23,7 @@ const aws = `${DI}/amazonwebservices/amazonwebservices-plain-wordmark.svg`;
 const javascript = `${DI}/javascript/javascript-original.svg`;
 const swift = `${DI}/swift/swift-original.svg`;
 const firebase = `${DI}/firebase/firebase-plain.svg`;
+const astro = `${DI}/astro/astro-original.svg`;
 
 const ICONS: Record<string, string> = {
   'ruby on rails': rails,
@@ -58,6 +59,7 @@ const ICONS: Record<string, string> = {
   swift: swift,
   swiftui: swift,
   firebase: firebase,
+  astro: astro,
 };
 
 export function getTechIcon(name: string): string | null {
