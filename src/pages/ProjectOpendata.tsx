@@ -1,7 +1,15 @@
 import ProjectBackLink from '../components/ProjectBackLink';
 import { getTechIcon } from '../lib/techIcons';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 export default function ProjectOpendata() {
+  useDocumentMeta({
+    title: 'ノー遅延乗り換え - Open Data Challenge 2025',
+    description:
+      '北村健紀が開発した「ノー遅延乗り換え」。未来の遅延リスクを予測するルート検索アプリ。公共交通オープンデータチャレンジ2025 出品作品。',
+    path: '/projects/opendata',
+  });
+
   return (
     <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
       <ProjectBackLink />

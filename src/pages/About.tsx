@@ -7,6 +7,7 @@ import {
   AtCoderIcon,
 } from '../components/Icons';
 import PageHeader from '../components/PageHeader';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const DI = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
 
@@ -74,6 +75,13 @@ function TechGroup({ label, items }: { label: string; items: TechItem[] }) {
 }
 
 export default function About() {
+  useDocumentMeta({
+    title: 'About - 北村健紀について',
+    description:
+      '北村健紀（Tatsuki Kitamura）のプロフィール。早稲田大学教育学部数学科。Ruby on Rails / React / SwiftUI / Python / C++ などを用いた Web・iOS アプリ開発、競技プログラミングに取り組んでいます。',
+    path: '/about',
+  });
+
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">

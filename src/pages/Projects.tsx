@@ -3,6 +3,7 @@ import type { Project } from '../types';
 import { GitHubIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
 import PageHeader from '../components/PageHeader';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const projects: Project[] = [
   {
@@ -48,6 +49,13 @@ const projects: Project[] = [
 ];
 
 export default function Projects() {
+  useDocumentMeta({
+    title: 'Projects - 北村健紀の制作物',
+    description:
+      '北村健紀（Tatsuki Kitamura）のプロジェクト一覧。Yamatomo（登山コミュニティアプリ）、MBTI × 生成AI、ノー遅延乗り換え、AtCoder などの開発実績。',
+    path: '/projects',
+  });
+
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">

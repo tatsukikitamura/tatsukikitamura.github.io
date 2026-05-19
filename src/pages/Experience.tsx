@@ -8,6 +8,7 @@ import {
   EduIcon,
 } from '../components/Icons';
 import PageHeader from '../components/PageHeader';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 type TimelineItem = {
   title: string;
@@ -176,6 +177,13 @@ const items: TimelineItem[] = [
 ];
 
 export default function Experience() {
+  useDocumentMeta({
+    title: 'Experience - 経験・実績',
+    description:
+      '北村健紀の経験・実績。Gravity Game Arise でのQA・デバッグ（2年）、ハッカソン参加、イベント運営、教育経験など。',
+    path: '/experience',
+  });
+
   return (
     <main className="pt-24 pb-16 px-6">
       <div className="max-w-3xl mx-auto">

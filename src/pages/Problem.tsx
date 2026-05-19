@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const CLEARED_ASCII = String.raw`
  ██████╗██╗     ███████╗ █████╗ ██████╗ ███████╗██████╗
@@ -312,6 +313,13 @@ function variantClass(v?: Variant): string {
 }
 
 export default function Problem() {
+  useDocumentMeta({
+    title: 'Problems - シェル風コーディング問題',
+    description:
+      '北村健紀のポートフォリオサイトに用意したシェル風のコーディング問題集。ターミナル風UIで問題を解いていけます。',
+    path: '/problem',
+  });
+
   const [problemIdx, setProblemIdx] = useState(0);
   const [solved, setSolved] = useState<Set<number>>(new Set());
   const [lines, setLines] = useState<Line[]>(() => [

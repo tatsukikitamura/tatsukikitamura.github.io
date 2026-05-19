@@ -1,6 +1,7 @@
 import ProjectBackLink from '../components/ProjectBackLink';
 import { GitHubIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const TECHS: { name: string; cls: string }[] = [
   { name: 'Ruby on Rails', cls: 'bg-red-50 text-red-700' },
@@ -10,6 +11,13 @@ const TECHS: { name: string; cls: string }[] = [
 ];
 
 export default function ProjectMbti() {
+  useDocumentMeta({
+    title: 'MBTI × 生成AI体験アプリ',
+    description:
+      '北村健紀が開発した MBTI × 生成AI 体験アプリ。物語形式の診断で無意識の価値観を引き出す、Ruby on Rails + OpenAI API のWebアプリ。',
+    path: '/projects/mbti-app',
+  });
+
   return (
     <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
       <ProjectBackLink />

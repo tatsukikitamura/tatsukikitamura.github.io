@@ -2,6 +2,7 @@ import { useState, type FormEvent } from 'react';
 import { GitHubIcon, InstagramIcon, MailIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
 import PageHeader from '../components/PageHeader';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const TECH_STACK: Record<'frontend' | 'backend' | 'infra', string[]> = {
   frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Next.js', 'Astro'],
@@ -272,6 +273,13 @@ function ContactAccordion() {
 }
 
 export default function Contact() {
+  useDocumentMeta({
+    title: 'Contact - お問い合わせ',
+    description:
+      '北村健紀（Tatsuki Kitamura）へのお問い合わせ。Webサイト制作のご相談、お見積もり、ご質問など、フォームから24時間以内に返信いたします。',
+    path: '/contact',
+  });
+
   return (
     <main className="pt-24 pb-8 px-4 max-w-4xl mx-auto">
       <PageHeader

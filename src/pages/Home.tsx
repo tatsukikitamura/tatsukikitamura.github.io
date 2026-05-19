@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GitHubIcon } from '../components/Icons';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const ASCII_LINES = [
   '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
@@ -44,6 +45,13 @@ const FEATURED = [
 ];
 
 export default function Home() {
+  useDocumentMeta({
+    title: 'ポートフォリオ',
+    description:
+      '北村健紀（Tatsuki Kitamura）のポートフォリオ。早稲田大学教育学部数学科4年。Ruby on Rails / React / SwiftUI を中心に Web・iOS アプリ開発、AtCoder（Algorithm 茶 / Heuristic 青）に取り組んでいます。',
+    path: '/',
+  });
+
   const [idx, setIdx] = useState(0);
   const [partial, setPartial] = useState('');
   const [phase, setPhase] = useState<Phase>('typing');

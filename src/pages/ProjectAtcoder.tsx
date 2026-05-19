@@ -1,7 +1,15 @@
 import ProjectBackLink from '../components/ProjectBackLink';
 import { getTechIcon } from '../lib/techIcons';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 export default function ProjectAtcoder() {
+  useDocumentMeta({
+    title: 'AtCoder - 競技プログラミング',
+    description:
+      '北村健紀の AtCoder 取り組み。Algorithm 茶 / Heuristic 青（最高レート1603）。約2年継続中、AHC78位・黄色パフォーマンス記録。',
+    path: '/projects/atcoder',
+  });
+
   return (
     <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
       <ProjectBackLink />

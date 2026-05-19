@@ -1,7 +1,15 @@
 import ProjectBackLink from '../components/ProjectBackLink';
 import { getTechIcon } from '../lib/techIcons';
+import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 export default function ProjectYamatomo() {
+  useDocumentMeta({
+    title: 'Yamatomo - 登山コミュニティアプリ',
+    description:
+      '北村健紀が開発する登山コミュニティアプリ「Yamatomo」。iOSアプリ（SwiftUI + Firebase）とWeb版（React + Firebase）を並行開発。',
+    path: '/projects/yamatomo',
+  });
+
   return (
     <main className="pt-20 pb-8 px-4 max-w-4xl mx-auto">
       <ProjectBackLink />
