@@ -1,7 +1,4 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
-import { Link } from 'react-router-dom';
-import PageHeader from '../components/PageHeader';
-import { useDocumentMeta } from '../lib/useDocumentMeta';
 
 const CLEARED_ASCII = String.raw`
  ██████╗██╗     ███████╗ █████╗ ██████╗ ███████╗██████╗
@@ -312,14 +309,7 @@ function variantClass(v?: Variant): string {
   }
 }
 
-export default function Problem() {
-  useDocumentMeta({
-    title: 'Problems - シェル風コーディング問題',
-    description:
-      '北村健紀のポートフォリオサイトに用意したシェル風のコーディング問題集。ターミナル風UIで問題を解いていけます。',
-    path: '/problem',
-  });
-
+export default function ProblemTerminal() {
   const [problemIdx, setProblemIdx] = useState(0);
   const [solved, setSolved] = useState<Set<number>>(new Set());
   const [lines, setLines] = useState<Line[]>(() => [
@@ -514,113 +504,109 @@ export default function Problem() {
   };
 
   return (
-    <main className="pt-24 pb-16 px-6">
-      <div className="max-w-4xl mx-auto">
-        <PageHeader
-          command="open -a Terminal problems/"
-          title="Problems"
-          subtitle={`Problem ${current.id} / ${PROBLEMS.length} — solved: ${solved.size}`}
-        />
+    <>
+      <div className="font-mono text-[11px] text-gray-500 mb-4 tracking-wide">
+        Problem {current.id} / {PROBLEMS.length} — solved: {solved.size}
+      </div>
 
-        <div
-          className="rounded-xl overflow-hidden shadow-2xl border border-gray-300 bg-[#1e1e1e] animate-fade-in animation-delay-100"
-          onClick={() => inputRef.current?.focus()}
-        >
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] border-b border-black/40">
-            <div className="flex gap-2">
-              <span className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]" />
-              <span className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#dea123]" />
-              <span className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]" />
-            </div>
-            <div className="flex-1 text-center text-[12px] text-gray-300 font-medium select-none">
-              tatsuki — -zsh — 100x30
-            </div>
-            <div className="w-[52px]" />
+      <div
+        className="rounded-xl overflow-hidden shadow-2xl border border-gray-300 bg-[#1e1e1e] animate-fade-in animation-delay-100"
+        onClick={() => inputRef.current?.focus()}
+      >
+        <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] border-b border-black/40">
+          <div className="flex gap-2">
+            <span className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]" />
+            <span className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#dea123]" />
+            <span className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]" />
           </div>
-
-          <div
-            ref={bodyRef}
-            className="px-4 py-3 font-mono text-[13px] leading-[1.55] text-gray-100 h-[480px] overflow-y-auto"
-            style={{ fontFamily: 'SF Mono, Menlo, Monaco, Consolas, monospace' }}
-          >
-            {lines.map((line, i) => (
-              <div
-                key={i}
-                className={`whitespace-pre-wrap break-words ${variantClass(line.variant)}`}
-              >
-                {line.prompt && <span className="text-[#28c840]">{line.prompt}</span>}
-                {line.prompt && line.text && ' '}
-                <span>{line.text}</span>
-              </div>
-            ))}
-
-            <div className="flex items-baseline">
-              <span className="text-[#28c840] mr-2 shrink-0">{PROMPT}</span>
-              <span className="relative flex-1">
-                <span className="whitespace-pre">{input}</span>
-                <span className="inline-block w-[7px] h-[14px] bg-gray-100 align-middle translate-y-[1px] cursor-blink" />
-              </span>
-            </div>
-
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              className="absolute opacity-0 w-0 h-0 pointer-events-none"
-              aria-label="terminal input"
-              autoCapitalize="off"
-              autoCorrect="off"
-              spellCheck={false}
-            />
+          <div className="flex-1 text-center text-[12px] text-gray-300 font-medium select-none">
+            tatsuki — -zsh — 100x30
           </div>
+          <div className="w-[52px]" />
         </div>
 
-        {showCelebration && (
-          <section
-            ref={celebrationRef}
-            className="mt-24 pt-16 pb-12 animate-fade-in-up"
-          >
-            <div className="text-center">
-              <div className="font-mono text-[11px] text-[#0a66c2] tracking-[0.22em] mb-5">
-                ━━━ EXIT 0 — ALL TESTS PASSED ━━━
-              </div>
-              <pre
-                className="m-0 font-mono font-bold text-[#0a66c2] leading-none inline-block text-left"
-                style={{ fontSize: 12, letterSpacing: 0 }}
-              >
-                {CLEARED_ASCII}
-              </pre>
-              <h2 className="mt-8 text-2xl font-bold text-gray-900">
-                🎉 全 {PROBLEMS.length} 問クリアおめでとう！
-              </h2>
-              <p className="mt-3 text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
-                お疲れさま。
-                <br />
-                これからも、お互いいいコード書いていこう。
-              </p>
-              <div className="mt-8 font-mono text-xs text-gray-400">
-                <span className="text-[#0a66c2]">$</span> echo $? &nbsp;→&nbsp; 0
-              </div>
-              <div className="mt-10 flex flex-wrap gap-3 justify-center font-mono text-sm">
-                <Link
-                  to="/projects"
-                  className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
-                >
-                  ./view-projects.sh
-                </Link>
-                <Link
-                  to="/contact"
-                  className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
-                >
-                  cat contact.md
-                </Link>
-              </div>
+        <div
+          ref={bodyRef}
+          className="px-4 py-3 font-mono text-[13px] leading-[1.55] text-gray-100 h-[480px] overflow-y-auto"
+          style={{ fontFamily: 'SF Mono, Menlo, Monaco, Consolas, monospace' }}
+        >
+          {lines.map((line, i) => (
+            <div
+              key={i}
+              className={`whitespace-pre-wrap break-words ${variantClass(line.variant)}`}
+            >
+              {line.prompt && <span className="text-[#28c840]">{line.prompt}</span>}
+              {line.prompt && line.text && ' '}
+              <span>{line.text}</span>
             </div>
-          </section>
-        )}
+          ))}
+
+          <div className="flex items-baseline">
+            <span className="text-[#28c840] mr-2 shrink-0">{PROMPT}</span>
+            <span className="relative flex-1">
+              <span className="whitespace-pre">{input}</span>
+              <span className="inline-block w-[7px] h-[14px] bg-gray-100 align-middle translate-y-[1px] cursor-blink" />
+            </span>
+          </div>
+
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="absolute opacity-0 w-0 h-0 pointer-events-none"
+            aria-label="terminal input"
+            autoCapitalize="off"
+            autoCorrect="off"
+            spellCheck={false}
+          />
+        </div>
       </div>
-    </main>
+
+      {showCelebration && (
+        <section
+          ref={celebrationRef}
+          className="mt-24 pt-16 pb-12 animate-fade-in-up"
+        >
+          <div className="text-center">
+            <div className="font-mono text-[11px] text-[#0a66c2] tracking-[0.22em] mb-5">
+              ━━━ EXIT 0 — ALL TESTS PASSED ━━━
+            </div>
+            <pre
+              className="m-0 font-mono font-bold text-[#0a66c2] leading-none inline-block text-left"
+              style={{ fontSize: 12, letterSpacing: 0 }}
+            >
+              {CLEARED_ASCII}
+            </pre>
+            <h2 className="mt-8 text-2xl font-bold text-gray-900">
+              🎉 全 {PROBLEMS.length} 問クリアおめでとう！
+            </h2>
+            <p className="mt-3 text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
+              お疲れさま。
+              <br />
+              これからも、お互いいいコード書いていこう。
+            </p>
+            <div className="mt-8 font-mono text-xs text-gray-400">
+              <span className="text-[#0a66c2]">$</span> echo $? &nbsp;→&nbsp; 0
+            </div>
+            <div className="mt-10 flex flex-wrap gap-3 justify-center font-mono text-sm">
+              <a
+                href="/projects"
+                className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
+              >
+                ./view-projects.sh
+              </a>
+              <a
+                href="/contact"
+                className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
+              >
+                cat contact.md
+              </a>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="404 Not Found"
+  description="お探しのページは見つかりませんでした。"
+  path="/404"
+>
+  <section class="pt-32 pb-16 px-6">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-3xl font-bold text-gray-900 mb-4">404 - Not Found</h1>
+      <p class="text-gray-500 text-sm mb-8">お探しのページは見つかりませんでした。</p>
+      <a
+        href="/"
+        class="inline-block px-5 py-2 rounded-lg text-white text-sm font-medium transition-colors"
+        style="background:#0a66c2"
+      >
+        ホームに戻る
+      </a>
+    </div>
+  </section>
+</BaseLayout>

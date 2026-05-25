@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NoiseCanvas from '../islands/NoiseCanvas.tsx';
+import RoleTyper from '../islands/RoleTyper.tsx';
+import { GitHubIcon } from '../components/Icons';
+
+const ASCII_LINES = [
+  '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
+  '╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝██║   ██║██║ ██╔╝██║',
+  '   ██║   ███████║   ██║   ███████╗██║   ██║█████╔╝ ██║',
+  '   ██║   ██╔══██║   ██║   ╚════██║██║   ██║██╔═██╗ ██║',
+  '   ██║   ██║  ██║   ██║   ███████║╚██████╔╝██║  ██╗██║',
+  '   ╚═╝   ╚═╝  ╚═╝   ╚═╝   ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝',
+];
+
+const FEATURED = [
+  {
+    id: '01',
+    to: '/projects/yamatomo',
+    title: 'Yamatomo',
+    sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。',
+    tag: 'SwiftUI · React · Firebase',
+  },
+  {
+    id: '02',
+    to: '/projects/atcoder',
+    title: 'AtCoder',
+    sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。',
+    tag: 'Python · C++',
+  },
+  {
+    id: '03',
+    to: '/projects/mbti-app',
+    title: 'MBTI × AI',
+    sub: '物語形式の MBTI 診断 × 生成AI。',
+    tag: 'Rails · OpenAI · Redis',
+  },
+];
+
+const HOME_DESCRIPTION =
+  '北村健紀（Tatsuki Kitamura）のポートフォリオ。早稲田大学教育学部数学科4年。Ruby on Rails / React / SwiftUI を中心に Web・iOS アプリ開発、AtCoder（Algorithm 茶 / Heuristic 青）に取り組んでいます。';
+---
+
+<BaseLayout title="ポートフォリオ" description={HOME_DESCRIPTION} path="/">
+  <section class="relative overflow-hidden">
+    <NoiseCanvas client:load />
+    <div class="relative max-w-5xl mx-auto px-6 pt-32 pb-12">
+      <div class="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-5 animate-fade-in">
+        <span class="text-[#0a66c2]">●</span>&nbsp;&nbsp;ONLINE — TOKYO
+      </div>
+
+      <div
+        class="font-mono text-gray-900 animate-fade-in animation-delay-100 inline-block"
+        style="font-size:clamp(8px,2.4vw,13px);line-height:1;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace"
+      >
+        {ASCII_LINES.map((line, i) => (
+          <div
+            class="whitespace-pre"
+            style={`margin-left:${(ASCII_LINES.length - 1 - i) * 0.6}em`}
+          >
+            {line}
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg animate-fade-in animation-delay-200">
+        <span class="text-gray-400">&gt;</span>
+        <span class="text-gray-900">I am a</span>
+        <RoleTyper client:load />
+      </div>
+
+      <div class="mt-3 font-mono text-xs sm:text-sm text-gray-500 animate-fade-in animation-delay-300">
+        // Rails / React / SwiftUI
+      </div>
+
+      <div class="mt-7 flex flex-nowrap gap-2 sm:gap-3 font-mono text-[11px] sm:text-sm animate-fade-in animation-delay-400">
+        <a
+          href="/projects"
+          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors whitespace-nowrap"
+        >
+          projects
+        </a>
+        <a
+          href="/experience"
+          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors whitespace-nowrap"
+        >
+          experience
+        </a>
+        <a
+          href="https://github.com/tatsukikitamura"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
+        >
+          <GitHubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> github
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-6 py-14">
+    <div class="max-w-5xl mx-auto">
+      <div class="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-4">
+        ━━━ FEATURED WORK ━━━
+      </div>
+      <div class="grid md:grid-cols-3 gap-4">
+        {FEATURED.map((p) => (
+          <a
+            href={p.to}
+            class="block border border-gray-200 bg-gray-50 hover:bg-[#eef5fc] hover:border-[#0a66c2] transition-colors p-5 rounded font-mono"
+          >
+            <div class="text-[11px] text-gray-400 mb-2">[{p.id}]</div>
+            <div
+              class="text-lg font-bold text-gray-900 mb-1.5"
+              style="font-family:Sora,system-ui,sans-serif"
+            >
+              {p.title}
+            </div>
+            <div
+              class="text-xs text-gray-600 mb-3 leading-relaxed"
+              style="font-family:Sora,system-ui,sans-serif"
+            >
+              {p.sub}
+            </div>
+            <div class="text-[10px] font-semibold tracking-wide text-[#0a66c2]">
+              {p.tag}
+            </div>
+          </a>
+        ))}
+      </div>
+      <div class="mt-7 font-mono text-xs text-gray-500">
+        <a href="/projects" class="text-[#0a66c2] hover:underline">
+          $ ls projects/ --all →
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

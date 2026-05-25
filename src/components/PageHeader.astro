@@ -1,0 +1,33 @@
+---
+type Props = {
+  command: string;
+  subtitle?: string;
+};
+
+const { command, subtitle } = Astro.props;
+---
+
+<div class="mb-10 animate-fade-in">
+  <div class="font-mono text-[11px] text-gray-500 mb-4 tracking-wide">
+    <span class="text-[#0a66c2]">$</span>
+    <span class="page-header-typer" data-command={command}></span>
+    <span
+      class="inline-block w-1.5 h-3 bg-[#0a66c2] ml-1 align-middle cursor-blink"
+    ></span>
+  </div>
+  <h1 class="text-3xl font-bold text-gray-900"><slot /></h1>
+  {subtitle && <p class="text-gray-500 mt-1 text-sm">{subtitle}</p>}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.page-header-typer').forEach((el) => {
+    const target = el.dataset.command || '';
+    let i = 0;
+    const tick = () => {
+      i++;
+      el.textContent = target.slice(0, i);
+      if (i < target.length) setTimeout(tick, 24);
+    };
+    setTimeout(tick, 0);
+  });
+</script>

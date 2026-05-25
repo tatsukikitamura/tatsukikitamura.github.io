@@ -5,48 +5,63 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev        # Start local dev server (Vite)
-npm run build      # Type-check (tsc) and build for production (output: dist/)
+npm run dev        # Start local dev server (Astro, port 4321)
+npm run build      # astro check && astro build (output: dist/)
 npm run preview    # Preview the production build locally
-npm run typecheck  # Type-check only, no build
+npm run typecheck  # astro check only, no build
 ```
 
 Both `npm` and `bun` lock files exist; use `npm` to stay consistent with the CI workflow (`npm ci`).
 
 ## Architecture
 
-This is a **single-page React portfolio site** (tatsuki.dev) built with Vite + React 19 + TypeScript + Tailwind CSS v4, deployed as a static bundle to GitHub Pages.
+This is a **static portfolio site** (tatsuki.dev) built with Astro 6 + React 19 islands + TypeScript + Tailwind CSS v4, deployed as a static bundle to GitHub Pages. Every route is pre-rendered to its own HTML file at build time for SEO.
 
-### Entry and routing
+### Routing
 
-- `index.html` → `src/main.tsx` mounts `<App />` inside `<BrowserRouter>` on `#app`.
-- `src/App.tsx` declares all routes with `react-router-dom` v7. Every route renders inside the shared `<Layout />` (header + outlet + footer).
-- Page components live in `src/pages/*.tsx` (one component per route: `Home`, `About`, `Projects`, `ProjectMbti`, `ProjectOpendata`, `ProjectAtcoder`, `Experience`, `Blog`, `BlogPost`, `Contact`, `NotFound`).
+Astro routes everything in `src/pages/`:
 
-**When adding a new page:** create the component in `src/pages/`, then add a `<Route>` to `src/App.tsx`. No Vite config change is needed — there is a single HTML entry.
+| Route | File |
+|-------|------|
+| `/` | `src/pages/index.astro` |
+| `/about` | `src/pages/about.astro` |
+| `/projects` | `src/pages/projects/index.astro` |
+| `/projects/{yamatomo,mbti-app,opendata,atcoder}` | `src/pages/projects/*.astro` |
+| `/experience` | `src/pages/experience.astro` |
+| `/problem` | `src/pages/problem.astro` |
+| `/contact` | `src/pages/contact.astro` |
+| `/404` | `src/pages/404.astro` |
 
-### Shared components
+**When adding a new page:** create a `.astro` file in `src/pages/`. Astro auto-routes it and includes it in the sitemap. Wrap content with `<BaseLayout title=... description=... path=...>` so per-page SEO metadata (title, description, canonical, OG, Twitter, JSON-LD) gets emitted.
 
-`src/components/` contains React components used across pages:
-- `Layout.tsx` — header + `<Outlet />` + footer wrapper
-- `Header.tsx`, `Footer.tsx` — site chrome
-- `Icons.tsx` — inline SVG icon components
-- `ProjectBackLink.tsx` — back link reused on project detail pages
+### Layout and shared components
 
-### Blog content
+- `src/layouts/BaseLayout.astro` — the `<html>` shell. Renders all `<head>` metadata (per-page title/description/canonical/OG/Twitter + static JSON-LD `Person` + `WebSite`), Google fonts, and the `gtag.js` snippet. Takes `title`, `description`, `path`, `ogImage` props.
+- `src/components/Header.astro` — fixed top nav. Mobile-menu toggle uses a small inline `<script>`, not React.
+- `src/components/Footer.astro` — site footer.
+- `src/components/PageHeader.astro` — the `$ <command>` typing animation + `<h1>` block reused on most pages. Title is passed via `<slot />`, so callers can include rich content. Typing is driven by an inline `<script>` keyed off `.page-header-typer[data-command]`.
+- `src/components/ProjectBackLink.astro` — back link reused on project detail pages.
+- `src/components/Icons.tsx` — inline SVG icon set (React components). Used in both `.astro` and React contexts; when used from `.astro` they SSR to HTML with no JS shipped.
 
-Blog posts are Markdown files under `src/content/blogs/*.md` with YAML-ish frontmatter (`title`, `date`, `category`, `tags`, `excerpt`). Files prefixed with `_` (e.g. `_template.md`) are excluded.
+### React islands (`src/islands/`)
 
-`src/lib/blog.ts` loads them at build time via `import.meta.glob('../content/blogs/*.md', { query: '?raw', eager: true })`, parses the frontmatter manually, and exposes `getAllPosts()` / `getPostBySlug(slug)`. `BlogPost.tsx` renders the body with `marked`.
+Interactive bits are kept as React components and hydrated with `client:load`:
+
+- `NoiseCanvas.tsx` — the `<canvas>` background on Home.
+- `RoleTyper.tsx` — the cycling "I am a … " typer on Home.
+- `ContactInquiry.tsx` — the accordion + Formspree form on Contact.
+- `ProblemTerminal.tsx` — the entire terminal + celebration on Problem.
+
+Adding a new island: create the `.tsx` in `src/islands/`, import it in an `.astro` page, and add a `client:*` directive (e.g. `client:load`, `client:visible`).
 
 ### Styling
 
-- Tailwind v4 is processed via the `@tailwindcss/vite` plugin — there is no `tailwind.config.js`. The typography plugin is enabled via `@plugin "@tailwindcss/typography";` in `src/style.css` so blog post bodies can use the `prose` classes.
-- `src/style.css` is intentionally minimal. It contains only what cannot be expressed in Tailwind utilities: the body font/background, the `fadeInUp` / `fadeIn` / `blink` keyframes, the `.animate-fade-in*` and `.animation-delay-*` utility classes that drive page enter-animations, and `.cursor-blink` for the Home hero. Everything else (colors, spacing, hover effects, glassmorphism, buttons) should be expressed inline with Tailwind classes — do not re-add component classes like `.btn-primary` or `.card-hover`.
+- Tailwind v4 is processed via `@tailwindcss/vite` (wired in `astro.config.mjs`). There is no `tailwind.config.js`.
+- `src/style.css` is intentionally minimal: body font/background, the `fadeInUp` / `fadeIn` / `blink` keyframes, the `.animate-fade-in*` / `.animation-delay-*` utility classes that drive page enter-animations, and `.cursor-blink`. Everything else (colors, spacing, hover effects, buttons) should be expressed inline with Tailwind classes — do not re-add component classes like `.btn-primary` or `.card-hover`.
 
-### SPA fallback for GitHub Pages
+### Sitemap and robots
 
-Because GitHub Pages serves static files only, deep links (e.g. `/projects/mbti-app`) would 404. `public/404.html` encodes the requested path into a `?/...` query and redirects to `/`; the inline script in `index.html` decodes it back via `history.replaceState` before the React bundle boots, so React Router sees the original URL. Keep both halves in sync if you change the encoding.
+`@astrojs/sitemap` generates `sitemap-index.xml` + `sitemap-0.xml` at build time from the `site` value in `astro.config.mjs`. `public/robots.txt` points crawlers at `sitemap-index.xml`. No manual sitemap maintenance needed.
 
 ## Personal profile (`shuukatsu/`)
 
@@ -58,6 +73,6 @@ Because GitHub Pages serves static files only, deep links (e.g. `/projects/mbti-
 
 `人物像まとめ.md` section 9 ("AI向け参照ガイド") describes priority order and episode selection rules — follow it when generating bio or ES text.
 
-### Deployment
+## Deployment
 
-Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci && npm run build` and deploys `dist/` to GitHub Pages. The site is served from the root (`base: '/'` in `vite.config.ts`).
+Pushing to `main` triggers `.github/workflows/deploy.yml`, which runs `npm ci && npm run build` and deploys `dist/` to GitHub Pages. The site is served from the root (`site: 'https://tatsuki.dev'` in `astro.config.mjs`).

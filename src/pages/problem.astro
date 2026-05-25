@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import ProblemTerminal from '../islands/ProblemTerminal.tsx';
+
+const DESCRIPTION =
+  '北村健紀のポートフォリオサイトに用意したシェル風のコーディング問題集。ターミナル風UIで問題を解いていけます。';
+---
+
+<BaseLayout
+  title="Problems - シェル風コーディング問題"
+  description={DESCRIPTION}
+  path="/problem"
+>
+  <main class="pt-24 pb-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <PageHeader command="open -a Terminal problems/">Problems</PageHeader>
+      <ProblemTerminal client:load />
+    </div>
+  </main>
+</BaseLayout>

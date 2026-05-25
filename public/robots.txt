@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tatsuki.dev/sitemap.xml
+Sitemap: https://tatsuki.dev/sitemap-index.xml
