@@ -1,0 +1,175 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectBackLink from '../../components/ProjectBackLink.astro';
+import { getTechIcon } from '../../lib/techIcons';
+
+const TECHS = [
+  { name: 'TypeScript', cls: 'bg-blue-50 text-blue-700' },
+  { name: 'Vite', cls: 'bg-purple-50 text-purple-700' },
+  { name: 'KaTeX', cls: 'bg-emerald-50 text-emerald-700' },
+  { name: 'markdown-it', cls: 'bg-gray-100 text-gray-700' },
+  { name: 'Web Crypto API (AES-GCM)', cls: 'bg-amber-50 text-amber-700' },
+];
+
+const DESCRIPTION =
+  '北村健紀の卒業研究サイト。粘性 Burgers 方程式の進行波解（衝撃波層）の漸近安定性を、Hopf–Cole 変換による線形化を通じて精密に評価し、減衰率を具体値として書き下す。西原 (1985) を題材にした論文翻訳・講義ノート・卒業論文をまとめた数式サイト。';
+---
+
+<BaseLayout
+  title="Burgers 方程式の進行波解の安定性（卒業研究サイト）"
+  description={DESCRIPTION}
+  path="/projects/math"
+>
+  <main class="pt-20 pb-8 px-4 max-w-4xl mx-auto">
+    <ProjectBackLink />
+
+    <div class="mb-12 opacity-0 animate-fade-in-up">
+      <div class="flex items-center gap-3 flex-wrap">
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+          Burgers 方程式の進行波解の安定性
+        </h1>
+        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">
+          卒業研究
+        </span>
+        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
+          限定公開
+        </span>
+      </div>
+      <p class="text-gray-500 mt-2">2026年5月〜現在（個人開発・卒業研究）</p>
+    </div>
+
+    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
+      <h2 class="text-xl font-bold tracking-tight mb-4">概要</h2>
+      <p class="text-gray-600 leading-relaxed mb-4">
+        早稲田大学 教育学部 数学科での<strong>卒業研究</strong>を、論文翻訳・講義ノート・卒業論文として一つにまとめた数式サイト。題材は非線形偏微分方程式論の古典である
+      </p>
+      <p class="text-gray-600 leading-relaxed mb-4 text-sm">
+        K. Nishihara,
+        <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>,
+        Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.
+      </p>
+      <p class="text-gray-600 leading-relaxed">
+        で、<strong>粘性 Burgers 方程式の進行波解（衝撃波層）が時間とともに安定であること</strong>を、
+        その<strong>減衰の速さまで含めて</strong>精密に示すのが主題。原論文の全訳に加え、行間を省かず結論まで導く卒業論文と、Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) など関連する古典論文の翻訳までを横断的に読めるよう構成した。
+      </p>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
+      <h2 class="text-xl font-bold tracking-tight mb-4">扱っている数学</h2>
+
+      <div class="space-y-6 text-gray-600">
+        <div>
+          <h3 class="font-bold text-gray-900 mb-2">対象 — 粘性 Burgers 方程式</h3>
+          <p class="text-sm mb-3">
+            流体の衝撃波をモデル化する、非線形移流項と粘性拡散項をあわせ持つ方程式を扱う。
+          </p>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto">
+            vₜ + (v²/2)ₓ = ε·vₓₓ&nbsp;&nbsp;&nbsp;(ε &gt; 0)
+          </div>
+          <p class="text-sm mt-3">
+            両端で異なる値 <code>v₋ &gt; v₊</code> に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-gray-900 mb-2">進行波解（衝撃波層）の明示形</h3>
+          <p class="text-sm mb-3">
+            形を保ったまま一定速度 <code>s</code> で進む解 <code>V(x − st)</code> を考えると、偏微分方程式は常微分方程式に落ち、積分して <code>tanh</code> 型のプロファイルが厳密に書き下せる。
+          </p>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto space-y-2">
+            <div>s = (v₊ + v₋) / 2</div>
+            <div>V(ξ) = (v₊+v₋)/2 − (v₋−v₊)/2 · tanh( (v₋−v₊)/(4ε) · (ξ − x₀) )</div>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-gray-900 mb-2">安定性 — Hopf–Cole 変換による線形化</h3>
+          <p class="text-sm mb-3">
+            進行波まわりの擾乱 <code>u = v − V</code> が満たす方程式は非線形だが、
+            <strong>Hopf–Cole 変換</strong> <code>u = −2 (log φ)_ξ</code> を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-bold text-gray-900 mb-2">結論 — 指数減衰の評価</h3>
+          <p class="text-sm mb-3">
+            擾乱の総質量がゼロ（<code>∫ u₀ dξ = 0</code>）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。
+          </p>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto">
+            v(x,t) − V(x−st) = O( exp( −(v₋−v₊)²/(16ε) · t ) )&nbsp;&nbsp;(t → ∞)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
+      <h2 class="text-xl font-bold tracking-tight mb-4">この研究のポイント</h2>
+      <div class="space-y-4 text-gray-600 text-sm">
+        <p>
+          先行研究の <strong>Il'in–Oleinik (1960)</strong> は、最大値原理を用いて「進行波へ指数的に収束する」ことを示した。ただし減衰率は「<strong>ある正の定数が存在する</strong>」という<strong>定性的・存在型</strong>の主張にとどまり、具体的な値は与えられない。
+        </p>
+        <p>
+          これに対し <strong>Nishihara (1985)</strong> は、対象を粘性 Burgers 方程式に絞る代わりに Hopf–Cole 変換の明示公式を経由し、減衰率を
+          <code>(v₋−v₊)² / 16ε</code>
+          という<strong>具体値として書き下した</strong>。「指数減衰する」という定性的な情報を「<strong>この速さで</strong>指数減衰する」という定量的な結果へと精密化した点に意義がある。
+        </p>
+        <p>
+          本サイトでは、進行波の明示形 <code>(1.8)</code> の導出（ODE の積分・部分分数分解・<code>tanh</code> 恒等式まで）、摂動方程式の導出と <code>x₀</code> の決定、Hopf 変換による線形化、熱核を用いた漸近評価までを、<strong>原論文が省略した行間を補いながら</strong>段階的に追えるようにまとめている。
+        </p>
+      </div>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
+      <h2 class="text-xl font-bold tracking-tight mb-4">サイトの構成</h2>
+      <ul class="space-y-2 text-gray-600 text-sm">
+        <li>• <strong>論文（日本語訳）</strong> — Nishihara (1985) 原論文の全訳ノート（全5節）</li>
+        <li>• <strong>卒業論文</strong> — 結論まで省略なく導出した完全版（LaTeX で組んだ PDF も併設）</li>
+        <li>• <strong>講義ノート</strong> — 概要と問題設定 / 摂動方程式の導出 / Hopf 変換による線形化 を回ごとに解説</li>
+        <li>• <strong>参考文献の翻訳</strong> — Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) ほか、原論文が引く古典の訳と原文 PDF</li>
+      </ul>
+    </section>
+
+    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
+      <h2 class="text-xl font-bold tracking-tight mb-4">使用技術と実装上の工夫</h2>
+      <div class="flex flex-wrap gap-2 mb-5">
+        {TECHS.map(({ name, cls }) => {
+          const icon = getTechIcon(name);
+          return (
+            <span
+              class={`inline-flex items-center gap-1.5 px-3 py-1.5 ${cls} rounded-full text-sm`}
+            >
+              {icon && (
+                <img src={icon} class="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />
+              )}
+              {name}
+            </span>
+          );
+        })}
+      </div>
+      <ul class="space-y-2 text-gray-600 text-sm">
+        <li>
+          • <strong>KaTeX</strong> による数式組版と <strong>markdown-it</strong> での執筆で、論文レベルの数式を破綻なく表示
+        </li>
+        <li>
+          • サーバを持たずに限定公開するため、全コンテンツを <strong>AES-GCM でビルド前に暗号化</strong>。配信されるのは暗号文のみで、ブラウザの Web Crypto API で復号する自作パスワードゲートを実装
+        </li>
+        <li>
+          • 開発時は平文 Markdown を直接読み込み、本番ビルドでは暗号文経由へ自動で切り替わる編集フローを構築
+        </li>
+      </ul>
+    </section>
+
+    <section class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
+      <h2 class="text-xl font-bold tracking-tight mb-4">閲覧について</h2>
+      <p class="text-white/70 text-sm leading-relaxed mb-5">
+        本サイトはパスワードで保護した限定公開です。内容をご覧になりたい方は、お気軽にお問い合わせください。個別にご案内します。
+      </p>
+      <a
+        href="/contact"
+        class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+      >
+        お問い合わせ
+      </a>
+    </section>
+  </main>
+</BaseLayout>
