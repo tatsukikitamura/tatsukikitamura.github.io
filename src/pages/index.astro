@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NoiseCanvas from '../islands/NoiseCanvas.tsx';
 import RoleTyper from '../islands/RoleTyper.tsx';
-import { GitHubIcon } from '../components/Icons';
+import { GitHubIcon, InstagramIcon } from '../components/Icons';
 
 const ASCII_LINES = [
   '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
@@ -30,6 +30,13 @@ const FEATURED = [
   },
   {
     id: '03',
+    to: '/projects/math',
+    title: 'Burgers 方程式',
+    sub: '進行波解の安定性を扱う卒業研究の数式サイト。',
+    tag: 'TypeScript · Vite · KaTeX',
+  },
+  {
+    id: '04',
     to: '/projects/mbti-app',
     title: 'MBTI × AI',
     sub: '物語形式の MBTI 診断 × 生成AI。',
@@ -94,6 +101,14 @@ const HOME_DESCRIPTION =
         >
           <GitHubIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> github
         </a>
+        <a
+          href="https://instagram.com/t4t2uk1/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors inline-flex items-center gap-1.5 sm:gap-2 whitespace-nowrap"
+        >
+          <InstagramIcon className="w-3.5 h-3.5 sm:w-4 sm:h-4" gradient /> instagram
+        </a>
       </div>
     </div>
   </section>
@@ -103,7 +118,7 @@ const HOME_DESCRIPTION =
       <div class="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-4">
         ━━━ FEATURED WORK ━━━
       </div>
-      <div class="grid md:grid-cols-3 gap-4">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {FEATURED.map((p) => (
           <a
             href={p.to}
