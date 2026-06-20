@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
-import ContactInquiry from '../islands/ContactInquiry.tsx';
 import { GitHubIcon, InstagramIcon, MailIcon } from '../components/Icons';
 import { getTechIcon } from '../lib/techIcons';
 
@@ -14,7 +13,7 @@ const TECH_STACK = {
 const FLOW_STEPS = [
   {
     title: 'お問い合わせ',
-    desc: 'フォーム or DM で気軽にご相談ください。',
+    desc: 'DM・メールで気軽にご相談ください。',
     note: '24時間以内に返信します。',
   },
   {
@@ -79,7 +78,7 @@ const SERVICE_ITEMS = [
 ];
 
 const DESCRIPTION =
-  '北村健紀（Tatsuki Kitamura）へのお問い合わせ。Webサイト制作のご相談、お見積もり、ご質問など、フォームから24時間以内に返信いたします。';
+  '北村健紀（Tatsuki Kitamura）へのお問い合わせ。Webサイト制作のご相談、お見積もり、ご質問など、Instagram DM・メールから24時間以内に返信いたします。';
 ---
 
 <BaseLayout
@@ -274,8 +273,6 @@ const DESCRIPTION =
           GitHub
         </a>
       </div>
-
-      <ContactInquiry client:load />
     </section>
 
     <section class="px-2 opacity-0 animate-fade-in-up animation-delay-800">

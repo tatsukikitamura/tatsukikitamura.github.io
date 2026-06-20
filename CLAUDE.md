@@ -49,7 +49,6 @@ Interactive bits are kept as React components and hydrated with `client:load`:
 
 - `NoiseCanvas.tsx` — the `<canvas>` background on Home.
 - `RoleTyper.tsx` — the cycling "I am a … " typer on Home.
-- `ContactInquiry.tsx` — the accordion + Formspree form on Contact.
 - `ProblemTerminal.tsx` — the entire terminal + celebration on Problem.
 
 Adding a new island: create the `.tsx` in `src/islands/`, import it in an `.astro` page, and add a `client:*` directive (e.g. `client:load`, `client:visible`).

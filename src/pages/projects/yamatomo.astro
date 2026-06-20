@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectBackLink from '../../components/ProjectBackLink.astro';
+import MacbookFrame from '../../components/MacbookFrame.astro';
 import { getTechIcon } from '../../lib/techIcons';
 
 const iosStack = [
@@ -45,6 +46,18 @@ const DESCRIPTION =
         </span>
       </div>
       <p class="text-gray-500 mt-2">2026年4月〜現在（チーム開発）</p>
+    </div>
+
+    <div class="mb-12 overflow-x-clip opacity-0 animate-fade-in-up animation-delay-100">
+      <MacbookFrame
+        src="https://yamatomo.co.jp/"
+        url="yamatomo.co.jp"
+        title="Yamatomo Web版（ライブサイト）"
+        class="max-w-2xl mx-auto"
+      />
+      <p class="mt-4 text-center text-xs text-gray-400 font-mono">
+        $ open https://yamatomo.co.jp
+      </p>
     </div>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
