@@ -1,7 +1,14 @@
 ---
+import katex from 'katex';
+import 'katex/dist/katex.min.css';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ProjectBackLink from '../../components/ProjectBackLink.astro';
 import { getTechIcon } from '../../lib/techIcons';
+
+// Render LaTeX to HTML at build time (no client-side JS, KaTeX CSS only).
+const M = (s: string) => katex.renderToString(s, { throwOnError: false });
+const D = (s: string) =>
+  katex.renderToString(s, { displayMode: true, throwOnError: false });
 
 const TECHS = [
   { name: 'TypeScript', cls: 'bg-blue-50 text-blue-700' },
@@ -63,41 +70,37 @@ const DESCRIPTION =
           <p class="text-sm mb-3">
             流体の衝撃波をモデル化する、非線形移流項と粘性拡散項をあわせ持つ方程式を扱う。
           </p>
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto">
-            vₜ + (v²/2)ₓ = ε·vₓₓ&nbsp;&nbsp;&nbsp;(ε &gt; 0)
-          </div>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v_t + \\left(\\tfrac{v^2}{2}\\right)_x = \\varepsilon\\, v_{xx} \\qquad (\\varepsilon > 0)')} />
           <p class="text-sm mt-3">
-            両端で異なる値 <code>v₋ &gt; v₊</code> に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。
+            両端で異なる値 <span set:html={M('v_- > v_+')} /> に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。
           </p>
         </div>
 
         <div>
           <h3 class="font-bold text-gray-900 mb-2">進行波解（衝撃波層）の明示形</h3>
           <p class="text-sm mb-3">
-            形を保ったまま一定速度 <code>s</code> で進む解 <code>V(x − st)</code> を考えると、偏微分方程式は常微分方程式に落ち、積分して <code>tanh</code> 型のプロファイルが厳密に書き下せる。
+            形を保ったまま一定速度 <span set:html={M('s')} /> で進む解 <span set:html={M('V(x - st)')} /> を考えると、偏微分方程式は常微分方程式に落ち、積分して <span set:html={M('\\tanh')} /> 型のプロファイルが厳密に書き下せる。
           </p>
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto space-y-2">
-            <div>s = (v₊ + v₋) / 2</div>
-            <div>V(ξ) = (v₊+v₋)/2 − (v₋−v₊)/2 · tanh( (v₋−v₊)/(4ε) · (ξ − x₀) )</div>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto space-y-2">
+            <div set:html={D('s = \\frac{v_+ + v_-}{2}')} />
+            <div set:html={D('V(\\xi) = \\frac{v_+ + v_-}{2} - \\frac{v_- - v_+}{2}\\,\\tanh\\!\\left(\\frac{v_- - v_+}{4\\varepsilon}\\,(\\xi - x_0)\\right)')} />
           </div>
         </div>
 
         <div>
           <h3 class="font-bold text-gray-900 mb-2">安定性 — Hopf–Cole 変換による線形化</h3>
           <p class="text-sm mb-3">
-            進行波まわりの擾乱 <code>u = v − V</code> が満たす方程式は非線形だが、
-            <strong>Hopf–Cole 変換</strong> <code>u = −2 (log φ)_ξ</code> を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。
+            進行波まわりの擾乱 <span set:html={M('u = v - V')} /> が満たす方程式は非線形だが、
+            <strong>Hopf–Cole 変換</strong> <span set:html={M('u = -2\\,(\\log\\varphi)_\\xi')} /> を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。
           </p>
         </div>
 
         <div>
           <h3 class="font-bold text-gray-900 mb-2">結論 — 指数減衰の評価</h3>
           <p class="text-sm mb-3">
-            擾乱の総質量がゼロ（<code>∫ u₀ dξ = 0</code>）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。
+            擾乱の総質量がゼロ（<span set:html={M('\\int u_0\\, d\\xi = 0')} />）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。
           </p>
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 font-mono text-sm text-center overflow-x-auto">
-            v(x,t) − V(x−st) = O( exp( −(v₋−v₊)²/(16ε) · t ) )&nbsp;&nbsp;(t → ∞)
-          </div>
+          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v(x,t) - V(x - st) = O\\!\\left(\\exp\\!\\left(-\\frac{(v_- - v_+)^2}{16\\varepsilon}\\,t\\right)\\right) \\qquad (t \\to \\infty)')} />
         </div>
       </div>
     </section>
@@ -110,11 +113,11 @@ const DESCRIPTION =
         </p>
         <p>
           これに対し <strong>Nishihara (1985)</strong> は、対象を粘性 Burgers 方程式に絞る代わりに Hopf–Cole 変換の明示公式を経由し、減衰率を
-          <code>(v₋−v₊)² / 16ε</code>
+          <span set:html={M('\\dfrac{(v_- - v_+)^2}{16\\varepsilon}')} />
           という<strong>具体値として書き下した</strong>。「指数減衰する」という定性的な情報を「<strong>この速さで</strong>指数減衰する」という定量的な結果へと精密化した点に意義がある。
         </p>
         <p>
-          本サイトでは、進行波の明示形 <code>(1.8)</code> の導出（ODE の積分・部分分数分解・<code>tanh</code> 恒等式まで）、摂動方程式の導出と <code>x₀</code> の決定、Hopf 変換による線形化、熱核を用いた漸近評価までを、<strong>原論文が省略した行間を補いながら</strong>段階的に追えるようにまとめている。
+          本サイトでは、進行波の明示形 <code>(1.8)</code> の導出（ODE の積分・部分分数分解・<span set:html={M('\\tanh')} /> 恒等式まで）、摂動方程式の導出と <span set:html={M('x_0')} /> の決定、Hopf 変換による線形化、熱核を用いた漸近評価までを、<strong>原論文が省略した行間を補いながら</strong>段階的に追えるようにまとめている。
         </p>
       </div>
     </section>
