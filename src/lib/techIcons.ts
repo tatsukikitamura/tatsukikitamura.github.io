@@ -1,7 +1,9 @@
 const DI = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+// OpenAI isn't part of devicon, so its logo comes from simple-icons instead.
+const SI = 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons';
 
 const rails = `${DI}/rails/rails-plain.svg`;
-const openai = `${DI}/openai/openai-original.svg`;
+const openai = `${SI}/openai.svg`;
 const redis = `${DI}/redis/redis-original.svg`;
 const heroku = `${DI}/heroku/heroku-original.svg`;
 const fastapi = `${DI}/fastapi/fastapi-original.svg`;
@@ -24,6 +26,7 @@ const javascript = `${DI}/javascript/javascript-original.svg`;
 const swift = `${DI}/swift/swift-original.svg`;
 const firebase = `${DI}/firebase/firebase-plain.svg`;
 const astro = `${DI}/astro/astro-original.svg`;
+const latex = `${DI}/latex/latex-original.svg`;
 
 const ICONS: Record<string, string> = {
   'ruby on rails': rails,
@@ -60,6 +63,8 @@ const ICONS: Record<string, string> = {
   swiftui: swift,
   firebase: firebase,
   astro: astro,
+  katex: latex,
+  latex: latex,
 };
 
 export function getTechIcon(name: string): string | null {

@@ -11,6 +11,8 @@ import {
 } from '../components/Icons';
 
 const DI = 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons';
+// OpenAI isn't part of devicon, so its logo comes from simple-icons instead.
+const SI = 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons';
 
 type TechItem = {
   name: string;
@@ -44,7 +46,7 @@ const TECH_STACK: Record<string, TechItem[]> = {
     { name: 'Cursor', icon: null, bg: 'bg-purple-50', text: 'text-purple-700' },
   ],
   ai: [
-    { name: 'OpenAI API', icon: `${DI}/openai/openai-original.svg`, bg: 'bg-green-50', text: 'text-green-700' },
+    { name: 'OpenAI API', icon: `${SI}/openai.svg`, bg: 'bg-green-50', text: 'text-green-700' },
     { name: 'LangChain', icon: null, bg: 'bg-orange-50', text: 'text-orange-700' },
   ],
 };
