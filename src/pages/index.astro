@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import NoiseCanvas from '../islands/NoiseCanvas.tsx';
 import RoleTyper from '../islands/RoleTyper.tsx';
 import { GitHubIcon, InstagramIcon } from '../components/Icons';
+import { getTechIcon } from '../lib/techIcons';
 
 const ASCII_LINES = [
   '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
@@ -19,28 +20,36 @@ const FEATURED = [
     to: '/projects/yamatomo',
     title: 'Yamatomo',
     sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。',
-    tag: 'SwiftUI · React · Firebase',
+    tags: ['SwiftUI', 'React', 'Firebase'],
+    accent: '#059669',
+    kind: 'iOS / Web App',
   },
   {
     id: '02',
     to: '/projects/atcoder',
     title: 'AtCoder',
     sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。',
-    tag: 'Python · C++',
+    tags: ['Python', 'C++'],
+    accent: '#d97706',
+    kind: 'Competitive Prog.',
   },
   {
     id: '03',
     to: '/projects/math',
     title: 'Burgers 方程式',
     sub: '進行波解の安定性を扱う卒業研究の数式サイト。',
-    tag: 'TypeScript · Vite · KaTeX',
+    tags: ['TypeScript', 'Vite', 'KaTeX'],
+    accent: '#7c3aed',
+    kind: 'Research / Math',
   },
   {
     id: '04',
     to: '/projects/mbti-app',
     title: 'MBTI × AI',
     sub: '物語形式の MBTI 診断 × 生成AI。',
-    tag: 'Rails · OpenAI · Redis',
+    tags: ['Rails', 'OpenAI', 'Redis'],
+    accent: '#4f46e5',
+    kind: 'Web App / LLM',
   },
 ];
 
@@ -122,23 +131,62 @@ const HOME_DESCRIPTION =
         {FEATURED.map((p) => (
           <a
             href={p.to}
-            class="block border border-gray-200 bg-gray-50 hover:bg-[#eef5fc] hover:border-[#0a66c2] transition-colors p-5 rounded font-mono"
+            class="group relative block overflow-hidden border border-gray-200 bg-white p-5 rounded-lg font-mono transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[var(--accent)]"
+            style={`--accent:${p.accent}`}
           >
-            <div class="text-[11px] text-gray-400 mb-2">[{p.id}]</div>
-            <div
-              class="text-lg font-bold text-gray-900 mb-1.5"
-              style="font-family:Sora,system-ui,sans-serif"
+            <span
+              class="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
+              style="background:var(--accent)"
+            />
+            <span
+              class="absolute -right-3 -top-4 text-[5rem] font-extrabold leading-none select-none pointer-events-none transition-opacity duration-300 opacity-[0.07] group-hover:opacity-[0.13]"
+              style="color:var(--accent);font-family:Sora,system-ui,sans-serif"
             >
-              {p.title}
-            </div>
-            <div
-              class="text-xs text-gray-600 mb-3 leading-relaxed"
-              style="font-family:Sora,system-ui,sans-serif"
-            >
-              {p.sub}
-            </div>
-            <div class="text-[10px] font-semibold tracking-wide text-[#0a66c2]">
-              {p.tag}
+              {p.id}
+            </span>
+
+            <div class="relative">
+              <div class="flex items-center justify-between mb-3">
+                <span
+                  class="inline-flex items-center justify-center w-7 h-7 rounded text-[11px] font-bold text-white"
+                  style="background:var(--accent)"
+                >
+                  {p.id}
+                </span>
+                <span class="text-[10px] tracking-wider uppercase text-gray-400">
+                  {p.kind}
+                </span>
+              </div>
+              <div
+                class="text-lg font-bold text-gray-900 mb-1.5 group-hover:text-[var(--accent)] transition-colors"
+                style="font-family:Sora,system-ui,sans-serif"
+              >
+                {p.title}
+              </div>
+              <div
+                class="text-xs text-gray-600 mb-4 leading-relaxed"
+                style="font-family:Sora,system-ui,sans-serif"
+              >
+                {p.sub}
+              </div>
+              <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-gray-100">
+                {p.tags.map((t) => {
+                  const icon = getTechIcon(t);
+                  return icon ? (
+                    <img
+                      src={icon}
+                      class="w-6 h-6 flex-shrink-0"
+                      alt={t}
+                      title={t}
+                      loading="lazy"
+                    />
+                  ) : (
+                    <span class="text-xs font-semibold tracking-wide" style="color:var(--accent)">
+                      {t}
+                    </span>
+                  );
+                })}
+              </div>
             </div>
           </a>
         ))}
