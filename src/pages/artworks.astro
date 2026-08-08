@@ -4,7 +4,16 @@ import type { Artwork, ArtworkCategory } from '../types';
 
 // これから制作するアートワークをここに追加していく。
 // image は public/images/artworks/ 配下に置く想定。
-const artworks: Artwork[] = [];
+const artworks: Artwork[] = [
+  {
+    id: 'bubbles',
+    title: '気泡とり',
+    category: 'web',
+    description: '保護フィルムを貼ったときの気泡をカーソルで押し出して抜く、体験型の実験ページ。',
+    date: '2026.08',
+    link: '/artworks/bubbles',
+  },
+];
 
 const categoryLabels: Record<ArtworkCategory, string> = {
   flyer: 'Flyer',
@@ -13,12 +22,15 @@ const categoryLabels: Record<ArtworkCategory, string> = {
   other: 'Other',
 };
 
-// 作品が空のあいだ、グリッドのデザインを示す coming soon 枠。
-const placeholders: { category: ArtworkCategory; note: string }[] = [
+// 作品がまだないカテゴリに表示する coming soon 枠。
+const allPlaceholders: { category: ArtworkCategory; note: string }[] = [
   { category: 'flyer', note: '一枚もののフライヤー' },
   { category: 'tshirt', note: 'Tシャツのグラフィック' },
   { category: 'web', note: '実験的な Web ページ' },
 ];
+const placeholders = allPlaceholders.filter(
+  (slot) => !artworks.some((work) => work.category === slot.category)
+);
 
 const DESCRIPTION =
   '北村健紀（Tatsuki Kitamura）のアートワーク集。フライヤー、Tシャツ、Web ページなどのグラフィック制作物をまとめています。';
@@ -111,8 +123,7 @@ const DESCRIPTION =
         }
 
         {
-          artworks.length === 0 &&
-            placeholders.map((slot, index) => (
+          placeholders.map((slot, index) => (
               <div
                 class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
                 style={`opacity:0;animation-delay:${500 + index * 100}ms`}
