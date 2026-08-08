@@ -26,14 +26,9 @@ const DESCRIPTION =
 
 <BaseLayout title="Artworks - 制作アートワーク" description={DESCRIPTION} path="/artworks" frame={false}>
   <div class="relative min-h-screen overflow-hidden bg-[#101010] text-[#dfdfd6]">
-    <!-- vite.dev 風の背景グロー -->
+    <!-- 背景のアンビエント光 -->
     <div
-      class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[720px] max-w-[90vw] -translate-x-1/2 rounded-full bg-[linear-gradient(120deg,#bd34fe_30%,#41d1ff)] opacity-25 blur-[140px]"
-      aria-hidden="true"
-    >
-    </div>
-    <div
-      class="pointer-events-none absolute top-1/2 -right-40 h-[320px] w-[420px] rounded-full bg-[linear-gradient(120deg,#ffdd35_10%,#bd34fe)] opacity-[0.07] blur-[120px]"
+      class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[720px] max-w-[90vw] -translate-x-1/2 rounded-full bg-white opacity-[0.06] blur-[140px]"
       aria-hidden="true"
     >
     </div>
@@ -51,7 +46,7 @@ const DESCRIPTION =
       <!-- Hero -->
       <header class="mt-20 mb-16 text-center md:mt-28">
         <h1
-          class="animate-fade-in-up bg-[linear-gradient(120deg,#bd34fe_30%,#41d1ff)] bg-clip-text text-6xl font-bold tracking-tight text-transparent md:text-8xl"
+          class="animate-fade-in-up text-6xl font-bold tracking-tight text-white md:text-8xl"
           style="opacity:0"
         >
           Artworks
@@ -83,7 +78,7 @@ const DESCRIPTION =
           artworks.map((work, index) => (
             <a
               href={work.link}
-              class="group animate-fade-in overflow-hidden rounded-xl border border-white/10 bg-[#161618] transition-all duration-300 hover:-translate-y-1 hover:border-[#bd34fe]/50 hover:shadow-[0_8px_40px_-12px_rgba(189,52,254,0.35)]"
+              class="group animate-fade-in overflow-hidden rounded-xl border border-white/10 bg-[#161618] transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:shadow-[0_8px_40px_-12px_rgba(255,255,255,0.15)]"
               style={`opacity:0;animation-delay:${(index + 1) * 100}ms`}
             >
               {work.image && (
@@ -98,12 +93,12 @@ const DESCRIPTION =
               )}
               <div class="p-5">
                 <div class="flex items-center justify-between">
-                  <span class="font-mono text-[10px] tracking-wider text-[#41d1ff] uppercase">
+                  <span class="font-mono text-[10px] tracking-wider text-white/70 uppercase">
                     {categoryLabels[work.category]}
                   </span>
                   <span class="font-mono text-[10px] text-[#98989f]">{work.date}</span>
                 </div>
-                <h2 class="mt-2 font-semibold text-white transition-colors group-hover:text-[#41d1ff]">
+                <h2 class="mt-2 font-semibold text-white">
                   {work.title}
                 </h2>
                 <p class="mt-2 text-sm leading-relaxed text-[#98989f]">{work.description}</p>
@@ -116,10 +111,10 @@ const DESCRIPTION =
           artworks.length === 0 &&
             placeholders.map((slot, index) => (
               <div
-                class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-[#41d1ff]/40 hover:bg-white/[0.04]"
+                class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
                 style={`opacity:0;animation-delay:${500 + index * 100}ms`}
               >
-                <span class="font-mono text-xs tracking-wider text-[#41d1ff] uppercase">
+                <span class="font-mono text-xs tracking-wider text-white/80 uppercase">
                   {categoryLabels[slot.category]}
                 </span>
                 <p class="text-sm text-[#98989f]">{slot.note}</p>

@@ -89,7 +89,7 @@ const HOME_DESCRIPTION =
         // Rails / React / SwiftUI
       </div>
 
-      <div class="mt-7 flex flex-wrap gap-2 sm:gap-3 font-mono text-[11px] sm:text-sm animate-fade-in animation-delay-400">
+      <div class="mt-7 flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[11px] sm:text-sm animate-fade-in animation-delay-400">
         <a
           href="/projects"
           class="px-3 sm:px-5 py-2 sm:py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors whitespace-nowrap"
@@ -108,24 +108,27 @@ const HOME_DESCRIPTION =
         >
           artworks
         </a>
-        <a
-          href="https://github.com/tatsukikitamura"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="GitHub"
-          class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 hover:border-gray-500 transition-colors inline-flex items-center"
-        >
-          <GitHubIcon className="w-4 h-4 sm:w-5 sm:h-5" />
-        </a>
-        <a
-          href="https://instagram.com/t4t2uk1/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram"
-          class="px-2.5 sm:px-3 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 hover:border-gray-500 transition-colors inline-flex items-center"
-        >
-          <InstagramIcon className="w-4 h-4 sm:w-5 sm:h-5" gradient />
-        </a>
+        <span class="hidden sm:block w-px self-stretch bg-gray-300" aria-hidden="true"></span>
+        <div class="flex items-center gap-1">
+          <a
+            href="https://github.com/tatsukikitamura"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+            class="p-2 text-gray-500 hover:text-gray-900 transition-colors inline-flex items-center"
+          >
+            <GitHubIcon className="w-5 h-5" />
+          </a>
+          <a
+            href="https://instagram.com/t4t2uk1/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="p-2 opacity-80 hover:opacity-100 transition-opacity inline-flex items-center"
+          >
+            <InstagramIcon className="w-5 h-5" gradient />
+          </a>
+        </div>
       </div>
     </div>
   </section>
