@@ -8,6 +8,9 @@ type Props = {
   description?: string;
   path?: string;
   ogImage?: string;
+  // frame={false} renders the slot without Header/Footer/white background,
+  // for standalone pages that bring their own chrome (e.g. /artworks).
+  frame?: boolean;
 };
 
 const SITE_NAME = '北村健紀 (Tatsuki Kitamura)';
@@ -20,6 +23,7 @@ const {
   description = DEFAULT_DESCRIPTION,
   path = Astro.url.pathname,
   ogImage = `${ORIGIN}/images/main.jpg`,
+  frame = true,
 } = Astro.props;
 
 const fullTitle = `${title} | ${SITE_NAME}`;
@@ -113,12 +117,18 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
     </script>
   </head>
   <body>
-    <div class="min-h-screen flex flex-col bg-white">
-      <Header />
-      <main class="flex-1">
+    {
+      frame ? (
+        <div class="min-h-screen flex flex-col bg-white">
+          <Header />
+          <main class="flex-1">
+            <slot />
+          </main>
+          <Footer />
+        </div>
+      ) : (
         <slot />
-      </main>
-      <Footer />
-    </div>
+      )
+    }
   </body>
 </html>

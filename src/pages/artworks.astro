@@ -1,0 +1,142 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { Artwork, ArtworkCategory } from '../types';
+
+// これから制作するアートワークをここに追加していく。
+// image は public/images/artworks/ 配下に置く想定。
+const artworks: Artwork[] = [];
+
+const categoryLabels: Record<ArtworkCategory, string> = {
+  flyer: 'Flyer',
+  tshirt: 'T-shirt',
+  web: 'Web',
+  other: 'Other',
+};
+
+// 作品が空のあいだ、グリッドのデザインを示す coming soon 枠。
+const placeholders: { category: ArtworkCategory; note: string }[] = [
+  { category: 'flyer', note: '一枚もののフライヤー' },
+  { category: 'tshirt', note: 'Tシャツのグラフィック' },
+  { category: 'web', note: '実験的な Web ページ' },
+];
+
+const DESCRIPTION =
+  '北村健紀（Tatsuki Kitamura）のアートワーク集。フライヤー、Tシャツ、Web ページなどのグラフィック制作物をまとめています。';
+---
+
+<BaseLayout title="Artworks - 制作アートワーク" description={DESCRIPTION} path="/artworks" frame={false}>
+  <div class="relative min-h-screen overflow-hidden bg-[#101010] text-[#dfdfd6]">
+    <!-- vite.dev 風の背景グロー -->
+    <div
+      class="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[720px] max-w-[90vw] -translate-x-1/2 rounded-full bg-[linear-gradient(120deg,#bd34fe_30%,#41d1ff)] opacity-25 blur-[140px]"
+      aria-hidden="true"
+    >
+    </div>
+    <div
+      class="pointer-events-none absolute top-1/2 -right-40 h-[320px] w-[420px] rounded-full bg-[linear-gradient(120deg,#ffdd35_10%,#bd34fe)] opacity-[0.07] blur-[120px]"
+      aria-hidden="true"
+    >
+    </div>
+
+    <div class="relative mx-auto max-w-5xl px-6 pt-8 pb-20">
+      <!-- root へ戻るリンク -->
+      <a
+        href="/"
+        class="inline-flex items-center gap-2 font-mono text-sm text-[#98989f] transition-colors hover:text-white"
+      >
+        <span aria-hidden="true">←</span>
+        tatsuki.dev
+      </a>
+
+      <!-- Hero -->
+      <header class="mt-20 mb-16 text-center md:mt-28">
+        <h1
+          class="animate-fade-in-up bg-[linear-gradient(120deg,#bd34fe_30%,#41d1ff)] bg-clip-text text-6xl font-bold tracking-tight text-transparent md:text-8xl"
+          style="opacity:0"
+        >
+          Artworks
+        </h1>
+        <p
+          class="animate-fade-in-up animation-delay-200 mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#98989f] md:text-lg"
+          style="opacity:0"
+        >
+          フライヤー、Tシャツ、Web ページ。<br class="hidden md:block" />
+          手を動かして作ったグラフィックをここに集めていきます。
+        </p>
+        <div
+          class="animate-fade-in animation-delay-400 mt-8 flex flex-wrap items-center justify-center gap-2"
+          style="opacity:0"
+        >
+          {
+            Object.values(categoryLabels).map((label) => (
+              <span class="rounded-full border border-white/10 bg-white/[0.04] px-3.5 py-1 font-mono text-xs text-[#98989f]">
+                {label}
+              </span>
+            ))
+          }
+        </div>
+      </header>
+
+      <!-- Works grid -->
+      <section class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          artworks.map((work, index) => (
+            <a
+              href={work.link}
+              class="group animate-fade-in overflow-hidden rounded-xl border border-white/10 bg-[#161618] transition-all duration-300 hover:-translate-y-1 hover:border-[#bd34fe]/50 hover:shadow-[0_8px_40px_-12px_rgba(189,52,254,0.35)]"
+              style={`opacity:0;animation-delay:${(index + 1) * 100}ms`}
+            >
+              {work.image && (
+                <div class="aspect-[4/3] overflow-hidden border-b border-white/5">
+                  <img
+                    src={work.image}
+                    alt={work.title}
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+              <div class="p-5">
+                <div class="flex items-center justify-between">
+                  <span class="font-mono text-[10px] tracking-wider text-[#41d1ff] uppercase">
+                    {categoryLabels[work.category]}
+                  </span>
+                  <span class="font-mono text-[10px] text-[#98989f]">{work.date}</span>
+                </div>
+                <h2 class="mt-2 font-semibold text-white transition-colors group-hover:text-[#41d1ff]">
+                  {work.title}
+                </h2>
+                <p class="mt-2 text-sm leading-relaxed text-[#98989f]">{work.description}</p>
+              </div>
+            </a>
+          ))
+        }
+
+        {
+          artworks.length === 0 &&
+            placeholders.map((slot, index) => (
+              <div
+                class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-[#41d1ff]/40 hover:bg-white/[0.04]"
+                style={`opacity:0;animation-delay:${500 + index * 100}ms`}
+              >
+                <span class="font-mono text-xs tracking-wider text-[#41d1ff] uppercase">
+                  {categoryLabels[slot.category]}
+                </span>
+                <p class="text-sm text-[#98989f]">{slot.note}</p>
+                <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#98989f]">
+                  coming soon
+                </span>
+              </div>
+            ))
+        }
+      </section>
+
+      <footer
+        class="animate-fade-in animation-delay-800 mt-20 text-center font-mono text-xs text-[#98989f]/60"
+        style="opacity:0"
+      >
+        crafted by Tatsuki Kitamura
+      </footer>
+    </div>
+  </div>
+</BaseLayout>
