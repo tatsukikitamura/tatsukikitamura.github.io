@@ -135,15 +135,9 @@ const iframeHeight = Math.round((base * 10) / 16);
   }
 
   const frames = document.querySelectorAll('.mb-screen-content');
-  if ('ResizeObserver' in window) {
-    const ro = new ResizeObserver((entries) => {
-      for (const entry of entries) fit(entry.target);
-    });
-    frames.forEach((f) => ro.observe(f));
-  } else {
-    const run = () => frames.forEach(fit);
-    run();
-    window.addEventListener('resize', run);
-  }
+  const ro = new ResizeObserver((entries) => {
+    for (const entry of entries) fit(entry.target);
+  });
+  frames.forEach((f) => ro.observe(f));
   frames.forEach(fit);
 </script>
