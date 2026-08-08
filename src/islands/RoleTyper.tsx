@@ -34,7 +34,7 @@ export default function RoleTyper() {
   }, [partial, phase, idx]);
 
   return (
-    <span className="font-semibold text-[#0a66c2] border-b border-[#0a66c2]/30 pb-0.5 min-w-[260px] inline-flex items-center">
+    <span className="font-semibold text-[#0a66c2] border-b border-[#0a66c2]/30 pb-0.5 min-w-[200px] sm:min-w-[260px] inline-flex items-center">
       {'​'}
       {partial}
       <span className="inline-block w-2 h-[18px] bg-[#0a66c2] ml-0.5 cursor-blink" />
