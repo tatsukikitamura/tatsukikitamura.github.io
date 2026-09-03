@@ -29,7 +29,7 @@ npm run preview    # 本番ビルドをローカルでプレビュー
 npm run typecheck  # astro check（型チェックのみ）
 ```
 
-> `npm` と `bun` 両方のロックファイルがありますが、CI（`npm ci`）に合わせて `npm` を使ってください。
+> パッケージマネージャーは `npm` です（CI は `npm ci`）。Node のバージョンは `.nvmrc` を参照してください。
 
 ## 📁 ディレクトリ構成
 
@@ -42,7 +42,8 @@ src/
 │   ├── problem.astro
 │   ├── contact.astro
 │   ├── 404.astro
-│   └── projects/       # /projects と各プロジェクト詳細
+│   ├── projects/       # /projects と各プロジェクト詳細
+│   └── artworks/       # /artworks と各アートワーク（ヘッダー無しの単独ページ）
 ├── layouts/
 │   └── BaseLayout.astro  # <html> シェル + 全 SEO メタdata（title/OG/Twitter/JSON-LD）
 ├── components/         # 共有 .astro / .tsx コンポーネント
@@ -50,13 +51,14 @@ src/
 │   ├── Footer.astro
 │   ├── PageHeader.astro
 │   ├── ProjectBackLink.astro
+│   ├── MacbookFrame.astro
 │   └── Icons.tsx
 ├── islands/            # React islands（client:load でハイドレート）
 │   ├── NoiseCanvas.tsx
 │   ├── RoleTyper.tsx
-│   ├── ContactInquiry.tsx
 │   └── ProblemTerminal.tsx
-├── lib/                # ユーティリティ（techIcons など）
+├── lib/                # techIcons, bubbleSimulation（/artworks/bubbles の物理演算）
+├── types.ts            # 共有型
 └── style.css           # body フォント / 背景 + キーフレームのみ（最小限）
 public/                 # そのまま配信される静的ファイル（favicon, robots.txt, images）
 ```
@@ -74,6 +76,10 @@ public/                 # そのまま配信される静的ファイル（favico
 ## 🚢 デプロイ
 
 `main` ブランチへの push で [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) が起動し、`npm ci → typecheck → build` の後に `dist/` を **GitHub Pages** へデプロイします。手動実行（`workflow_dispatch`）も可能です。
+
+PR と `main` 以外のブランチへの push では [`.github/workflows/ci.yml`](.github/workflows/ci.yml) が typecheck と build だけを実行します。依存関係の更新は Dependabot（週次）が PR を出します。
+
+ビルドは `build.format: 'file'`（`/about` → `dist/about.html`）です。GitHub Pages は `about/index.html` 形式だと `/about` を `/about/` へ 301 するため、末尾スラッシュなしの canonical / sitemap と揃えるためにこの形式にしています。
 
 ## 📝 コンセプト
 
