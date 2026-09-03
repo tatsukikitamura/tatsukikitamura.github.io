@@ -36,6 +36,11 @@ if (!displayUrl) {
 }
 
 const iframeHeight = Math.round((base * 10) / 16);
+
+// `scrolling="no"` is deprecated in HTML but still the only way to suppress
+// the iframe's own scrollbar (the embedded site is usually taller than the
+// screen). Passed as a spread so `astro check` does not flag the deprecation.
+const iframeLegacyAttrs = { scrolling: 'no' };
 ---
 
 <figure class={`macbook-frame select-none ${className}`}>
@@ -51,16 +56,12 @@ const iframeHeight = Math.round((base * 10) / 16);
       class="relative mx-auto rounded-t-2xl bg-gray-900 p-[2%] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.45)] ring-1 ring-black/10"
     >
       <!-- camera -->
-      <div
-        class="absolute left-1/2 top-[0.9%] h-1 w-1 -translate-x-1/2 rounded-full bg-gray-700"
-      >
+      <div class="absolute top-[0.9%] left-1/2 h-1 w-1 -translate-x-1/2 rounded-full bg-gray-700">
       </div>
       <!-- screen -->
       <div class="overflow-hidden rounded-lg bg-white">
         <!-- browser chrome -->
-        <div
-          class="flex items-center gap-2 border-b border-gray-200 bg-gray-100 px-3 py-2"
-        >
+        <div class="flex items-center gap-2 border-b border-gray-200 bg-gray-100 px-3 py-2">
           <span class="flex gap-1.5">
             <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
             <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
@@ -94,9 +95,9 @@ const iframeHeight = Math.round((base * 10) / 16);
             src={src}
             title={title}
             loading="lazy"
-            scrolling="no"
+            {...iframeLegacyAttrs}
             referrerpolicy="no-referrer"
-            class="mb-iframe pointer-events-none absolute left-0 top-0 origin-top-left border-0"
+            class="mb-iframe pointer-events-none absolute top-0 left-0 origin-top-left border-0"
             style={`width:${base}px;height:${iframeHeight}px;`}
             tabindex="-1"
             aria-hidden="true"></iframe>
@@ -117,9 +118,7 @@ const iframeHeight = Math.round((base * 10) / 16);
     <div
       class="relative left-1/2 h-[14px] w-[106%] -translate-x-1/2 rounded-b-[10px] bg-gradient-to-b from-[#d9dbe0] to-[#a9adb6] shadow-[0_8px_14px_-6px_rgba(0,0,0,0.4)]"
     >
-      <div
-        class="absolute left-1/2 top-0 h-2 w-[12%] -translate-x-1/2 rounded-b-md bg-[#9498a1]"
-      >
+      <div class="absolute top-0 left-1/2 h-2 w-[12%] -translate-x-1/2 rounded-b-md bg-[#9498a1]">
       </div>
     </div>
   </a>

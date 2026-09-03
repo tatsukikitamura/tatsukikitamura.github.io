@@ -56,5 +56,5 @@ export default function NoiseCanvas() {
     };
   }, []);
 
-  return <canvas ref={noiseRef} className="absolute inset-0 pointer-events-none" />;
+  return <canvas ref={noiseRef} className="pointer-events-none absolute inset-0" />;
 }

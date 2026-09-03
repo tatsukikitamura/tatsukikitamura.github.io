@@ -59,44 +59,49 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: '北村健紀',
-      alternateName: ['Tatsuki Kitamura', 'きたむらたつき', 'Kitamura Tatsuki'],
-      url: 'https://tatsuki.dev/',
-      image: 'https://tatsuki.dev/images/main.jpg',
-      jobTitle: 'Software Engineer',
-      description:
-        '早稲田大学教育学部数学科4年。Web・iOS アプリ開発、競技プログラミングに取り組んでいます。',
-      alumniOf: {
-        '@type': 'CollegeOrUniversity',
-        name: '早稲田大学',
-        sameAs: 'https://www.waseda.jp/',
-      },
-      knowsAbout: [
-        'Ruby on Rails',
-        'React',
-        'SwiftUI',
-        'Python',
-        'C++',
-        'FastAPI',
-        'PostgreSQL',
-        '競技プログラミング',
-      ],
-      sameAs: [
-        'https://github.com/tatsukikitamura',
-        'https://atcoder.jp/users/oreccchi',
-      ],
-    })} />
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'tatsuki.dev',
-      url: 'https://tatsuki.dev/',
-      inLanguage: 'ja',
-      author: { '@type': 'Person', name: '北村健紀' },
-    })} />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: '北村健紀',
+        alternateName: ['Tatsuki Kitamura', 'きたむらたつき', 'Kitamura Tatsuki'],
+        url: 'https://tatsuki.dev/',
+        image: 'https://tatsuki.dev/images/main.jpg',
+        jobTitle: 'Software Engineer',
+        description:
+          '早稲田大学教育学部数学科4年。Web・iOS アプリ開発、競技プログラミングに取り組んでいます。',
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: '早稲田大学',
+          sameAs: 'https://www.waseda.jp/',
+        },
+        knowsAbout: [
+          'Ruby on Rails',
+          'React',
+          'SwiftUI',
+          'Python',
+          'C++',
+          'FastAPI',
+          'PostgreSQL',
+          '競技プログラミング',
+        ],
+        sameAs: ['https://github.com/tatsukikitamura', 'https://atcoder.jp/users/oreccchi'],
+      })}
+    />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'tatsuki.dev',
+        url: 'https://tatsuki.dev/',
+        inLanguage: 'ja',
+        author: { '@type': 'Person', name: '北村健紀' },
+      })}
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -105,13 +110,14 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
       rel="stylesheet"
     />
 
-    <script
-      is:inline
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-MWZJZWMLW8"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MWZJZWMLW8"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
+      // Google's official snippet: gtag.js expects the `arguments` object, not an array.
+      function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
       gtag('config', 'G-MWZJZWMLW8');
     </script>
@@ -119,7 +125,7 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
   <body>
     {
       frame ? (
-        <div class="min-h-screen flex flex-col bg-white">
+        <div class="flex min-h-screen flex-col bg-white">
           <Header />
           <main class="flex-1">
             <slot />

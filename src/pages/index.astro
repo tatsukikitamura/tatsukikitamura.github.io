@@ -60,73 +60,81 @@ const HOME_DESCRIPTION =
 <BaseLayout title="ポートフォリオ" description={HOME_DESCRIPTION} path="/">
   <section class="relative overflow-hidden">
     <NoiseCanvas client:load />
-    <div class="relative max-w-5xl mx-auto px-6 pt-32 pb-12">
-      <div class="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-5 animate-fade-in">
+    <div class="relative mx-auto max-w-5xl px-6 pt-32 pb-12">
+      <div class="animate-fade-in mb-5 font-mono text-[11px] tracking-[0.22em] text-gray-500">
         <span class="text-[#0a66c2]">●</span>&nbsp;&nbsp;ONLINE — TOKYO
       </div>
 
       <div
-        class="font-mono text-gray-900 animate-fade-in animation-delay-100 inline-block"
+        class="animate-fade-in animation-delay-100 inline-block font-mono text-gray-900"
         style="font-size:clamp(8px,2.4vw,13px);line-height:1;letter-spacing:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace"
       >
-        {ASCII_LINES.map((line, i) => (
-          <div
-            class="whitespace-pre"
-            style={`margin-left:${(ASCII_LINES.length - 1 - i) * 0.6}em`}
-          >
-            {line}
-          </div>
-        ))}
+        {
+          ASCII_LINES.map((line, i) => (
+            <div
+              class="whitespace-pre"
+              style={`margin-left:${(ASCII_LINES.length - 1 - i) * 0.6}em`}
+            >
+              {line}
+            </div>
+          ))
+        }
       </div>
 
-      <div class="mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg animate-fade-in animation-delay-200">
+      <div
+        class="animate-fade-in animation-delay-200 mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg"
+      >
         <span class="text-gray-400">&gt;</span>
-        <span class="text-gray-900 whitespace-nowrap">I am a</span>
+        <span class="whitespace-nowrap text-gray-900">I am a</span>
         <RoleTyper client:load />
       </div>
 
-      <div class="mt-3 font-mono text-xs sm:text-sm text-gray-500 animate-fade-in animation-delay-300">
+      <div
+        class="animate-fade-in animation-delay-300 mt-3 font-mono text-xs text-gray-500 sm:text-sm"
+      >
         // Rails / React / SwiftUI
       </div>
 
-      <div class="mt-7 flex flex-wrap items-center gap-2 sm:gap-3 font-mono text-[11px] sm:text-sm animate-fade-in animation-delay-400">
+      <div
+        class="animate-fade-in animation-delay-400 mt-7 flex flex-wrap items-center gap-2 font-mono text-[11px] sm:gap-3 sm:text-sm"
+      >
         <a
           href="/projects"
-          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors whitespace-nowrap"
+          class="rounded bg-[#0a66c2] px-3 py-2 font-semibold tracking-wide whitespace-nowrap text-white transition-colors hover:bg-[#004182] sm:px-5 sm:py-2.5"
         >
           projects
         </a>
         <a
           href="/experience"
-          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors whitespace-nowrap"
+          class="rounded border border-gray-300 bg-white px-3 py-2 font-medium whitespace-nowrap text-gray-900 transition-colors hover:border-gray-500 sm:px-5 sm:py-2.5"
         >
           experience
         </a>
         <a
           href="/artworks"
-          class="px-3 sm:px-5 py-2 sm:py-2.5 rounded bg-[#101010] text-white font-semibold tracking-wide hover:bg-[#2a2a2e] transition-colors whitespace-nowrap"
+          class="rounded bg-[#101010] px-3 py-2 font-semibold tracking-wide whitespace-nowrap text-white transition-colors hover:bg-[#2a2a2e] sm:px-5 sm:py-2.5"
         >
           artworks
         </a>
-        <span class="hidden sm:block w-px self-stretch bg-gray-300" aria-hidden="true"></span>
+        <span class="hidden w-px self-stretch bg-gray-300 sm:block" aria-hidden="true"></span>
         <div class="flex items-center gap-1">
           <a
             href="https://github.com/tatsukikitamura"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            class="p-2 text-gray-500 hover:text-gray-900 transition-colors inline-flex items-center"
+            class="inline-flex items-center p-2 text-gray-500 transition-colors hover:text-gray-900"
           >
-            <GitHubIcon className="w-5 h-5" />
+            <GitHubIcon className="h-5 w-5" />
           </a>
           <a
             href="https://instagram.com/t4t2uk1/"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
-            class="p-2 opacity-80 hover:opacity-100 transition-opacity inline-flex items-center"
+            class="inline-flex items-center p-2 opacity-80 transition-opacity hover:opacity-100"
           >
-            <InstagramIcon className="w-5 h-5" gradient />
+            <InstagramIcon className="h-5 w-5" gradient />
           </a>
         </div>
       </div>
@@ -134,78 +142,76 @@ const HOME_DESCRIPTION =
   </section>
 
   <section class="px-6 py-14">
-    <div class="max-w-5xl mx-auto">
-      <div class="font-mono text-[11px] text-gray-500 tracking-[0.22em] mb-4">
+    <div class="mx-auto max-w-5xl">
+      <div class="mb-4 font-mono text-[11px] tracking-[0.22em] text-gray-500">
         ━━━ FEATURED WORK ━━━
       </div>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {FEATURED.map((p) => (
-          <a
-            href={p.to}
-            class="group relative block overflow-hidden border border-gray-200 bg-white p-5 rounded-lg font-mono transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-[var(--accent)]"
-            style={`--accent:${p.accent}`}
-          >
-            <span
-              class="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-300"
-              style="background:var(--accent)"
-            />
-            <span
-              class="absolute -right-3 -top-4 text-[5rem] font-extrabold leading-none select-none pointer-events-none transition-opacity duration-300 opacity-[0.07] group-hover:opacity-[0.13]"
-              style="color:var(--accent);font-family:Sora,system-ui,sans-serif"
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          FEATURED.map((p) => (
+            <a
+              href={p.to}
+              class="group relative block overflow-hidden rounded-lg border border-gray-200 bg-white p-5 font-mono transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-xl"
+              style={`--accent:${p.accent}`}
             >
-              {p.id}
-            </span>
+              <span
+                class="absolute inset-x-0 top-0 h-[3px] origin-left scale-x-0 transition-transform duration-300 group-hover:scale-x-100"
+                style="background:var(--accent)"
+              />
+              <span
+                class="pointer-events-none absolute -top-4 -right-3 text-[5rem] leading-none font-extrabold opacity-[0.07] transition-opacity duration-300 select-none group-hover:opacity-[0.13]"
+                style="color:var(--accent);font-family:Sora,system-ui,sans-serif"
+              >
+                {p.id}
+              </span>
 
-            <div class="relative">
-              <div class="flex items-center justify-between mb-3">
-                <span
-                  class="inline-flex items-center justify-center w-7 h-7 rounded text-[11px] font-bold text-white"
-                  style="background:var(--accent)"
+              <div class="relative">
+                <div class="mb-3 flex items-center justify-between">
+                  <span
+                    class="inline-flex h-7 w-7 items-center justify-center rounded text-[11px] font-bold text-white"
+                    style="background:var(--accent)"
+                  >
+                    {p.id}
+                  </span>
+                  <span class="text-[10px] tracking-wider text-gray-400 uppercase">{p.kind}</span>
+                </div>
+                <div
+                  class="mb-1.5 text-lg font-bold text-gray-900 transition-colors group-hover:text-[var(--accent)]"
+                  style="font-family:Sora,system-ui,sans-serif"
                 >
-                  {p.id}
-                </span>
-                <span class="text-[10px] tracking-wider uppercase text-gray-400">
-                  {p.kind}
-                </span>
+                  {p.title}
+                </div>
+                <div
+                  class="mb-4 text-xs leading-relaxed text-gray-600"
+                  style="font-family:Sora,system-ui,sans-serif"
+                >
+                  {p.sub}
+                </div>
+                <div class="flex flex-wrap items-center gap-3 border-t border-gray-100 pt-3">
+                  {p.tags.map((t) => {
+                    const icon = getTechIcon(t);
+                    return icon ? (
+                      <img
+                        src={icon}
+                        class="h-6 w-6 flex-shrink-0"
+                        alt={t}
+                        title={t}
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span class="text-xs font-semibold tracking-wide" style="color:var(--accent)">
+                        {t}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
-              <div
-                class="text-lg font-bold text-gray-900 mb-1.5 group-hover:text-[var(--accent)] transition-colors"
-                style="font-family:Sora,system-ui,sans-serif"
-              >
-                {p.title}
-              </div>
-              <div
-                class="text-xs text-gray-600 mb-4 leading-relaxed"
-                style="font-family:Sora,system-ui,sans-serif"
-              >
-                {p.sub}
-              </div>
-              <div class="flex flex-wrap items-center gap-3 pt-3 border-t border-gray-100">
-                {p.tags.map((t) => {
-                  const icon = getTechIcon(t);
-                  return icon ? (
-                    <img
-                      src={icon}
-                      class="w-6 h-6 flex-shrink-0"
-                      alt={t}
-                      title={t}
-                      loading="lazy"
-                    />
-                  ) : (
-                    <span class="text-xs font-semibold tracking-wide" style="color:var(--accent)">
-                      {t}
-                    </span>
-                  );
-                })}
-              </div>
-            </div>
-          </a>
-        ))}
+            </a>
+          ))
+        }
       </div>
       <div class="mt-7 font-mono text-xs text-gray-500">
-        <a href="/projects" class="text-[#0a66c2] hover:underline">
-          $ ls projects/ --all →
-        </a>
+        <a href="/projects" class="text-[#0a66c2] hover:underline"> $ ls projects/ --all → </a>
       </div>
     </div>
   </section>

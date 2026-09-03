@@ -24,8 +24,12 @@ export default function RoleTyper() {
       if (partial.length > 0) {
         timer = setTimeout(() => setPartial(target.slice(0, partial.length - 1)), 28);
       } else {
-        setIdx((i) => (i + 1) % ROLES.length);
-        setPhase('typing');
+        // Advance on the next tick rather than synchronously inside the effect
+        // (react-hooks/set-state-in-effect); keeps the typing loop timer-driven.
+        timer = setTimeout(() => {
+          setIdx((i) => (i + 1) % ROLES.length);
+          setPhase('typing');
+        }, 0);
       }
     }
     return () => {
@@ -34,10 +38,10 @@ export default function RoleTyper() {
   }, [partial, phase, idx]);
 
   return (
-    <span className="font-semibold text-[#0a66c2] border-b border-[#0a66c2]/30 pb-0.5 min-w-[200px] sm:min-w-[260px] inline-flex items-center">
+    <span className="inline-flex min-w-[200px] items-center border-b border-[#0a66c2]/30 pb-0.5 font-semibold text-[#0a66c2] sm:min-w-[260px]">
       {'​'}
       {partial}
-      <span className="inline-block w-2 h-[18px] bg-[#0a66c2] ml-0.5 cursor-blink" />
+      <span className="cursor-blink ml-0.5 inline-block h-[18px] w-2 bg-[#0a66c2]" />
     </span>
   );
 }

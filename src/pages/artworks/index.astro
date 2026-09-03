@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import type { Artwork, ArtworkCategory } from '../types';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Artwork, ArtworkCategory } from '../../types';
 
 // これから制作するアートワークをここに追加していく。
 // image は public/images/artworks/ 配下に置く想定。
@@ -29,14 +29,19 @@ const allPlaceholders: { category: ArtworkCategory; note: string }[] = [
   { category: 'web', note: '実験的な Web ページ' },
 ];
 const placeholders = allPlaceholders.filter(
-  (slot) => !artworks.some((work) => work.category === slot.category)
+  (slot) => !artworks.some((work) => work.category === slot.category),
 );
 
 const DESCRIPTION =
   '北村健紀（Tatsuki Kitamura）のアートワーク集。フライヤー、Tシャツ、Web ページなどのグラフィック制作物をまとめています。';
 ---
 
-<BaseLayout title="Artworks - 制作アートワーク" description={DESCRIPTION} path="/artworks" frame={false}>
+<BaseLayout
+  title="Artworks - 制作アートワーク"
+  description={DESCRIPTION}
+  path="/artworks"
+  frame={false}
+>
   <div class="relative min-h-screen overflow-hidden bg-[#101010] text-[#dfdfd6]">
     <!-- 背景のアンビエント光 -->
     <div
@@ -46,7 +51,10 @@ const DESCRIPTION =
     </div>
 
     <!-- カーソル追従のスポットライト + 残光トレイル (hover デバイスのみ、script 側で有効化) -->
-    <canvas id="cursor-spotlight" class="pointer-events-none fixed inset-0 z-10 h-full w-full" aria-hidden="true"></canvas>
+    <canvas
+      id="cursor-spotlight"
+      class="pointer-events-none fixed inset-0 z-10 h-full w-full"
+      aria-hidden="true"></canvas>
 
     <div class="relative mx-auto max-w-5xl px-6 pt-8 pb-20">
       <!-- root へ戻るリンク -->
@@ -113,9 +121,7 @@ const DESCRIPTION =
                   </span>
                   <span class="font-mono text-[10px] text-[#98989f]">{work.date}</span>
                 </div>
-                <h2 class="mt-2 font-semibold text-white">
-                  {work.title}
-                </h2>
+                <h2 class="mt-2 font-semibold text-white">{work.title}</h2>
                 <p class="mt-2 text-sm leading-relaxed text-[#98989f]">{work.description}</p>
               </div>
             </a>
@@ -124,19 +130,19 @@ const DESCRIPTION =
 
         {
           placeholders.map((slot, index) => (
-              <div
-                class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
-                style={`opacity:0;animation-delay:${500 + index * 100}ms`}
-              >
-                <span class="font-mono text-xs tracking-wider text-white/80 uppercase">
-                  {categoryLabels[slot.category]}
-                </span>
-                <p class="text-sm text-[#98989f]">{slot.note}</p>
-                <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#98989f]">
-                  coming soon
-                </span>
-              </div>
-            ))
+            <div
+              class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
+              style={`opacity:0;animation-delay:${500 + index * 100}ms`}
+            >
+              <span class="font-mono text-xs tracking-wider text-white/80 uppercase">
+                {categoryLabels[slot.category]}
+              </span>
+              <p class="text-sm text-[#98989f]">{slot.note}</p>
+              <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#98989f]">
+                coming soon
+              </span>
+            </div>
+          ))
         }
       </section>
 
