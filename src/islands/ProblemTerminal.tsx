@@ -74,8 +74,7 @@ const PROBLEMS: Problem[] = [
     title: 'Problem 3: 隠されたメッセージ',
     hint: ['`ls` はデフォルトでは全部を見せない。'],
     files: {
-      'README.md':
-        'メッセージは表に出していない。\n中身は 13 文字ずらしてある。',
+      'README.md': 'メッセージは表に出していない。\n中身は 13 文字ずらしてある。',
       '.encoded': 'fhpprff',
     },
     helpLines: [
@@ -339,9 +338,7 @@ export default function ProblemTerminal() {
 
   const current = PROBLEMS[problemIdx]!;
 
-  const runCommand = (
-    raw: string,
-  ): { output: Line[]; clear?: boolean; advance?: boolean } => {
+  const runCommand = (raw: string): { output: Line[]; clear?: boolean; advance?: boolean } => {
     const normalized = raw.trim().replace(/\s+/g, ' ');
     if (!normalized) return { output: [] };
 
@@ -360,9 +357,7 @@ export default function ProblemTerminal() {
     switch (cmd) {
       case 'ls': {
         const showHidden = args.includes('-a');
-        const names = Object.keys(current.files).filter(
-          (n) => showHidden || !n.startsWith('.'),
-        );
+        const names = Object.keys(current.files).filter((n) => showHidden || !n.startsWith('.'));
         return {
           output: names.length === 0 ? [] : [{ text: names.join('  ') }],
         };
@@ -375,9 +370,7 @@ export default function ProblemTerminal() {
         const content = current.files[name];
         if (content === undefined) {
           return {
-            output: [
-              { text: `cat: ${name}: No such file or directory`, variant: 'error' },
-            ],
+            output: [{ text: `cat: ${name}: No such file or directory`, variant: 'error' }],
           };
         }
         return { output: content.split('\n').map((t) => ({ text: t })) };
@@ -435,9 +428,7 @@ export default function ProblemTerminal() {
       case 'next': {
         if (!solved.has(current.id)) {
           return {
-            output: [
-              { text: 'まずこの問題をクリアしてください。', variant: 'error' },
-            ],
+            output: [{ text: 'まずこの問題をクリアしてください。', variant: 'error' }],
           };
         }
         if (problemIdx + 1 >= PROBLEMS.length) {
@@ -479,8 +470,7 @@ export default function ProblemTerminal() {
     const successCommands = Array.isArray(current.successCommand)
       ? current.successCommand
       : [current.successCommand];
-    const isSuccess =
-      successCommands.includes(normalized) && !solved.has(current.id);
+    const isSuccess = successCommands.includes(normalized) && !solved.has(current.id);
 
     const newLines: Line[] = [echoLine, ...output];
     if (isSuccess) {
@@ -505,21 +495,21 @@ export default function ProblemTerminal() {
 
   return (
     <>
-      <div className="font-mono text-[11px] text-gray-500 mb-4 tracking-wide">
+      <div className="mb-4 font-mono text-[11px] tracking-wide text-gray-500">
         Problem {current.id} / {PROBLEMS.length} — solved: {solved.size}
       </div>
 
       <div
-        className="rounded-xl overflow-hidden shadow-2xl border border-gray-300 bg-[#1e1e1e] animate-fade-in animation-delay-100"
+        className="animate-fade-in animation-delay-100 overflow-hidden rounded-xl border border-gray-300 bg-[#1e1e1e] shadow-2xl"
         onClick={() => inputRef.current?.focus()}
       >
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] border-b border-black/40">
+        <div className="flex items-center gap-2 border-b border-black/40 bg-gradient-to-b from-[#3a3a3a] to-[#2a2a2a] px-4 py-2.5">
           <div className="flex gap-2">
-            <span className="w-3 h-3 rounded-full bg-[#ff5f57] border border-[#e0443e]" />
-            <span className="w-3 h-3 rounded-full bg-[#febc2e] border border-[#dea123]" />
-            <span className="w-3 h-3 rounded-full bg-[#28c840] border border-[#1aab29]" />
+            <span className="h-3 w-3 rounded-full border border-[#e0443e] bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full border border-[#dea123] bg-[#febc2e]" />
+            <span className="h-3 w-3 rounded-full border border-[#1aab29] bg-[#28c840]" />
           </div>
-          <div className="flex-1 text-center text-[12px] text-gray-300 font-medium select-none">
+          <div className="flex-1 text-center text-[12px] font-medium text-gray-300 select-none">
             tatsuki — -zsh — 100x30
           </div>
           <div className="w-[52px]" />
@@ -527,13 +517,13 @@ export default function ProblemTerminal() {
 
         <div
           ref={bodyRef}
-          className="px-4 py-3 font-mono text-[13px] leading-[1.55] text-gray-100 h-[480px] overflow-y-auto"
+          className="h-[480px] overflow-y-auto px-4 py-3 font-mono text-[13px] leading-[1.55] text-gray-100"
           style={{ fontFamily: 'SF Mono, Menlo, Monaco, Consolas, monospace' }}
         >
           {lines.map((line, i) => (
             <div
               key={i}
-              className={`whitespace-pre-wrap break-words ${variantClass(line.variant)}`}
+              className={`break-words whitespace-pre-wrap ${variantClass(line.variant)}`}
             >
               {line.prompt && <span className="text-[#28c840]">{line.prompt}</span>}
               {line.prompt && line.text && ' '}
@@ -542,10 +532,10 @@ export default function ProblemTerminal() {
           ))}
 
           <div className="flex items-baseline">
-            <span className="text-[#28c840] mr-2 shrink-0">{PROMPT}</span>
+            <span className="mr-2 shrink-0 text-[#28c840]">{PROMPT}</span>
             <span className="relative flex-1">
               <span className="whitespace-pre">{input}</span>
-              <span className="inline-block w-[7px] h-[14px] bg-gray-100 align-middle translate-y-[1px] cursor-blink" />
+              <span className="cursor-blink inline-block h-[14px] w-[7px] translate-y-[1px] bg-gray-100 align-middle" />
             </span>
           </div>
 
@@ -555,7 +545,7 @@ export default function ProblemTerminal() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="absolute opacity-0 w-0 h-0 pointer-events-none"
+            className="pointer-events-none absolute h-0 w-0 opacity-0"
             aria-label="terminal input"
             autoCapitalize="off"
             autoCorrect="off"
@@ -565,16 +555,13 @@ export default function ProblemTerminal() {
       </div>
 
       {showCelebration && (
-        <section
-          ref={celebrationRef}
-          className="mt-24 pt-16 pb-12 animate-fade-in-up"
-        >
+        <section ref={celebrationRef} className="animate-fade-in-up mt-24 pt-16 pb-12">
           <div className="text-center">
-            <div className="font-mono text-[11px] text-[#0a66c2] tracking-[0.22em] mb-5">
+            <div className="mb-5 font-mono text-[11px] tracking-[0.22em] text-[#0a66c2]">
               ━━━ EXIT 0 — ALL TESTS PASSED ━━━
             </div>
             <pre
-              className="m-0 font-mono font-bold text-[#0a66c2] leading-none inline-block text-left"
+              className="m-0 inline-block text-left font-mono leading-none font-bold text-[#0a66c2]"
               style={{ fontSize: 12, letterSpacing: 0 }}
             >
               {CLEARED_ASCII}
@@ -582,7 +569,7 @@ export default function ProblemTerminal() {
             <h2 className="mt-8 text-2xl font-bold text-gray-900">
               🎉 全 {PROBLEMS.length} 問クリアおめでとう！
             </h2>
-            <p className="mt-3 text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
+            <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500">
               お疲れさま。
               <br />
               これからも、お互いいいコード書いていこう。
@@ -590,16 +577,16 @@ export default function ProblemTerminal() {
             <div className="mt-8 font-mono text-xs text-gray-400">
               <span className="text-[#0a66c2]">$</span> echo $? &nbsp;→&nbsp; 0
             </div>
-            <div className="mt-10 flex flex-wrap gap-3 justify-center font-mono text-sm">
+            <div className="mt-10 flex flex-wrap justify-center gap-3 font-mono text-sm">
               <a
                 href="/projects"
-                className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
+                className="rounded bg-[#0a66c2] px-5 py-2.5 font-semibold tracking-wide text-white transition-colors hover:bg-[#004182]"
               >
                 ./view-projects.sh
               </a>
               <a
                 href="/contact"
-                className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
+                className="rounded border border-gray-300 bg-white px-5 py-2.5 font-medium text-gray-900 transition-colors hover:border-gray-500"
               >
                 cat contact.md
               </a>

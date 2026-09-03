@@ -5,7 +5,12 @@ const DESCRIPTION =
   '保護フィルムを貼ったときの気泡とりを体験できる実験的な Web ページ。カーソルで気泡を画面の端まで押し出して抜こう。';
 ---
 
-<BaseLayout title="気泡とり - Artworks" description={DESCRIPTION} path="/artworks/bubbles" frame={false}>
+<BaseLayout
+  title="気泡とり - Artworks"
+  description={DESCRIPTION}
+  path="/artworks/bubbles"
+  frame={false}
+>
   <div class="relative h-dvh overflow-hidden bg-[#101010] text-[#dfdfd6] select-none">
     <canvas id="bubble-canvas" class="absolute inset-0 h-full w-full"></canvas>
 

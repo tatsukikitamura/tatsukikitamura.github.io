@@ -71,7 +71,7 @@ export function startBubbleSimulation(): void {
       cbx: number,
       cby: number,
       rb: number,
-      totalRestArea: number
+      totalRestArea: number,
     ): Bubble => {
       const total = ra * ra + rb * rb;
       const mx = (cax * ra * ra + cbx * rb * rb) / total;
@@ -423,7 +423,7 @@ export function startBubbleSimulation(): void {
               cb.x,
               cb.y,
               rb,
-              a1.restArea + b1.restArea
+              a1.restArea + b1.restArea,
             );
             bubbles.splice(j, 1);
             bubbles.splice(i, 1, merged);

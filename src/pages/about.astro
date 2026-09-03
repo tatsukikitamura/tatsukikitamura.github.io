@@ -24,25 +24,85 @@ type TechItem = {
 const TECH_STACK: Record<string, TechItem[]> = {
   languages: [
     { name: 'Ruby', icon: `${DI}/ruby/ruby-original.svg`, bg: 'bg-red-50', text: 'text-red-700' },
-    { name: 'Python', icon: `${DI}/python/python-original.svg`, bg: 'bg-blue-50', text: 'text-blue-700' },
-    { name: 'JavaScript', icon: `${DI}/javascript/javascript-original.svg`, bg: 'bg-yellow-50', text: 'text-yellow-700' },
-    { name: 'C++', icon: `${DI}/cplusplus/cplusplus-original.svg`, bg: 'bg-gray-100', text: 'text-gray-700' },
+    {
+      name: 'Python',
+      icon: `${DI}/python/python-original.svg`,
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+    },
+    {
+      name: 'JavaScript',
+      icon: `${DI}/javascript/javascript-original.svg`,
+      bg: 'bg-yellow-50',
+      text: 'text-yellow-700',
+    },
+    {
+      name: 'C++',
+      icon: `${DI}/cplusplus/cplusplus-original.svg`,
+      bg: 'bg-gray-100',
+      text: 'text-gray-700',
+    },
   ],
   frameworks: [
-    { name: 'Ruby on Rails', icon: `${DI}/rails/rails-plain.svg`, bg: 'bg-red-50', text: 'text-red-700' },
-    { name: 'FastAPI', icon: `${DI}/fastapi/fastapi-original.svg`, bg: 'bg-green-50', text: 'text-green-700' },
-    { name: 'React', icon: `${DI}/react/react-original.svg`, bg: 'bg-cyan-50', text: 'text-cyan-700' },
+    {
+      name: 'Ruby on Rails',
+      icon: `${DI}/rails/rails-plain.svg`,
+      bg: 'bg-red-50',
+      text: 'text-red-700',
+    },
+    {
+      name: 'FastAPI',
+      icon: `${DI}/fastapi/fastapi-original.svg`,
+      bg: 'bg-green-50',
+      text: 'text-green-700',
+    },
+    {
+      name: 'React',
+      icon: `${DI}/react/react-original.svg`,
+      bg: 'bg-cyan-50',
+      text: 'text-cyan-700',
+    },
     { name: 'Stimulus', icon: null, bg: 'bg-orange-50', text: 'text-orange-700' },
   ],
   databases: [
-    { name: 'PostgreSQL', icon: `${DI}/postgresql/postgresql-original.svg`, bg: 'bg-blue-50', text: 'text-blue-700' },
-    { name: 'SQLite3', icon: `${DI}/sqlite/sqlite-original.svg`, bg: 'bg-gray-100', text: 'text-gray-700' },
+    {
+      name: 'PostgreSQL',
+      icon: `${DI}/postgresql/postgresql-original.svg`,
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+    },
+    {
+      name: 'SQLite3',
+      icon: `${DI}/sqlite/sqlite-original.svg`,
+      bg: 'bg-gray-100',
+      text: 'text-gray-700',
+    },
   ],
   infra: [
-    { name: 'Docker', icon: `${DI}/docker/docker-original.svg`, bg: 'bg-blue-50', text: 'text-blue-700' },
-    { name: 'Docker Compose', icon: `${DI}/docker/docker-original.svg`, bg: 'bg-gray-100', text: 'text-gray-700' },
-    { name: 'Git', icon: `${DI}/git/git-original.svg`, bg: 'bg-orange-50', text: 'text-orange-700' },
-    { name: 'GitHub', icon: `${DI}/github/github-original.svg`, bg: 'bg-gray-100', text: 'text-gray-700' },
+    {
+      name: 'Docker',
+      icon: `${DI}/docker/docker-original.svg`,
+      bg: 'bg-blue-50',
+      text: 'text-blue-700',
+    },
+    {
+      name: 'Docker Compose',
+      icon: `${DI}/docker/docker-original.svg`,
+      bg: 'bg-gray-100',
+      text: 'text-gray-700',
+    },
+    {
+      name: 'Git',
+      icon: `${DI}/git/git-original.svg`,
+      bg: 'bg-orange-50',
+      text: 'text-orange-700',
+    },
+    {
+      name: 'GitHub',
+      icon: `${DI}/github/github-original.svg`,
+      bg: 'bg-gray-100',
+      text: 'text-gray-700',
+    },
     { name: 'Cursor', icon: null, bg: 'bg-purple-50', text: 'text-purple-700' },
   ],
   ai: [
@@ -64,12 +124,14 @@ const DESCRIPTION =
 ---
 
 <BaseLayout title="About - 北村健紀について" description={DESCRIPTION} path="/about">
-  <div class="pt-24 pb-16 px-6">
-    <div class="max-w-3xl mx-auto">
+  <div class="px-6 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl">
       <PageHeader command="cat about.md" subtitle="私について">About</PageHeader>
 
-      <section class="bg-white border border-gray-200 rounded-xl p-6 mb-5 animate-fade-in animation-delay-100">
-        <h2 class="font-semibold text-gray-900 mb-4">Profile</h2>
+      <section
+        class="animate-fade-in animation-delay-100 mb-5 rounded-xl border border-gray-200 bg-white p-6"
+      >
+        <h2 class="mb-4 font-semibold text-gray-900">Profile</h2>
         <div class="space-y-2.5">
           <div class="flex items-center gap-2.5 text-sm text-gray-600">
             <span class="text-gray-400"><LocationIcon /></span>
@@ -93,7 +155,7 @@ const DESCRIPTION =
             href="https://github.com/tatsukikitamura"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-gray-400 hover:text-gray-700 transition-colors"
+            class="text-gray-400 transition-colors hover:text-gray-700"
             aria-label="GitHub"
           >
             <GitHubIcon />
@@ -102,7 +164,7 @@ const DESCRIPTION =
             href="https://atcoder.jp/users/oreccchi"
             target="_blank"
             rel="noopener noreferrer"
-            class="text-gray-400 hover:text-gray-700 transition-colors"
+            class="text-gray-400 transition-colors hover:text-gray-700"
             aria-label="AtCoder"
           >
             <AtCoderIcon />
@@ -110,9 +172,11 @@ const DESCRIPTION =
         </div>
       </section>
 
-      <section class="bg-white border border-gray-200 rounded-xl p-6 mb-5 animate-fade-in animation-delay-200">
-        <h2 class="font-semibold text-gray-900 mb-4">プログラミングを始めたきっかけ</h2>
-        <div class="space-y-3 text-sm text-gray-600 leading-relaxed">
+      <section
+        class="animate-fade-in animation-delay-200 mb-5 rounded-xl border border-gray-200 bg-white p-6"
+      >
+        <h2 class="mb-4 font-semibold text-gray-900">プログラミングを始めたきっかけ</h2>
+        <div class="space-y-3 text-sm leading-relaxed text-gray-600">
           <p>
             中学3年生のとき、Fortniteしかしていなかった自分に、父がUnityの本を買ってきた。やってみたけどすぐ飽きた。本の通りに作るのが面白くなかった。
           </p>
@@ -128,33 +192,37 @@ const DESCRIPTION =
         </div>
       </section>
 
-      <section class="bg-white border border-gray-200 rounded-xl p-6 mb-5 animate-fade-in animation-delay-300">
-        <h2 class="font-semibold text-gray-900 mb-5">技術スタック</h2>
+      <section
+        class="animate-fade-in animation-delay-300 mb-5 rounded-xl border border-gray-200 bg-white p-6"
+      >
+        <h2 class="mb-5 font-semibold text-gray-900">技術スタック</h2>
         <div class="space-y-5">
-          {TECH_GROUPS.map((group) => (
-            <div>
-              <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-2.5">
-                {group.label}
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                {group.items.map((item) => (
-                  <span
-                    class={`inline-flex items-center gap-1.5 px-2.5 py-1 ${item.bg} ${item.text} rounded text-xs font-medium`}
-                  >
-                    {item.icon && (
-                      <img
-                        src={item.icon}
-                        class="w-3.5 h-3.5 flex-shrink-0"
-                        alt=""
-                        loading="lazy"
-                      />
-                    )}
-                    {item.name}
-                  </span>
-                ))}
+          {
+            TECH_GROUPS.map((group) => (
+              <div>
+                <h3 class="mb-2.5 text-xs font-semibold tracking-wide text-gray-400 uppercase">
+                  {group.label}
+                </h3>
+                <div class="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <span
+                      class={`inline-flex items-center gap-1.5 px-2.5 py-1 ${item.bg} ${item.text} rounded text-xs font-medium`}
+                    >
+                      {item.icon && (
+                        <img
+                          src={item.icon}
+                          class="h-3.5 w-3.5 flex-shrink-0"
+                          alt=""
+                          loading="lazy"
+                        />
+                      )}
+                      {item.name}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          }
         </div>
       </section>
     </div>

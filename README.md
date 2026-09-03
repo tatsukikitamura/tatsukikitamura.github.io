@@ -8,7 +8,7 @@ https://tatsuki.dev
 
 ## 🛠️ 技術スタック
 
-- **[Astro](https://astro.build/) 6** — 静的サイトジェネレーター。各ルートをビルド時に HTML へ事前レンダリング（SEO 重視）
+- **[Astro](https://astro.build/) 7** — 静的サイトジェネレーター。各ルートをビルド時に HTML へ事前レンダリング（SEO 重視）
 - **[React](https://react.dev/) 19** — インタラクティブ部分のみ islands として `client:load` でハイドレート
 - **[Tailwind CSS](https://tailwindcss.com/) v4** — `@tailwindcss/vite` 経由（`tailwind.config.js` なし）
 - **TypeScript**
@@ -27,6 +27,8 @@ npm run dev        # ローカル開発サーバー（Astro, http://localhost:43
 npm run build      # 本番ビルド（出力: dist/）
 npm run preview    # 本番ビルドをローカルでプレビュー
 npm run typecheck  # astro check（型チェックのみ）
+npm run lint       # eslint
+npm run format     # prettier --write（.astro / Tailwind クラス順も整形）
 ```
 
 > パッケージマネージャーは `npm` です（CI は `npm ci`）。Node のバージョンは `.nvmrc` を参照してください。
@@ -77,7 +79,7 @@ public/                 # そのまま配信される静的ファイル（favico
 
 `main` ブランチへの push で [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) が起動し、`npm ci → typecheck → build` の後に `dist/` を **GitHub Pages** へデプロイします。手動実行（`workflow_dispatch`）も可能です。
 
-PR と `main` 以外のブランチへの push では [`.github/workflows/ci.yml`](.github/workflows/ci.yml) が typecheck と build だけを実行します。依存関係の更新は Dependabot（週次）が PR を出します。
+PR と `main` 以外のブランチへの push では [`.github/workflows/ci.yml`](.github/workflows/ci.yml) が typecheck / lint / format:check / build を実行します。依存関係の更新は Dependabot（週次）が PR を出します。
 
 ビルドは `build.format: 'file'`（`/about` → `dist/about.html`）です。GitHub Pages は `about/index.html` 形式だと `/about` を `/about/` へ 301 するため、末尾スラッシュなしの canonical / sitemap と揃えるためにこの形式にしています。
 

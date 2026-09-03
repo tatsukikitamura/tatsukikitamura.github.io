@@ -7,13 +7,9 @@ const DESCRIPTION =
   '北村健紀のポートフォリオサイトに用意したシェル風のコーディング問題集。ターミナル風UIで問題を解いていけます。';
 ---
 
-<BaseLayout
-  title="Problems - シェル風コーディング問題"
-  description={DESCRIPTION}
-  path="/problem"
->
-  <main class="pt-24 pb-16 px-6">
-    <div class="max-w-4xl mx-auto">
+<BaseLayout title="Problems - シェル風コーディング問題" description={DESCRIPTION} path="/problem">
+  <main class="px-6 pt-24 pb-16">
+    <div class="mx-auto max-w-4xl">
       <PageHeader command="open -a Terminal problems/">Problems</PageHeader>
       <ProblemTerminal client:load />
     </div>

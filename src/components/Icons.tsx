@@ -32,11 +32,7 @@ export const EduIcon = ({ className = 'w-4 h-4' }: IconProps) => (
 
 export const CodeIcon = ({ className = 'w-4 h-4' }: IconProps) => (
   <svg {...baseProps} className={className}>
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-    />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
   </svg>
 );
 

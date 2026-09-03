@@ -9,15 +9,20 @@ npm run dev        # Start local dev server (Astro, port 4321)
 npm run build      # astro build only (output: dist/) — CI runs typecheck as a separate step
 npm run preview    # Preview the production build locally
 npm run typecheck  # astro check only, no build
+npm run lint       # eslint (flat config in eslint.config.js)
+npm run format     # prettier --write (prettier-plugin-astro + tailwindcss class sorting)
+npm run format:check
 ```
 
-Use `npm` (CI runs `npm ci`; there is no bun lock file). Node version is pinned in `.nvmrc` (also `engines` in `package.json`) and CI reads it via `node-version-file`.
+CI (`ci.yml`) runs typecheck, lint, format:check and build on every PR, so run `npm run format && npm run lint` before pushing.
 
-`vite` is listed in `devDependencies` at `^7` on purpose: Astro 6 depends on vite 7, but `@tailwindcss/vite` also accepts vite 8, so without the pin npm hoists vite 8 to the top level and the build fails with a rolldown "Missing field ... on BindingViteResolvePluginConfig" error. Drop the pin only when moving to Astro 7 (vite 8).
+Use `npm` (CI runs `npm ci`; there is no bun lock file). Node version is pinned in `.nvmrc` (also `engines` in `package.json`) and CI reads it via `node-version-file`. Astro 7 requires Node >= 22.12.
+
+TypeScript stays on 6.x: `@astrojs/check` (and `typescript-eslint`) only support TypeScript `^5 || ^6`, so do not accept a Dependabot PR to TypeScript 7 until those catch up.
 
 ## Architecture
 
-This is a **static portfolio site** (tatsuki.dev) built with Astro 6 + React 19 islands + TypeScript + Tailwind CSS v4, deployed as a static bundle to GitHub Pages. Every route is pre-rendered to its own HTML file at build time for SEO.
+This is a **static portfolio site** (tatsuki.dev) built with Astro 7 + React 19 islands + TypeScript + Tailwind CSS v4, deployed as a static bundle to GitHub Pages. Every route is pre-rendered to its own HTML file at build time for SEO.
 
 `astro.config.mjs` sets `trailingSlash: 'never'` **and** `build.format: 'file'` (so `/about` becomes `dist/about.html`, not `dist/about/index.html`). Keep both: GitHub Pages 301-redirects `/about` → `/about/` when only `about/index.html` exists, which would contradict the no-slash canonical/sitemap URLs.
 
@@ -47,7 +52,7 @@ Astro routes everything in `src/pages/`:
 - `src/components/Footer.astro` — site footer.
 - `src/components/PageHeader.astro` — the `$ <command>` typing animation + `<h1>` block reused on most pages. Title is passed via `<slot />`, so callers can include rich content. Typing is driven by an inline `<script>` keyed off `.page-header-typer[data-command]`.
 - `src/components/ProjectBackLink.astro` — back link reused on project detail pages.
-- `src/components/MacbookFrame.astro` — MacBook-style frame that embeds a live site in a scaled `<iframe>` (project pages). The `scrolling="no"` attribute is deprecated in HTML but kept on purpose: it is the only way to suppress the iframe's internal scrollbar, and `astro check` reports it as a hint, not an error.
+- `src/components/MacbookFrame.astro` — MacBook-style frame that embeds a live site in a scaled `<iframe>` (project pages). The deprecated-but-necessary `scrolling="no"` is passed via an attribute spread so `astro check` stays clean.
 - `src/components/Icons.tsx` — inline SVG icon set (React components). Used in both `.astro` and React contexts; when used from `.astro` they SSR to HTML with no JS shipped.
 - `src/lib/techIcons.ts` — maps tech names to icon components; `src/lib/bubbleSimulation.ts` — the `/artworks/bubbles` physics, imported from that page's `<script>`.
 - `src/types.ts` — shared types (`Artwork`, `ArtworkCategory`, ...).
