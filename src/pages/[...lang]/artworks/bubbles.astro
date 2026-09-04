@@ -1,36 +1,42 @@
 ---
-import { localePaths, localeFromParam } from '../../../i18n';
+import { localePaths, localeFromParam, localizePath } from '../../../i18n';
 export function getStaticPaths() {
   return localePaths();
 }
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import bubblesDict from '../../../i18n/dict/bubbles';
 
-const DESCRIPTION =
-  '保護フィルムを貼ったときの気泡とりを体験できる実験的な Web ページ。カーソルで気泡を画面の端まで押し出して抜こう。';
+const locale = localeFromParam(Astro.params.lang);
+const t = bubblesDict[locale];
+const l = (p: string) => localizePath(p, locale);
 ---
 
-<BaseLayout title="気泡とり - Artworks" description={DESCRIPTION} path="/artworks/bubbles" frame={false}>
+<BaseLayout title={t.title} description={t.description} path="/artworks/bubbles" frame={false}>
   <div class="relative h-dvh overflow-hidden bg-[#101010] text-[#dfdfd6] select-none">
     <canvas id="bubble-canvas" class="absolute inset-0 h-full w-full"></canvas>
 
     <!-- 上部の説明 -->
     <div class="pointer-events-none relative z-10 flex items-start justify-between px-6 pt-6">
       <a
-        href="/artworks"
+        href={l('/artworks')}
         class="pointer-events-auto inline-flex items-center gap-2 font-mono text-sm text-[#98989f] transition-colors hover:text-white"
       >
         <span aria-hidden="true">←</span>
         tatsuki.artworks
       </a>
-      <p class="font-mono text-xs text-[#98989f]">
-        残り <span id="bubble-count">0</span> 個
-      </p>
+      <div class="flex items-center gap-4">
+        <p class="font-mono text-xs text-[#98989f]">
+          {t.count.before}<span id="bubble-count">0</span>{t.count.after}
+        </p>
+        <LanguageSwitcher tone="dark" class="pointer-events-auto" />
+      </div>
     </div>
 
     <p
       class="pointer-events-none absolute bottom-8 left-1/2 z-10 w-max max-w-[90vw] -translate-x-1/2 text-center font-mono text-xs text-[#98989f]/80"
     >
-      気泡を画面の端まで押していくと空気が抜ける
+      {t.hint}
     </p>
 
     <!-- 全部抜けたとき -->
@@ -38,12 +44,12 @@ const DESCRIPTION =
       id="bubble-done"
       class="pointer-events-none absolute inset-0 z-20 hidden flex-col items-center justify-center gap-6 text-center"
     >
-      <p class="text-2xl font-bold text-white md:text-4xl">きれいに貼れました</p>
+      <p class="text-2xl font-bold text-white md:text-4xl">{t.done}</p>
       <button
         id="bubble-reset"
         class="pointer-events-auto rounded-full border border-white/20 px-5 py-2 font-mono text-sm text-[#dfdfd6] transition-colors hover:border-white/50 hover:text-white"
       >
-        もう一回貼る
+        {t.reset}
       </button>
     </div>
   </div>

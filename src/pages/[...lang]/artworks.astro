@@ -1,21 +1,27 @@
 ---
-import { localePaths, localeFromParam } from '../../i18n';
+import { localePaths, localeFromParam, localizePath } from '../../i18n';
 export function getStaticPaths() {
   return localePaths();
 }
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
 import type { Artwork, ArtworkCategory } from '../../types';
+import artworksDict from '../../i18n/dict/artworks';
+
+const locale = localeFromParam(Astro.params.lang);
+const t = artworksDict[locale];
+const l = (p: string) => localizePath(p, locale);
 
 // これから制作するアートワークをここに追加していく。
 // image は public/images/artworks/ 配下に置く想定。
 const artworks: Artwork[] = [
   {
     id: 'bubbles',
-    title: '気泡とり',
+    title: t.works.bubbles.title,
     category: 'web',
-    description: '保護フィルムを貼ったときの気泡をカーソルで押し出して抜く、体験型の実験ページ。',
+    description: t.works.bubbles.description,
     date: '2026.08',
-    link: '/artworks/bubbles',
+    link: l('/artworks/bubbles'),
   },
 ];
 
@@ -28,19 +34,16 @@ const categoryLabels: Record<ArtworkCategory, string> = {
 
 // 作品がまだないカテゴリに表示する coming soon 枠。
 const allPlaceholders: { category: ArtworkCategory; note: string }[] = [
-  { category: 'flyer', note: '一枚もののフライヤー' },
-  { category: 'tshirt', note: 'Tシャツのグラフィック' },
-  { category: 'web', note: '実験的な Web ページ' },
+  { category: 'flyer', note: t.placeholders.flyer },
+  { category: 'tshirt', note: t.placeholders.tshirt },
+  { category: 'web', note: t.placeholders.web },
 ];
 const placeholders = allPlaceholders.filter(
   (slot) => !artworks.some((work) => work.category === slot.category)
 );
-
-const DESCRIPTION =
-  '北村健紀（Tatsuki Kitamura）のアートワーク集。フライヤー、Tシャツ、Web ページなどのグラフィック制作物をまとめています。';
 ---
 
-<BaseLayout title="Artworks - 制作アートワーク" description={DESCRIPTION} path="/artworks" frame={false}>
+<BaseLayout title={t.title} description={t.description} path="/artworks" frame={false}>
   <div class="relative min-h-screen overflow-hidden bg-[#101010] text-[#dfdfd6]">
     <!-- 背景のアンビエント光 -->
     <div
@@ -53,14 +56,17 @@ const DESCRIPTION =
     <canvas id="cursor-spotlight" class="pointer-events-none fixed inset-0 z-10 h-full w-full" aria-hidden="true"></canvas>
 
     <div class="relative mx-auto max-w-5xl px-6 pt-8 pb-20">
-      <!-- root へ戻るリンク -->
-      <a
-        href="/"
-        class="inline-flex items-center gap-2 font-mono text-sm text-[#98989f] transition-colors hover:text-white"
-      >
-        <span aria-hidden="true">←</span>
-        tatsuki.dev
-      </a>
+      <!-- root へ戻るリンク + 言語切替 -->
+      <div class="flex items-center justify-between">
+        <a
+          href={l('/')}
+          class="inline-flex items-center gap-2 font-mono text-sm text-[#98989f] transition-colors hover:text-white"
+        >
+          <span aria-hidden="true">←</span>
+          tatsuki.dev
+        </a>
+        <LanguageSwitcher tone="dark" />
+      </div>
 
       <!-- Hero -->
       <header class="mt-20 mb-16 text-center md:mt-28">
@@ -74,8 +80,8 @@ const DESCRIPTION =
           class="animate-fade-in-up animation-delay-200 mx-auto mt-6 max-w-xl text-base leading-relaxed text-[#98989f] md:text-lg"
           style="opacity:0"
         >
-          フライヤー、Tシャツ、Web ページ。<br class="hidden md:block" />
-          手を動かして作ったグラフィックをここに集めていきます。
+          {t.hero[0]}<br class="hidden md:block" />
+          {t.hero[1]}
         </p>
         <div
           class="animate-fade-in animation-delay-400 mt-8 flex flex-wrap items-center justify-center gap-2"
