@@ -1,6 +1,8 @@
 ---
-// Inline "JA / EN / 中文 / KO" links that keep the visitor on the same page
-// while switching locale. Works on any page: the locale is derived from the URL.
+// One button showing the current language; clicking it expands a list of
+// the other locales that keeps the visitor on the same page.
+// Works on any page: the locale is derived from the URL. Multiple instances
+// per page are fine — the script is keyed off a class, not an id.
 import { LOCALES, LOCALE_META, localizePath, stripLocale } from '../i18n';
 import common from '../i18n/dict/common';
 
@@ -13,39 +15,136 @@ type Props = {
 const { tone = 'light', class: className = '' } = Astro.props;
 const { locale, path } = stripLocale(Astro.url.pathname);
 const t = common[locale];
+const current = LOCALE_META[locale];
 
-const active =
-  tone === 'dark' ? 'text-white font-semibold' : 'text-gray-900 font-semibold';
-const inactive =
+const button =
   tone === 'dark'
-    ? 'text-[#98989f] hover:text-white'
-    : 'text-gray-400 hover:text-[#0a66c2]';
-const divider = tone === 'dark' ? 'text-white/20' : 'text-gray-300';
+    ? 'border-white/15 text-[#dfdfd6] hover:border-white/40 hover:text-white'
+    : 'border-gray-200 text-gray-700 hover:border-gray-400 hover:text-gray-900';
+const menu =
+  tone === 'dark'
+    ? 'border-white/15 bg-[#161618] shadow-[0_12px_40px_-12px_rgba(0,0,0,0.8)]'
+    : 'border-gray-200 bg-white shadow-lg';
+const item =
+  tone === 'dark'
+    ? 'text-[#98989f] hover:bg-white/[0.06] hover:text-white'
+    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900';
+const itemActive = tone === 'dark' ? 'text-white' : 'text-gray-900';
+const check = tone === 'dark' ? 'text-white' : 'text-[#0a66c2]';
 ---
 
-<nav
-  class={`flex items-center gap-1.5 font-mono text-[11px] tracking-wide ${className}`}
-  aria-label={t.language}
->
-  {
-    LOCALES.map((l, i) => (
-      <>
-        {i > 0 && (
-          <span class={divider} aria-hidden="true">
-            /
-          </span>
-        )}
-        <a
-          href={localizePath(path, l)}
-          hreflang={LOCALE_META[l].hreflang}
-          lang={LOCALE_META[l].htmlLang}
-          title={LOCALE_META[l].label}
-          aria-current={l === locale ? 'true' : undefined}
-          class={`transition-colors ${l === locale ? active : inactive}`}
-        >
-          {LOCALE_META[l].short}
-        </a>
-      </>
-    ))
-  }
-</nav>
+<div class={`lang-switcher relative ${className}`}>
+  <button
+    type="button"
+    class={`lang-switcher-toggle inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1.5 font-mono text-[11px] tracking-wide transition-colors ${button}`}
+    aria-haspopup="true"
+    aria-expanded="false"
+    aria-label={t.language}
+    title={t.language}
+  >
+    <svg
+      class="h-3.5 w-3.5"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.8"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9"></circle>
+      <path stroke-linecap="round" d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"></path>
+    </svg>
+    <span>{current.short}</span>
+    <svg
+      class="lang-switcher-chevron h-3 w-3 transition-transform duration-200"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"></path>
+    </svg>
+  </button>
+
+  <ul
+    class={`lang-switcher-menu absolute right-0 top-full z-50 mt-2 hidden min-w-[9.5rem] overflow-hidden rounded-lg border py-1 ${menu}`}
+    role="menu"
+    aria-label={t.language}
+  >
+    {
+      LOCALES.map((l) => (
+        <li role="none">
+          <a
+            href={localizePath(path, l)}
+            hreflang={LOCALE_META[l].hreflang}
+            lang={LOCALE_META[l].htmlLang}
+            role="menuitem"
+            aria-current={l === locale ? 'true' : undefined}
+            class={`flex items-center justify-between gap-4 px-3 py-2 text-sm transition-colors ${l === locale ? itemActive : item}`}
+          >
+            <span class="flex items-baseline gap-2">
+              <span class="font-mono text-[11px] tracking-wide opacity-70">
+                {LOCALE_META[l].short}
+              </span>
+              <span>{LOCALE_META[l].label}</span>
+            </span>
+            {l === locale && (
+              <svg
+                class={`h-3.5 w-3.5 ${check}`}
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
+              </svg>
+            )}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<script>
+  const switchers = document.querySelectorAll<HTMLElement>('.lang-switcher');
+
+  const setOpen = (root: HTMLElement, open: boolean) => {
+    const toggle = root.querySelector<HTMLButtonElement>('.lang-switcher-toggle');
+    const menu = root.querySelector<HTMLElement>('.lang-switcher-menu');
+    const chevron = root.querySelector<HTMLElement>('.lang-switcher-chevron');
+    if (!toggle || !menu) return;
+    menu.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    chevron?.classList.toggle('rotate-180', open);
+  };
+
+  const closeAll = (except?: HTMLElement) => {
+    switchers.forEach((root) => {
+      if (root !== except) setOpen(root, false);
+    });
+  };
+
+  switchers.forEach((root) => {
+    const toggle = root.querySelector<HTMLButtonElement>('.lang-switcher-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      closeAll(root);
+      setOpen(root, open);
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target as Node | null;
+    switchers.forEach((root) => {
+      if (target && !root.contains(target)) setOpen(root, false);
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAll();
+  });
+</script>
