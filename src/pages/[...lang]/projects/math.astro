@@ -1,5 +1,5 @@
 ---
-import { localePaths, localeFromParam } from '../../../i18n';
+import { localePaths, localeFromParam, localizePath } from '../../../i18n';
 export function getStaticPaths() {
   return localePaths();
 }
@@ -8,11 +8,21 @@ import 'katex/dist/katex.min.css';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProjectBackLink from '../../../components/ProjectBackLink.astro';
 import { getTechIcon } from '../../../lib/techIcons';
+import commonDict from '../../../i18n/dict/common';
+import mathDict from '../../../i18n/dict/math';
+
+const locale = localeFromParam(Astro.params.lang);
+const c = commonDict[locale];
+const t = mathDict[locale];
+const l = (p: string) => localizePath(p, locale);
 
 // Render LaTeX to HTML at build time (no client-side JS, KaTeX CSS only).
 const M = (s: string) => katex.renderToString(s, { throwOnError: false });
 const D = (s: string) =>
   katex.renderToString(s, { displayMode: true, throwOnError: false });
+// Dictionary paragraphs are HTML we author; inline `$...$` is expanded to KaTeX.
+const rich = (s: string) =>
+  s.replace(/\$([^$]+)\$/g, (_, tex: string) => `<span>${M(tex)}</span>`);
 
 const TECHS = [
   { name: 'TypeScript', cls: 'bg-blue-50 text-blue-700' },
@@ -21,14 +31,11 @@ const TECHS = [
   { name: 'markdown-it', cls: 'bg-gray-100 text-gray-700' },
   { name: 'Web Crypto API (AES-GCM)', cls: 'bg-amber-50 text-amber-700' },
 ];
-
-const DESCRIPTION =
-  '北村健紀の卒業研究サイト。粘性 Burgers 方程式の進行波解（衝撃波層）の漸近安定性を、Hopf–Cole 変換による線形化を通じて精密に評価し、減衰率を具体値として書き下す。西原 (1985) を題材にした論文翻訳・講義ノート・卒業論文をまとめた数式サイト。';
 ---
 
 <BaseLayout
-  title="Burgers 方程式の進行波解の安定性（卒業研究サイト）"
-  description={DESCRIPTION}
+  title={t.title}
+  description={t.description}
   path="/projects/math"
 >
   <main class="pt-20 pb-8 px-4 max-w-4xl mx-auto">
@@ -37,54 +44,41 @@ const DESCRIPTION =
     <div class="mb-12 opacity-0 animate-fade-in-up">
       <div class="flex items-center gap-3 flex-wrap">
         <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
-          Burgers 方程式の進行波解の安定性
+          {t.heading}
         </h1>
         <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">
-          卒業研究
+          {t.badges.thesis}
         </span>
         <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
-          限定公開
+          {t.badges.restricted}
         </span>
       </div>
-      <p class="text-gray-500 mt-2">2026年5月〜現在（個人開発・卒業研究）</p>
+      <p class="text-gray-500 mt-2">{t.period}</p>
     </div>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
-      <h2 class="text-xl font-bold tracking-tight mb-4">概要</h2>
-      <p class="text-gray-600 leading-relaxed mb-4">
-        早稲田大学 教育学部 数学科での<strong>卒業研究</strong>を、論文翻訳・講義ノート・卒業論文として一つにまとめた数式サイト。題材は非線形偏微分方程式論の古典である
-      </p>
-      <p class="text-gray-600 leading-relaxed mb-4 text-sm">
-        K. Nishihara,
-        <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>,
-        Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.
-      </p>
-      <p class="text-gray-600 leading-relaxed">
-        で、<strong>粘性 Burgers 方程式の進行波解（衝撃波層）が時間とともに安定であること</strong>を、
-        その<strong>減衰の速さまで含めて</strong>精密に示すのが主題。原論文の全訳に加え、行間を省かず結論まで導く卒業論文と、Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) など関連する古典論文の翻訳までを横断的に読めるよう構成した。
-      </p>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{c.overview}</h2>
+      <p class="text-gray-600 leading-relaxed mb-4" set:html={rich(t.overview.intro)} />
+      <p class="text-gray-600 leading-relaxed mb-4 text-sm" set:html={t.overview.citation} />
+      <p class="text-gray-600 leading-relaxed" set:html={rich(t.overview.body)} />
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
-      <h2 class="text-xl font-bold tracking-tight mb-4">扱っている数学</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.math.heading}</h2>
 
       <div class="space-y-6 text-gray-600">
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">対象 — 粘性 Burgers 方程式</h3>
+          <h3 class="font-bold text-gray-900 mb-2">{t.math.target.heading}</h3>
           <p class="text-sm mb-3">
-            流体の衝撃波をモデル化する、非線形移流項と粘性拡散項をあわせ持つ方程式を扱う。
+            {t.math.target.intro}
           </p>
           <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v_t + \\left(\\tfrac{v^2}{2}\\right)_x = \\varepsilon\\, v_{xx} \\qquad (\\varepsilon > 0)')} />
-          <p class="text-sm mt-3">
-            両端で異なる値 <span set:html={M('v_- > v_+')} /> に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。
-          </p>
+          <p class="text-sm mt-3" set:html={rich(t.math.target.question)} />
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">進行波解（衝撃波層）の明示形</h3>
-          <p class="text-sm mb-3">
-            形を保ったまま一定速度 <span set:html={M('s')} /> で進む解 <span set:html={M('V(x - st)')} /> を考えると、偏微分方程式は常微分方程式に落ち、積分して <span set:html={M('\\tanh')} /> 型のプロファイルが厳密に書き下せる。
-          </p>
+          <h3 class="font-bold text-gray-900 mb-2">{t.math.wave.heading}</h3>
+          <p class="text-sm mb-3" set:html={rich(t.math.wave.body)} />
           <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto space-y-2">
             <div set:html={D('s = \\frac{v_+ + v_-}{2}')} />
             <div set:html={D('V(\\xi) = \\frac{v_+ + v_-}{2} - \\frac{v_- - v_+}{2}\\,\\tanh\\!\\left(\\frac{v_- - v_+}{4\\varepsilon}\\,(\\xi - x_0)\\right)')} />
@@ -92,52 +86,34 @@ const DESCRIPTION =
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">安定性 — Hopf–Cole 変換による線形化</h3>
-          <p class="text-sm mb-3">
-            進行波まわりの擾乱 <span set:html={M('u = v - V')} /> が満たす方程式は非線形だが、
-            <strong>Hopf–Cole 変換</strong> <span set:html={M('u = -2\\,(\\log\\varphi)_\\xi')} /> を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。
-          </p>
+          <h3 class="font-bold text-gray-900 mb-2">{t.math.stability.heading}</h3>
+          <p class="text-sm mb-3" set:html={rich(t.math.stability.body)} />
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">結論 — 指数減衰の評価</h3>
-          <p class="text-sm mb-3">
-            擾乱の総質量がゼロ（<span set:html={M('\\int u_0\\, d\\xi = 0')} />）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。
-          </p>
+          <h3 class="font-bold text-gray-900 mb-2">{t.math.conclusion.heading}</h3>
+          <p class="text-sm mb-3" set:html={rich(t.math.conclusion.body)} />
           <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v(x,t) - V(x - st) = O\\!\\left(\\exp\\!\\left(-\\frac{(v_- - v_+)^2}{16\\varepsilon}\\,t\\right)\\right) \\qquad (t \\to \\infty)')} />
         </div>
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
-      <h2 class="text-xl font-bold tracking-tight mb-4">この研究のポイント</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.points.heading}</h2>
       <div class="space-y-4 text-gray-600 text-sm">
-        <p>
-          先行研究の <strong>Il'in–Oleinik (1960)</strong> は、最大値原理を用いて「進行波へ指数的に収束する」ことを示した。ただし減衰率は「<strong>ある正の定数が存在する</strong>」という<strong>定性的・存在型</strong>の主張にとどまり、具体的な値は与えられない。
-        </p>
-        <p>
-          これに対し <strong>Nishihara (1985)</strong> は、対象を粘性 Burgers 方程式に絞る代わりに Hopf–Cole 変換の明示公式を経由し、減衰率を
-          <span set:html={M('\\dfrac{(v_- - v_+)^2}{16\\varepsilon}')} />
-          という<strong>具体値として書き下した</strong>。「指数減衰する」という定性的な情報を「<strong>この速さで</strong>指数減衰する」という定量的な結果へと精密化した点に意義がある。
-        </p>
-        <p>
-          本サイトでは、進行波の明示形 <code>(1.8)</code> の導出（ODE の積分・部分分数分解・<span set:html={M('\\tanh')} /> 恒等式まで）、摂動方程式の導出と <span set:html={M('x_0')} /> の決定、Hopf 変換による線形化、熱核を用いた漸近評価までを、<strong>原論文が省略した行間を補いながら</strong>段階的に追えるようにまとめている。
-        </p>
+        {t.points.paragraphs.map((p) => <p set:html={rich(p)} />)}
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-4">サイトの構成</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.structure.heading}</h2>
       <ul class="space-y-2 text-gray-600 text-sm">
-        <li>• <strong>論文（日本語訳）</strong> — Nishihara (1985) 原論文の全訳ノート（全5節）</li>
-        <li>• <strong>卒業論文</strong> — 結論まで省略なく導出した完全版（LaTeX で組んだ PDF も併設）</li>
-        <li>• <strong>講義ノート</strong> — 概要と問題設定 / 摂動方程式の導出 / Hopf 変換による線形化 を回ごとに解説</li>
-        <li>• <strong>参考文献の翻訳</strong> — Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) ほか、原論文が引く古典の訳と原文 PDF</li>
+        {t.structure.items.map((item) => <li set:html={rich(item)} />)}
       </ul>
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-4">使用技術と実装上の工夫</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.tech.heading}</h2>
       <div class="flex flex-wrap gap-2 mb-5">
         {TECHS.map(({ name, cls }) => {
           const icon = getTechIcon(name);
@@ -154,28 +130,20 @@ const DESCRIPTION =
         })}
       </div>
       <ul class="space-y-2 text-gray-600 text-sm">
-        <li>
-          • <strong>KaTeX</strong> による数式組版と <strong>markdown-it</strong> での執筆で、論文レベルの数式を破綻なく表示
-        </li>
-        <li>
-          • サーバを持たずに限定公開するため、全コンテンツを <strong>AES-GCM でビルド前に暗号化</strong>。配信されるのは暗号文のみで、ブラウザの Web Crypto API で復号する自作パスワードゲートを実装
-        </li>
-        <li>
-          • 開発時は平文 Markdown を直接読み込み、本番ビルドでは暗号文経由へ自動で切り替わる編集フローを構築
-        </li>
+        {t.tech.items.map((item) => <li set:html={rich(item)} />)}
       </ul>
     </section>
 
     <section class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-xl font-bold tracking-tight mb-4">閲覧について</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.access.heading}</h2>
       <p class="text-white/70 text-sm leading-relaxed mb-5">
-        本サイトはパスワードで保護した限定公開です。内容をご覧になりたい方は、お気軽にお問い合わせください。個別にご案内します。
+        {t.access.body}
       </p>
       <a
-        href="/contact"
+        href={l('/contact')}
         class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
       >
-        お問い合わせ
+        {c.contact}
       </a>
     </section>
   </main>
