@@ -17,22 +17,57 @@ Both `npm` and `bun` lock files exist; use `npm` to stay consistent with the CI 
 
 This is a **static portfolio site** (tatsuki.dev) built with Astro 6 + React 19 islands + TypeScript + Tailwind CSS v4, deployed as a static bundle to GitHub Pages. Every route is pre-rendered to its own HTML file at build time for SEO.
 
-### Routing
+### Routing and i18n
 
-Astro routes everything in `src/pages/`:
+The site is served in four languages. Japanese is the default and lives at the root; the others are path-prefixed:
+
+| Locale | URL prefix | `<html lang>` |
+|--------|------------|---------------|
+| `ja` (default) | `/about` | `ja` |
+| `en` | `/en/about` | `en` |
+| `zh` (Simplified Chinese) | `/zh/about` | `zh-CN` |
+| `ko` | `/ko/about` | `ko` |
+
+Locale config (`LOCALES`, `DEFAULT_LOCALE`, `LOCALE_META`) and helpers (`localePaths`, `localeFromParam`, `localizePath`, `stripLocale`, `getLocale`) live in `src/i18n/config.ts`. `astro.config.mjs` mirrors the locale list for Astro's `i18n` routing and the sitemap's hreflang output — keep both in sync.
+
+Every page lives under `src/pages/[...lang]/` and is built once per locale via `getStaticPaths()`:
 
 | Route | File |
 |-------|------|
-| `/` | `src/pages/index.astro` |
-| `/about` | `src/pages/about.astro` |
-| `/projects` | `src/pages/projects/index.astro` |
-| `/projects/{yamatomo,mbti-app,opendata,atcoder}` | `src/pages/projects/*.astro` |
-| `/experience` | `src/pages/experience.astro` |
-| `/problem` | `src/pages/problem.astro` |
-| `/contact` | `src/pages/contact.astro` |
-| `/404` | `src/pages/404.astro` |
+| `/`, `/en`, … | `src/pages/[...lang]/index.astro` |
+| `/about` | `src/pages/[...lang]/about.astro` |
+| `/projects` | `src/pages/[...lang]/projects/index.astro` |
+| `/projects/{yamatomo,mbti-app,opendata,atcoder,math}` | `src/pages/[...lang]/projects/*.astro` |
+| `/experience` | `src/pages/[...lang]/experience.astro` |
+| `/problem` | `src/pages/[...lang]/problem.astro` |
+| `/contact` | `src/pages/[...lang]/contact.astro` |
+| `/artworks`, `/artworks/bubbles` | `src/pages/[...lang]/artworks.astro`, `artworks/bubbles.astro` |
+| `/404` | `src/pages/404.astro` (built once; swaps copy client-side by URL prefix) |
 
-**When adding a new page:** create a `.astro` file in `src/pages/`. Astro auto-routes it and includes it in the sitemap. Wrap content with `<BaseLayout title=... description=... path=...>` so per-page SEO metadata (title, description, canonical, OG, Twitter, JSON-LD) gets emitted.
+**Translations** are per-page dictionaries in `src/i18n/dict/*.ts`. Each file defines the `ja` object (source of truth), derives its type (`type XDict = typeof ja`), and exports `{ ja, en, zh, ko }` as `Record<Locale, XDict>` so a missing key in any language is a type error. `common.ts` holds shell strings (nav, footer, back link, generic section headings); `layout.ts` holds site-wide SEO metadata.
+
+**Page skeleton:**
+
+```astro
+---
+import { localePaths, localeFromParam, localizePath } from '../../i18n';
+import dict from '../../i18n/dict/example';
+export function getStaticPaths() { return localePaths(); }
+const locale = localeFromParam(Astro.params.lang);
+const t = dict[locale];
+const l = (p: string) => localizePath(p, locale);
+---
+<BaseLayout title={t.title} description={t.description} path="/example">
+  <a href={l('/contact')}>{t.cta}</a>
+</BaseLayout>
+```
+
+Rules when adding or editing pages:
+- Create the file under `src/pages/[...lang]/` and add a dictionary in `src/i18n/dict/` with all four locales.
+- Never hard-code visible text in markup; every user-facing string comes from the dictionary. Terminal-style `command` strings for `PageHeader` and brand strings (`tatsuki.dev`) are the exception.
+- Every internal `href` goes through `l()` so it stays inside the current locale. Pass the locale-less path to `BaseLayout`'s `path` prop; it adds the prefix, emits the canonical URL, `hreflang` alternates, `og:locale`, and the localized JSON-LD.
+- React islands that show text receive it as props (e.g. `RoleTyper roles={t.roles}`, `ProblemTerminal locale={locale}`); `localizePath` is a pure function and can be imported into islands from `src/i18n/config.ts`.
+- `Header`, `Footer`, `ProjectBackLink`, and `LanguageSwitcher` derive the locale from `Astro.url` themselves; `LanguageSwitcher` has a `tone="dark"` variant for the black artworks pages.
 
 ### Layout and shared components
 

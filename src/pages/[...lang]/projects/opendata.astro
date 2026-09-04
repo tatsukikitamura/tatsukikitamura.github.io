@@ -1,7 +1,11 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectBackLink from '../../components/ProjectBackLink.astro';
-import { getTechIcon } from '../../lib/techIcons';
+import { localePaths, localeFromParam } from '../../../i18n';
+export function getStaticPaths() {
+  return localePaths();
+}
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectBackLink from '../../../components/ProjectBackLink.astro';
+import { getTechIcon } from '../../../lib/techIcons';
 
 const TECHS = [
   { name: 'Python 3.12', cls: 'bg-blue-50 text-blue-700' },

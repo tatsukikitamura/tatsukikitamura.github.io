@@ -1,8 +1,12 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import ProjectBackLink from '../../components/ProjectBackLink.astro';
-import MacbookFrame from '../../components/MacbookFrame.astro';
-import { getTechIcon } from '../../lib/techIcons';
+import { localePaths, localeFromParam } from '../../../i18n';
+export function getStaticPaths() {
+  return localePaths();
+}
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import ProjectBackLink from '../../../components/ProjectBackLink.astro';
+import MacbookFrame from '../../../components/MacbookFrame.astro';
+import { getTechIcon } from '../../../lib/techIcons';
 
 const iosStack = [
   { name: 'SwiftUI', cls: 'bg-orange-50 text-orange-700' },

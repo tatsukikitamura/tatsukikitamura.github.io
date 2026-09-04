@@ -1,5 +1,9 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
+import { localePaths, localeFromParam } from '../../../i18n';
+export function getStaticPaths() {
+  return localePaths();
+}
+import BaseLayout from '../../../layouts/BaseLayout.astro';
 
 const DESCRIPTION =
   '保護フィルムを貼ったときの気泡とりを体験できる実験的な Web ページ。カーソルで気泡を画面の端まで押し出して抜こう。';

@@ -1,8 +1,13 @@
 ---
+import { getLocale, localizePath } from '../i18n';
+import common from '../i18n/dict/common';
+
+const locale = getLocale(Astro);
+const t = common[locale];
 ---
 
 <a
-  href="/projects"
+  href={localizePath('/projects', locale)}
   class="inline-flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors mb-8 opacity-0 animate-fade-in-up"
 >
   <svg
@@ -17,5 +22,5 @@
       stroke-width="2"
       d="M15 19l-7-7 7-7"></path>
   </svg>
-  <span>Projects</span>
+  <span>{t.backToProjects}</span>
 </a>

@@ -1,6 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import PageHeader from '../components/PageHeader.astro';
+import { localePaths, localeFromParam } from '../../i18n';
+export function getStaticPaths() {
+  return localePaths();
+}
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
 import {
   WorkIcon,
   HackathonIcon,
@@ -8,7 +12,7 @@ import {
   TeachIcon,
   MusicIcon,
   EduIcon,
-} from '../components/Icons';
+} from '../../components/Icons';
 
 const DESCRIPTION =
   '北村健紀の経験・実績。Gravity Game Arise でのQA・デバッグ（2年）、ハッカソン参加、イベント運営、教育経験など。';

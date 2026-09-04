@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { localizePath, type Locale } from '../i18n/config';
+import problemDict, { type ProblemDict } from '../i18n/dict/problem';
 
 const CLEARED_ASCII = String.raw`
  ██████╗██╗     ███████╗ █████╗ ██████╗ ███████╗██████╗
@@ -30,11 +32,14 @@ type Problem = {
 
 const PROMPT = 'tatsuki@dev ~ %';
 
-const PROBLEMS: Problem[] = [
+// Only the human-facing text (titles, hints, README contents, the hadouken
+// line) comes from the dictionary; commands, file names and outputs are fixed.
+function buildProblems(t: ProblemDict): Problem[] {
+  return [
   {
     id: 1,
-    title: 'Problem 1: 答えを読め',
-    hint: ['まず周りに何があるか確かめてみよう。'],
+    title: t.problems.p1.title,
+    hint: t.problems.p1.hint,
     files: {
       'answer.md': 'success',
     },
@@ -50,8 +55,8 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: 2,
-    title: 'Problem 2: 紛れたコマンドを探せ',
-    hint: ['help の中に一つだけ毛色の違うやつがいる。'],
+    title: t.problems.p2.title,
+    hint: t.problems.p2.hint,
     files: {},
     helpLines: [
       'available commands:',
@@ -65,17 +70,16 @@ const PROBLEMS: Problem[] = [
       '  hadouken      ???',
     ],
     customCommands: {
-      hadouken: ['     ⊂(◉‿◉)つ━☆ﾟ.*･｡ﾟ', '       波動拳！！！'],
+      hadouken: ['     ⊂(◉‿◉)つ━☆ﾟ.*･｡ﾟ', `       ${t.problems.p2.hadouken}`],
     },
     successCommand: 'hadouken',
   },
   {
     id: 3,
-    title: 'Problem 3: 隠されたメッセージ',
-    hint: ['`ls` はデフォルトでは全部を見せない。'],
+    title: t.problems.p3.title,
+    hint: t.problems.p3.hint,
     files: {
-      'README.md':
-        'メッセージは表に出していない。\n中身は 13 文字ずらしてある。',
+      'README.md': t.problems.p3.readme,
       '.encoded': 'fhpprff',
     },
     helpLines: [
@@ -91,11 +95,10 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: 4,
-    title: 'Problem 4: 鍵を探して暗号を解け',
-    hint: ['鍵は普段見えない場所に置かれているもの。'],
+    title: t.problems.p4.title,
+    hint: t.problems.p4.hint,
     files: {
-      'README.md':
-        'lock.txt はシーザー暗号でロックした。\n鍵 (シフト量) は環境ファイルに保存してある。',
+      'README.md': t.problems.p4.readme,
       '.env': 'KEY=7',
       'lock.txt': 'zbjjlzz',
     },
@@ -113,11 +116,10 @@ const PROBLEMS: Problem[] = [
   },
   {
     id: 5,
-    title: 'Problem 5: 文書化されていないもの',
-    hint: ['ドキュメントが揃っているものだけが本物。'],
+    title: t.problems.p5.title,
+    hint: t.problems.p5.hint,
     files: {
-      'README.md':
-        '3つの ritual がある。正しく invoke できるのは1つだけ。\n.rituals を読み、各 ritual を確認せよ。',
+      'README.md': t.problems.p5.readme,
       '.rituals': 'nheben\nrpyvcfr\nfbyfgvpr',
     },
     helpLines: [
@@ -258,7 +260,8 @@ const PROBLEMS: Problem[] = [
     },
     successCommand: 'invoke eclipse',
   },
-];
+  ];
+}
 
 function caesar(s: string, n: number): string {
   const shift = ((n % 26) + 26) % 26;
@@ -277,12 +280,12 @@ function rot13(s: string): string {
   });
 }
 
-function welcomeLines(): Line[] {
+function welcomeLines(t: ProblemDict): Line[] {
   return [
     { text: 'Last login: ' + new Date().toString(), variant: 'dim' },
     { text: '' },
     { text: 'Welcome to tatsuki.dev problems shell.' },
-    { text: '`success` を出力できればクリア。`help` でコマンド一覧。', variant: 'dim' },
+    { text: t.welcome, variant: 'dim' },
   ];
 }
 
@@ -309,11 +312,18 @@ function variantClass(v?: Variant): string {
   }
 }
 
-export default function ProblemTerminal() {
+type Props = {
+  /** Locale of the page hosting the terminal. Defaults to Japanese. */
+  locale?: Locale;
+};
+
+export default function ProblemTerminal({ locale = 'ja' }: Props) {
+  const t = problemDict[locale];
+  const PROBLEMS = useMemo(() => buildProblems(t), [t]);
   const [problemIdx, setProblemIdx] = useState(0);
   const [solved, setSolved] = useState<Set<number>>(new Set());
   const [lines, setLines] = useState<Line[]>(() => [
-    ...welcomeLines(),
+    ...welcomeLines(t),
     ...buildIntro(PROBLEMS[0]!),
   ]);
   const [input, setInput] = useState('');
@@ -436,13 +446,13 @@ export default function ProblemTerminal() {
         if (!solved.has(current.id)) {
           return {
             output: [
-              { text: 'まずこの問題をクリアしてください。', variant: 'error' },
+              { text: t.solveFirst, variant: 'error' },
             ],
           };
         }
         if (problemIdx + 1 >= PROBLEMS.length) {
           return {
-            output: [{ text: '🎉 全ての問題をクリア済みです。', variant: 'success' }],
+            output: [{ text: t.allCleared, variant: 'success' }],
           };
         }
         return { output: [], advance: true };
@@ -464,13 +474,13 @@ export default function ProblemTerminal() {
     const { output, clear, advance } = runCommand(raw);
 
     if (clear) {
-      setLines(welcomeLines());
+      setLines(welcomeLines(t));
       return;
     }
 
     if (advance) {
       const nextProblem = PROBLEMS[problemIdx + 1]!;
-      setLines([...welcomeLines(), ...buildIntro(nextProblem)]);
+      setLines([...welcomeLines(t), ...buildIntro(nextProblem)]);
       setProblemIdx(problemIdx + 1);
       return;
     }
@@ -491,10 +501,10 @@ export default function ProblemTerminal() {
         variant: 'success',
       });
       if (problemIdx + 1 < PROBLEMS.length) {
-        newLines.push({ text: '`next` で次の問題へ。', variant: 'dim' });
+        newLines.push({ text: t.nextHint, variant: 'dim' });
       } else {
         newLines.push({
-          text: '🎉 これが最後の問題でした。下に進め。',
+          text: t.lastCleared,
           variant: 'success',
         });
         setTimeout(() => setShowCelebration(true), 1200);
@@ -580,25 +590,25 @@ export default function ProblemTerminal() {
               {CLEARED_ASCII}
             </pre>
             <h2 className="mt-8 text-2xl font-bold text-gray-900">
-              🎉 全 {PROBLEMS.length} 問クリアおめでとう！
+              {t.celebration.heading.replace('{count}', String(PROBLEMS.length))}
             </h2>
             <p className="mt-3 text-gray-500 text-sm leading-relaxed max-w-md mx-auto">
-              お疲れさま。
+              {t.celebration.line1}
               <br />
-              これからも、お互いいいコード書いていこう。
+              {t.celebration.line2}
             </p>
             <div className="mt-8 font-mono text-xs text-gray-400">
               <span className="text-[#0a66c2]">$</span> echo $? &nbsp;→&nbsp; 0
             </div>
             <div className="mt-10 flex flex-wrap gap-3 justify-center font-mono text-sm">
               <a
-                href="/projects"
+                href={localizePath('/projects', locale)}
                 className="px-5 py-2.5 rounded text-white font-semibold tracking-wide bg-[#0a66c2] hover:bg-[#004182] transition-colors"
               >
                 ./view-projects.sh
               </a>
               <a
-                href="/contact"
+                href={localizePath('/contact', locale)}
                 className="px-5 py-2.5 rounded border border-gray-300 bg-white text-gray-900 font-medium hover:border-gray-500 transition-colors"
               >
                 cat contact.md

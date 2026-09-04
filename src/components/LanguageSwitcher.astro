@@ -1,0 +1,51 @@
+---
+// Inline "JA / EN / 中文 / KO" links that keep the visitor on the same page
+// while switching locale. Works on any page: the locale is derived from the URL.
+import { LOCALES, LOCALE_META, localizePath, stripLocale } from '../i18n';
+import common from '../i18n/dict/common';
+
+type Props = {
+  /** 'light' for white pages, 'dark' for the black artworks pages. */
+  tone?: 'light' | 'dark';
+  class?: string;
+};
+
+const { tone = 'light', class: className = '' } = Astro.props;
+const { locale, path } = stripLocale(Astro.url.pathname);
+const t = common[locale];
+
+const active =
+  tone === 'dark' ? 'text-white font-semibold' : 'text-gray-900 font-semibold';
+const inactive =
+  tone === 'dark'
+    ? 'text-[#98989f] hover:text-white'
+    : 'text-gray-400 hover:text-[#0a66c2]';
+const divider = tone === 'dark' ? 'text-white/20' : 'text-gray-300';
+---
+
+<nav
+  class={`flex items-center gap-1.5 font-mono text-[11px] tracking-wide ${className}`}
+  aria-label={t.language}
+>
+  {
+    LOCALES.map((l, i) => (
+      <>
+        {i > 0 && (
+          <span class={divider} aria-hidden="true">
+            /
+          </span>
+        )}
+        <a
+          href={localizePath(path, l)}
+          hreflang={LOCALE_META[l].hreflang}
+          lang={LOCALE_META[l].htmlLang}
+          title={LOCALE_META[l].label}
+          aria-current={l === locale ? 'true' : undefined}
+          class={`transition-colors ${l === locale ? active : inactive}`}
+        >
+          {LOCALE_META[l].short}
+        </a>
+      </>
+    ))
+  }
+</nav>

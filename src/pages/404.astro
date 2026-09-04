@@ -1,23 +1,50 @@
 ---
+// GitHub Pages serves a single /404.html for every missing URL, so this page
+// is built once (in the default locale) and swaps its copy on the client
+// based on the locale prefix of the URL that actually 404'd.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { DEFAULT_LOCALE, LOCALES, localizePath } from '../i18n';
+import common from '../i18n/dict/common';
+
+const t = common[DEFAULT_LOCALE];
+const variants = Object.fromEntries(
+  LOCALES.map((l) => [l, { ...common[l].notFound, href: localizePath('/', l) }])
+);
 ---
 
-<BaseLayout
-  title="404 Not Found"
-  description="お探しのページは見つかりませんでした。"
-  path="/404"
->
+<BaseLayout title={t.notFound.title} description={t.notFound.message} path="/404">
   <section class="pt-32 pb-16 px-6">
-    <div class="max-w-3xl mx-auto text-center">
-      <h1 class="text-3xl font-bold text-gray-900 mb-4">404 - Not Found</h1>
-      <p class="text-gray-500 text-sm mb-8">お探しのページは見つかりませんでした。</p>
+    <div class="max-w-3xl mx-auto text-center" id="not-found" data-variants={JSON.stringify(variants)}>
+      <h1 class="text-3xl font-bold text-gray-900 mb-4" data-key="heading">{t.notFound.heading}</h1>
+      <p class="text-gray-500 text-sm mb-8" data-key="message">{t.notFound.message}</p>
       <a
         href="/"
         class="inline-block px-5 py-2 rounded-lg text-white text-sm font-medium transition-colors"
         style="background:#0a66c2"
+        data-key="home"
       >
-        ホームに戻る
+        {t.notFound.home}
       </a>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  const root = document.getElementById('not-found');
+  const match = location.pathname.match(/^\/([a-z]{2})(?=\/|$)/);
+  if (root && match) {
+    const variants = JSON.parse(root.dataset.variants || '{}') as Record<
+      string,
+      { heading: string; message: string; home: string; href: string }
+    >;
+    const v = variants[match[1]!];
+    if (v) {
+      document.documentElement.lang = match[1]!;
+      root.querySelector<HTMLElement>('[data-key="heading"]')!.textContent = v.heading;
+      root.querySelector<HTMLElement>('[data-key="message"]')!.textContent = v.message;
+      const home = root.querySelector<HTMLAnchorElement>('[data-key="home"]')!;
+      home.textContent = v.home;
+      home.href = v.href;
+    }
+  }
+</script>

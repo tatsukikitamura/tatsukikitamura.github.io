@@ -1,11 +1,21 @@
 ---
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import {
+  DEFAULT_LOCALE,
+  LOCALES,
+  LOCALE_META,
+  getLocale,
+  localizePath,
+  stripLocale,
+} from '../i18n';
+import layoutDict from '../i18n/dict/layout';
 import '../style.css';
 
 type Props = {
   title: string;
   description?: string;
+  /** Locale-less path of this page (e.g. "/about"). The locale prefix is added here. */
   path?: string;
   ogImage?: string;
   // frame={false} renders the slot without Header/Footer/white background,
@@ -13,25 +23,33 @@ type Props = {
   frame?: boolean;
 };
 
-const SITE_NAME = '北村健紀 (Tatsuki Kitamura)';
 const ORIGIN = 'https://tatsuki.dev';
-const DEFAULT_DESCRIPTION =
-  '北村健紀（Tatsuki Kitamura）のポートフォリオサイト。早稲田大学教育学部数学科4年。Ruby on Rails / React / SwiftUI を中心に Web・iOS アプリ開発、AtCoder（Algorithm 茶 / Heuristic 青）に取り組んでいます。';
+
+const locale = getLocale(Astro);
+const t = layoutDict[locale];
+const meta = LOCALE_META[locale];
 
 const {
   title,
-  description = DEFAULT_DESCRIPTION,
+  description = t.defaultDescription,
   path = Astro.url.pathname,
   ogImage = `${ORIGIN}/images/main.jpg`,
   frame = true,
 } = Astro.props;
 
-const fullTitle = `${title} | ${SITE_NAME}`;
-const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
+// Accept either a locale-less path or an already-prefixed one.
+const basePath = stripLocale(path).path;
+const fullTitle = `${title} | ${t.siteName}`;
+const canonical = `${ORIGIN}${localizePath(basePath, locale)}`;
+const alternates = LOCALES.map((l) => ({
+  hreflang: LOCALE_META[l].hreflang,
+  href: `${ORIGIN}${localizePath(basePath, l)}`,
+}));
+const xDefault = `${ORIGIN}${localizePath(basePath, DEFAULT_LOCALE)}`;
 ---
 
 <!doctype html>
-<html lang="ja">
+<html lang={meta.htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -39,12 +57,11 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="author" content="北村健紀 (Tatsuki Kitamura)" />
-    <meta
-      name="keywords"
-      content="北村健紀, Tatsuki Kitamura, きたむらたつき, 早稲田大学, ポートフォリオ, Webエンジニア, Ruby on Rails, React, SwiftUI, AtCoder"
-    />
+    <meta name="author" content={t.author} />
+    <meta name="keywords" content={t.keywords} />
     <link rel="canonical" href={canonical} />
+    {alternates.map((a) => <link rel="alternate" hreflang={a.hreflang} href={a.href} />)}
+    <link rel="alternate" hreflang="x-default" href={xDefault} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="tatsuki.dev" />
@@ -52,7 +69,12 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:locale" content={meta.ogLocale} />
+    {
+      LOCALES.filter((l) => l !== locale).map((l) => (
+        <meta property="og:locale:alternate" content={LOCALE_META[l].ogLocale} />
+      ))
+    }
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
@@ -62,16 +84,15 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
     <script type="application/ld+json" is:inline set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'Person',
-      name: '北村健紀',
-      alternateName: ['Tatsuki Kitamura', 'きたむらたつき', 'Kitamura Tatsuki'],
+      name: t.person.name,
+      alternateName: ['Tatsuki Kitamura', '北村健紀', 'きたむらたつき', 'Kitamura Tatsuki'],
       url: 'https://tatsuki.dev/',
       image: 'https://tatsuki.dev/images/main.jpg',
-      jobTitle: 'Software Engineer',
-      description:
-        '早稲田大学教育学部数学科4年。Web・iOS アプリ開発、競技プログラミングに取り組んでいます。',
+      jobTitle: t.person.jobTitle,
+      description: t.person.description,
       alumniOf: {
         '@type': 'CollegeOrUniversity',
-        name: '早稲田大学',
+        name: t.person.university,
         sameAs: 'https://www.waseda.jp/',
       },
       knowsAbout: [
@@ -82,7 +103,7 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
         'C++',
         'FastAPI',
         'PostgreSQL',
-        '競技プログラミング',
+        t.person.competitiveProgramming,
       ],
       sameAs: [
         'https://github.com/tatsukikitamura',
@@ -94,8 +115,8 @@ const canonical = `${ORIGIN}${path === '/' ? '/' : path.replace(/\/$/, '')}`;
       '@type': 'WebSite',
       name: 'tatsuki.dev',
       url: 'https://tatsuki.dev/',
-      inLanguage: 'ja',
-      author: { '@type': 'Person', name: '北村健紀' },
+      inLanguage: meta.htmlLang,
+      author: { '@type': 'Person', name: t.person.name },
     })} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
