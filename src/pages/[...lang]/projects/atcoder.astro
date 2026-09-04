@@ -6,18 +6,25 @@ export function getStaticPaths() {
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import ProjectBackLink from '../../../components/ProjectBackLink.astro';
 import { getTechIcon } from '../../../lib/techIcons';
+import common from '../../../i18n/dict/common';
+import atcoderDict from '../../../i18n/dict/atcoder';
+
+const locale = localeFromParam(Astro.params.lang);
+const c = common[locale];
+const t = atcoderDict[locale];
 
 const LANGS = ['Python', 'C++'];
 
-const DESCRIPTION =
-  '北村健紀の AtCoder 取り組み。Algorithm 茶 / Heuristic 青（最高レート1603）。約2年継続中、AHC78位・黄色パフォーマンス記録。';
+// Colour scheme per stat card, in the same order as t.stats.
+const STAT_STYLES = [
+  { card: 'bg-amber-50 border-amber-200', headingCls: 'text-amber-800', valueCls: 'text-amber-600' },
+  { card: 'bg-blue-50 border-blue-200', headingCls: 'text-blue-800', valueCls: 'text-blue-600' },
+  { card: 'bg-yellow-50 border-yellow-200', headingCls: 'text-yellow-800', valueCls: 'text-yellow-600' },
+];
+const stats = t.stats.map((stat, i) => ({ ...stat, ...STAT_STYLES[i]! }));
 ---
 
-<BaseLayout
-  title="AtCoder - 競技プログラミング"
-  description={DESCRIPTION}
-  path="/projects/atcoder"
->
+<BaseLayout title={t.title} description={t.description} path="/projects/atcoder">
   <main class="pt-20 pb-8 px-4 max-w-4xl mx-auto">
     <ProjectBackLink />
 
@@ -32,35 +39,25 @@ const DESCRIPTION =
           AtCoder
         </h1>
       </a>
-      <p class="text-gray-500 mt-2">2024年4月〜2026年1月（継続中）</p>
+      <p class="text-gray-500 mt-2">{t.period}</p>
     </div>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
-      <h2 class="text-xl font-bold tracking-tight mb-4">概要</h2>
-      <p class="text-gray-600 leading-relaxed">
-        AtCoderは、プログラミングの問題を解くスピードと正確性を競うコンテスト。アルゴリズムやデータ構造の知識を活かして、制限時間内に問題を解く形式。継続的に取り組み、Algorithm部門で茶色、Heuristic部門で青色ランク（最高レート1603）に到達。直近のAHCでは78位・黄色パフォーマンスを記録。
-      </p>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{c.overview}</h2>
+      <p class="text-gray-600 leading-relaxed">{t.overviewBody}</p>
     </section>
 
     <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <div class="bg-amber-50 rounded-xl border border-amber-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
-        <h3 class="font-semibold text-amber-800">Algorithm部門</h3>
-        <p class="text-amber-600 mt-1 text-sm">茶色ランク到達</p>
-      </div>
-
-      <div class="bg-blue-50 rounded-xl border border-blue-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
-        <h3 class="font-semibold text-blue-800">Heuristic部門</h3>
-        <p class="text-blue-600 mt-1 text-sm">青色ランク到達（最高レート1603）</p>
-      </div>
-
-      <div class="bg-yellow-50 rounded-xl border border-yellow-200 p-6 opacity-0 animate-fade-in-up animation-delay-200">
-        <h3 class="font-semibold text-yellow-800">AHC最高成績</h3>
-        <p class="text-yellow-600 mt-1 text-sm">78位・黄色パフォーマンス</p>
-      </div>
+      {stats.map((stat) => (
+        <div class={`${stat.card} rounded-xl border p-6 opacity-0 animate-fade-in-up animation-delay-200`}>
+          <h3 class={`font-semibold ${stat.headingCls}`}>{stat.heading}</h3>
+          <p class={`${stat.valueCls} mt-1 text-sm`}>{stat.value}</p>
+        </div>
+      ))}
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
-      <h2 class="text-xl font-bold tracking-tight mb-4">使用言語</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.languages}</h2>
       <div class="flex flex-wrap gap-2">
         {LANGS.map((name) => {
           const icon = getTechIcon(name);
@@ -77,57 +74,37 @@ const DESCRIPTION =
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-4">取り組み方</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.approach.heading}</h2>
       <div class="space-y-4 text-gray-600 text-sm">
         <ul class="space-y-2">
-          <li>• 毎週開催されるコンテストに参加し、アルゴリズム問題に取り組む</li>
-          <li>
-            • Algorithm部門（アルゴリズムの正確性とスピードを競う）とHeuristic部門（試行錯誤で最適解を探す）の両方に挑戦
-          </li>
-          <li>• 当初は知らないアルゴリズムばかりで苦戦したが、継続的に学習を続けた</li>
+          {t.approach.items.map((item) => <li>• {item}</li>)}
         </ul>
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-xl font-bold tracking-tight mb-4">工夫した点</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{t.efforts.heading}</h2>
       <div class="space-y-4 text-gray-600 text-sm">
         <ul class="space-y-3">
-          <li class="flex items-start gap-2">
-            <span class="text-gray-300 mt-0.5">—</span>
-            <span>
-              わからない部分はAIに質問したり、体系的な書籍（「競技プログラミングの鉄則」など）で学んだりして、効率的に知識を吸収
-            </span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-gray-300 mt-0.5">—</span>
-            <span>
-              解けなかった問題は、解説を読んで理解した後に必ず自分で実装し直すことで、知識を定着
-            </span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="text-gray-300 mt-0.5">—</span>
-            <span>苦手な分野（グラフ、動的計画法など）を特定し、重点的に演習を積んだ</span>
-          </li>
+          {t.efforts.items.map((item) => (
+            <li class="flex items-start gap-2">
+              <span class="text-gray-300 mt-0.5">—</span>
+              <span>{item}</span>
+            </li>
+          ))}
         </ul>
       </div>
     </section>
 
     <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-xl font-bold tracking-tight mb-4">学び</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{c.learnings}</h2>
       <div class="space-y-3 text-gray-600 text-sm">
-        <p>
-          • 「わからない」状態から、調べて・試して・理解するというサイクルを回し続けることで、着実に成長できることを実感
-        </p>
-        <p>• 問題を分解して考える力、効率的なアルゴリズムを選択する力が身についた</p>
-        <p>
-          • 制限時間内に正確なコードを書くプレッシャーの中で、冷静に思考を整理する力が鍛えられた
-        </p>
+        {t.learnings.map((item) => <p>• {item}</p>)}
       </div>
     </section>
 
     <section class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-xl font-bold tracking-tight mb-4">リンク</h2>
+      <h2 class="text-xl font-bold tracking-tight mb-4">{c.links}</h2>
       <div class="flex flex-wrap gap-4">
         <a
           href="https://atcoder.jp/users/oreccchi"
@@ -136,7 +113,7 @@ const DESCRIPTION =
           class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
         >
           <span class="font-bold">A</span>
-          AtCoder Profile
+          {t.profileLabel}
         </a>
       </div>
     </section>

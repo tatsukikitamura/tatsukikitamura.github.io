@@ -17,11 +17,16 @@ interface Props {
   class?: string;
 }
 
+import { getLocale } from '../i18n';
+import common from '../i18n/dict/common';
+
+const t = common[getLocale(Astro)];
+
 const {
   src,
   href = src,
   url,
-  title = 'ライブプレビュー',
+  title = t.livePreview,
   base = 1280,
   class: className = '',
 } = Astro.props;
@@ -44,7 +49,7 @@ const iframeHeight = Math.round((base * 10) / 16);
     target="_blank"
     rel="noopener noreferrer"
     class="group block focus:outline-none"
-    aria-label={`${title}（新しいタブで開く）`}
+    aria-label={`${title}${t.opensInNewTab}`}
   >
     <!-- Lid / screen -->
     <div
@@ -107,7 +112,7 @@ const iframeHeight = Math.round((base * 10) / 16);
             <span
               class="rounded-full bg-white/95 px-4 py-2 text-sm font-medium text-gray-900 shadow-lg"
             >
-              サイトを開く ↗
+              {t.openSite}
             </span>
           </div>
         </div>
