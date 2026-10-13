@@ -43,10 +43,10 @@ export default function RoleTyper({ roles = DEFAULT_ROLES }: Props) {
   }, [partial, phase, idx, roles]);
 
   return (
-    <span className="font-semibold text-[#0a66c2] border-b border-[#0a66c2]/30 pb-0.5 min-w-[200px] sm:min-w-[260px] inline-flex items-center">
+    <span className="inline-flex min-w-[200px] items-center border-b border-[#0a66c2]/30 pb-0.5 font-semibold text-[#0a66c2] sm:min-w-[260px]">
       {'​'}
       {partial}
-      <span className="inline-block w-2 h-[18px] bg-[#0a66c2] ml-0.5 cursor-blink" />
+      <span className="cursor-blink ml-0.5 inline-block h-[18px] w-2 bg-[#0a66c2]" />
     </span>
   );
 }

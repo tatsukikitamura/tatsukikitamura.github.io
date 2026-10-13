@@ -21,8 +21,7 @@ const ja = {
     citation:
       "K. Nishihara, <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>, Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.",
     // rich
-    body:
-      "で、<strong>粘性 Burgers 方程式の進行波解（衝撃波層）が時間とともに安定であること</strong>を、 その<strong>減衰の速さまで含めて</strong>精密に示すのが主題。原論文の全訳に加え、行間を省かず結論まで導く卒業論文と、Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) など関連する古典論文の翻訳までを横断的に読めるよう構成した。",
+    body: "で、<strong>粘性 Burgers 方程式の進行波解（衝撃波層）が時間とともに安定であること</strong>を、 その<strong>減衰の速さまで含めて</strong>精密に示すのが主題。原論文の全訳に加え、行間を省かず結論まで導く卒業論文と、Hopf (1950)・Il'in–Oleinik (1960)・Gelfand (1959) など関連する古典論文の翻訳までを横断的に読めるよう構成した。",
   },
   math: {
     heading: '扱っている数学',
@@ -30,25 +29,23 @@ const ja = {
       heading: '対象 — 粘性 Burgers 方程式',
       intro: '流体の衝撃波をモデル化する、非線形移流項と粘性拡散項をあわせ持つ方程式を扱う。',
       // rich
-      question: '両端で異なる値 $v_- > v_+$ に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。',
+      question:
+        '両端で異なる値 $v_- > v_+$ に漸近する初期データのもとで、解がやがてどんな形に落ち着くかを問う。',
     },
     wave: {
       heading: '進行波解（衝撃波層）の明示形',
       // rich
-      body:
-        '形を保ったまま一定速度 $s$ で進む解 $V(x - st)$ を考えると、偏微分方程式は常微分方程式に落ち、積分して $\\tanh$ 型のプロファイルが厳密に書き下せる。',
+      body: '形を保ったまま一定速度 $s$ で進む解 $V(x - st)$ を考えると、偏微分方程式は常微分方程式に落ち、積分して $\\tanh$ 型のプロファイルが厳密に書き下せる。',
     },
     stability: {
       heading: '安定性 — Hopf–Cole 変換による線形化',
       // rich
-      body:
-        '進行波まわりの擾乱 $u = v - V$ が満たす方程式は非線形だが、 <strong>Hopf–Cole 変換</strong> $u = -2\\,(\\log\\varphi)_\\xi$ を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。',
+      body: '進行波まわりの擾乱 $u = v - V$ が満たす方程式は非線形だが、 <strong>Hopf–Cole 変換</strong> $u = -2\\,(\\log\\varphi)_\\xi$ を施すと<strong>線形の熱方程式</strong>に化ける。線形なら明示公式（熱核）で解の長時間挙動を直接追える、というのが議論の核心。',
     },
     conclusion: {
       heading: '結論 — 指数減衰の評価',
       // rich
-      body:
-        '擾乱の総質量がゼロ（$\\int u_0\\, d\\xi = 0$）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。',
+      body: '擾乱の総質量がゼロ（$\\int u_0\\, d\\xi = 0$）という条件のもとで、解が進行波へ<strong>指数オーダーで収束する</strong>こと、しかもその<strong>減衰率が具体値として</strong>得られる。',
     },
   },
   points: {
@@ -88,7 +85,8 @@ const ja = {
 type MathDict = typeof ja;
 
 const en: MathDict = {
-  title: 'Stability of Travelling Wave Solutions of the Burgers Equation (Graduation Research Site)',
+  title:
+    'Stability of Travelling Wave Solutions of the Burgers Equation (Graduation Research Site)',
   description:
     "Tatsuki Kitamura's graduation research site. A rigorous estimate of the asymptotic stability of travelling wave solutions (shock layers) of the viscous Burgers equation via linearisation by the Hopf–Cole transformation, with the exponential decay rate written down as an explicit value. A maths site collecting a paper translation, lecture notes and the graduation thesis, based on Nishihara (1985).",
   heading: 'Stability of Travelling Wave Solutions of the Burgers Equation',
@@ -102,8 +100,7 @@ const en: MathDict = {
       'A maths site that brings together my <strong>graduation research</strong> in the Department of Mathematics, School of Education, Waseda University, as a paper translation, lecture notes and a graduation thesis. The subject is a classic of nonlinear partial differential equation theory:',
     citation:
       "K. Nishihara, <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>, Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.",
-    body:
-      "Its main theme is to show rigorously that <strong>travelling wave solutions (shock layers) of the viscous Burgers equation are stable in time</strong>, <strong>including how fast perturbations decay</strong>. Alongside a full translation of the original paper, the site contains a graduation thesis that carries the argument through to its conclusion without skipping any steps, and translations of related classical papers such as Hopf (1950), Il'in–Oleinik (1960) and Gelfand (1959), all arranged so that they can be read side by side.",
+    body: "Its main theme is to show rigorously that <strong>travelling wave solutions (shock layers) of the viscous Burgers equation are stable in time</strong>, <strong>including how fast perturbations decay</strong>. Alongside a full translation of the original paper, the site contains a graduation thesis that carries the argument through to its conclusion without skipping any steps, and translations of related classical papers such as Hopf (1950), Il'in–Oleinik (1960) and Gelfand (1959), all arranged so that they can be read side by side.",
   },
   math: {
     heading: 'The mathematics',
@@ -116,18 +113,15 @@ const en: MathDict = {
     },
     wave: {
       heading: 'Explicit form of the travelling wave solution (shock layer)',
-      body:
-        'Considering a solution $V(x - st)$ that keeps its shape while moving at a constant speed $s$, the partial differential equation reduces to an ordinary differential equation, which can be integrated to give an exact $\\tanh$-shaped profile.',
+      body: 'Considering a solution $V(x - st)$ that keeps its shape while moving at a constant speed $s$, the partial differential equation reduces to an ordinary differential equation, which can be integrated to give an exact $\\tanh$-shaped profile.',
     },
     stability: {
       heading: 'Stability — linearisation via the Hopf–Cole transformation',
-      body:
-        'The equation satisfied by the perturbation $u = v - V$ around the travelling wave is nonlinear, but applying the <strong>Hopf–Cole transformation</strong> $u = -2\\,(\\log\\varphi)_\\xi$ turns it into a <strong>linear heat equation</strong>. Once it is linear, the long-time behaviour of the solution can be tracked directly through an explicit formula (the heat kernel) — this is the heart of the argument.',
+      body: 'The equation satisfied by the perturbation $u = v - V$ around the travelling wave is nonlinear, but applying the <strong>Hopf–Cole transformation</strong> $u = -2\\,(\\log\\varphi)_\\xi$ turns it into a <strong>linear heat equation</strong>. Once it is linear, the long-time behaviour of the solution can be tracked directly through an explicit formula (the heat kernel) — this is the heart of the argument.',
     },
     conclusion: {
       heading: 'Conclusion — an exponential decay estimate',
-      body:
-        'Under the condition that the perturbation has zero total mass ($\\int u_0\\, d\\xi = 0$), the solution <strong>converges to the travelling wave at an exponential rate</strong>, and moreover the <strong>decay rate is obtained as an explicit value</strong>.',
+      body: 'Under the condition that the perturbation has zero total mass ($\\int u_0\\, d\\xi = 0$), the solution <strong>converges to the travelling wave at an exponential rate</strong>, and moreover the <strong>decay rate is obtained as an explicit value</strong>.',
     },
   },
   points: {
@@ -176,8 +170,7 @@ const zh: MathDict = {
       '将我在早稻田大学教育学部数学系的<strong>毕业研究</strong>整理为论文翻译、讲义笔记和毕业论文的数学网站。题材是非线性偏微分方程理论中的经典文献：',
     citation:
       "K. Nishihara, <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>, Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.",
-    body:
-      "其主题是精确地证明<strong>黏性 Burgers 方程的行波解（激波层）随时间保持稳定</strong>，并且<strong>连衰减速度也一并给出</strong>。除原论文的全文翻译外，还包括不省略推导细节、一直推到结论的毕业论文，以及 Hopf (1950)、Il'in–Oleinik (1960)、Gelfand (1959) 等相关经典论文的翻译，构成一个可以交叉阅读的整体。",
+    body: "其主题是精确地证明<strong>黏性 Burgers 方程的行波解（激波层）随时间保持稳定</strong>，并且<strong>连衰减速度也一并给出</strong>。除原论文的全文翻译外，还包括不省略推导细节、一直推到结论的毕业论文，以及 Hopf (1950)、Il'in–Oleinik (1960)、Gelfand (1959) 等相关经典论文的翻译，构成一个可以交叉阅读的整体。",
   },
   math: {
     heading: '涉及的数学',
@@ -188,18 +181,15 @@ const zh: MathDict = {
     },
     wave: {
       heading: '行波解（激波层）的显式形式',
-      body:
-        '考虑保持形状、以恒定速度 $s$ 传播的解 $V(x - st)$，偏微分方程便化为常微分方程，积分后可以严格写出 $\\tanh$ 型的剖面。',
+      body: '考虑保持形状、以恒定速度 $s$ 传播的解 $V(x - st)$，偏微分方程便化为常微分方程，积分后可以严格写出 $\\tanh$ 型的剖面。',
     },
     stability: {
       heading: '稳定性 — 通过 Hopf–Cole 变换进行线性化',
-      body:
-        '行波附近的扰动 $u = v - V$ 所满足的方程是非线性的，但施加 <strong>Hopf–Cole 变换</strong> $u = -2\\,(\\log\\varphi)_\\xi$ 之后，它就变成了<strong>线性热方程</strong>。一旦是线性的，就可以通过显式公式（热核）直接追踪解的长时间行为——这正是整个论证的核心。',
+      body: '行波附近的扰动 $u = v - V$ 所满足的方程是非线性的，但施加 <strong>Hopf–Cole 变换</strong> $u = -2\\,(\\log\\varphi)_\\xi$ 之后，它就变成了<strong>线性热方程</strong>。一旦是线性的，就可以通过显式公式（热核）直接追踪解的长时间行为——这正是整个论证的核心。',
     },
     conclusion: {
       heading: '结论 — 指数衰减估计',
-      body:
-        '在扰动总质量为零（$\\int u_0\\, d\\xi = 0$）的条件下，解<strong>以指数阶收敛到行波</strong>，而且<strong>衰减率可以作为具体数值</strong>得到。',
+      body: '在扰动总质量为零（$\\int u_0\\, d\\xi = 0$）的条件下，解<strong>以指数阶收敛到行波</strong>，而且<strong>衰减率可以作为具体数值</strong>得到。',
     },
   },
   points: {
@@ -248,8 +238,7 @@ const ko: MathDict = {
       '와세다대학교 교육학부 수학과에서의 <strong>졸업 연구</strong>를 논문 번역·강의 노트·졸업 논문으로 한데 정리한 수식 사이트. 소재는 비선형 편미분방정식론의 고전인 다음 논문이다.',
     citation:
       "K. Nishihara, <em>A Note on the Stability of Travelling Wave Solutions of Burgers' Equation</em>, Japan J. Appl. Math. <strong>2</strong> (1985), 27–35.",
-    body:
-      "이 논문의 주제는 <strong>점성 Burgers 방정식의 진행파 해(충격파층)가 시간에 따라 안정적이라는 것</strong>을 <strong>감쇠 속도까지 포함하여</strong> 정밀하게 보이는 것이다. 원논문의 전문 번역에 더해, 행간을 생략하지 않고 결론까지 이끌어 내는 졸업 논문과 Hopf (1950)·Il'in–Oleinik (1960)·Gelfand (1959) 등 관련 고전 논문의 번역까지 함께 읽을 수 있도록 구성했다.",
+    body: "이 논문의 주제는 <strong>점성 Burgers 방정식의 진행파 해(충격파층)가 시간에 따라 안정적이라는 것</strong>을 <strong>감쇠 속도까지 포함하여</strong> 정밀하게 보이는 것이다. 원논문의 전문 번역에 더해, 행간을 생략하지 않고 결론까지 이끌어 내는 졸업 논문과 Hopf (1950)·Il'in–Oleinik (1960)·Gelfand (1959) 등 관련 고전 논문의 번역까지 함께 읽을 수 있도록 구성했다.",
   },
   math: {
     heading: '다루는 수학',
@@ -261,18 +250,15 @@ const ko: MathDict = {
     },
     wave: {
       heading: '진행파 해(충격파층)의 명시적 형태',
-      body:
-        '형태를 유지한 채 일정한 속도 $s$ 로 나아가는 해 $V(x - st)$ 를 생각하면 편미분방정식은 상미분방정식으로 환원되고, 적분하면 $\\tanh$ 형 프로파일을 엄밀하게 써 내려갈 수 있다.',
+      body: '형태를 유지한 채 일정한 속도 $s$ 로 나아가는 해 $V(x - st)$ 를 생각하면 편미분방정식은 상미분방정식으로 환원되고, 적분하면 $\\tanh$ 형 프로파일을 엄밀하게 써 내려갈 수 있다.',
     },
     stability: {
       heading: '안정성 — Hopf–Cole 변환에 의한 선형화',
-      body:
-        '진행파 주위의 섭동 $u = v - V$ 가 만족하는 방정식은 비선형이지만, <strong>Hopf–Cole 변환</strong> $u = -2\\,(\\log\\varphi)_\\xi$ 를 적용하면 <strong>선형 열방정식</strong>으로 바뀐다. 선형이라면 명시적 공식(열핵)으로 해의 장시간 거동을 직접 추적할 수 있다는 것이 논의의 핵심이다.',
+      body: '진행파 주위의 섭동 $u = v - V$ 가 만족하는 방정식은 비선형이지만, <strong>Hopf–Cole 변환</strong> $u = -2\\,(\\log\\varphi)_\\xi$ 를 적용하면 <strong>선형 열방정식</strong>으로 바뀐다. 선형이라면 명시적 공식(열핵)으로 해의 장시간 거동을 직접 추적할 수 있다는 것이 논의의 핵심이다.',
     },
     conclusion: {
       heading: '결론 — 지수 감쇠 평가',
-      body:
-        '섭동의 총질량이 0($\\int u_0\\, d\\xi = 0$)이라는 조건 아래에서, 해가 진행파로 <strong>지수 오더로 수렴한다는 것</strong>, 게다가 그 <strong>감쇠율이 구체적인 값으로</strong> 얻어진다.',
+      body: '섭동의 총질량이 0($\\int u_0\\, d\\xi = 0$)이라는 조건 아래에서, 해가 진행파로 <strong>지수 오더로 수렴한다는 것</strong>, 게다가 그 <strong>감쇠율이 구체적인 값으로</strong> 얻어진다.',
     },
   },
   points: {

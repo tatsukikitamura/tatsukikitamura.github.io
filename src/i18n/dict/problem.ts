@@ -175,7 +175,8 @@ const ko: ProblemDict = {
     p5: {
       title: 'Problem 5: 문서화되지 않은 것',
       hint: ['문서가 갖춰진 것만이 진짜다.'],
-      readme: 'ritual이 3개 있다. 제대로 invoke할 수 있는 건 1개뿐.\n.rituals를 읽고 각 ritual을 확인하라.',
+      readme:
+        'ritual이 3개 있다. 제대로 invoke할 수 있는 건 1개뿐.\n.rituals를 읽고 각 ritual을 확인하라.',
     },
   },
 };

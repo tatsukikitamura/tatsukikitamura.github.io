@@ -21,8 +21,7 @@ const ja = {
   overview: {
     hook: '「今の時間は平常通りです」...その言葉を信じて遅刻したことはありませんか？',
     // rich
-    body:
-      '既存の乗換案内は「現在」の遅延しか教えてくれません。本アプリは、 <strong>未来の遅延リスクを予測</strong> し、「絶対に遅刻できない人」を安全に目的地まで送り届けるルート検索アプリです。 数ヶ月分のリアルタイム運行データを蓄積・解析し、統計的リスクを可視化します。',
+    body: '既存の乗換案内は「現在」の遅延しか教えてくれません。本アプリは、 <strong>未来の遅延リスクを予測</strong> し、「絶対に遅刻できない人」を安全に目的地まで送り届けるルート検索アプリです。 数ヶ月分のリアルタイム運行データを蓄積・解析し、統計的リスクを可視化します。',
   },
   features: {
     heading: '主な機能・技術的工夫',
@@ -64,8 +63,7 @@ const en: OpendataDict = {
   period: 'Oct 2025 — present (personal project)',
   overview: {
     hook: '"Trains are running normally right now"... Have you ever trusted those words and ended up late?',
-    body:
-      'Existing transit apps only tell you about "current" delays. This app <strong>predicts future delay risk</strong> and gets people who "absolutely cannot be late" to their destination safely. It accumulates and analyses months of real-time operation data to visualise statistical risk.',
+    body: 'Existing transit apps only tell you about "current" delays. This app <strong>predicts future delay risk</strong> and gets people who "absolutely cannot be late" to their destination safely. It accumulates and analyses months of real-time operation data to visualise statistical risk.',
   },
   features: {
     heading: 'Key features and technical highlights',
@@ -105,8 +103,7 @@ const zh: OpendataDict = {
   period: '2025年10月〜至今（个人开发）',
   overview: {
     hook: '“目前运行正常”……你是否曾因为相信这句话而迟到？',
-    body:
-      '现有的换乘查询只能告诉你“当前”的延误情况。本应用<strong>预测未来的延误风险</strong>，把“绝对不能迟到的人”安全送达目的地。通过积累并分析数月的实时运行数据，将统计风险可视化。',
+    body: '现有的换乘查询只能告诉你“当前”的延误情况。本应用<strong>预测未来的延误风险</strong>，把“绝对不能迟到的人”安全送达目的地。通过积累并分析数月的实时运行数据，将统计风险可视化。',
   },
   features: {
     heading: '主要功能・技术亮点',
@@ -146,8 +143,7 @@ const ko: OpendataDict = {
   period: '2025년 10월〜현재 (개인 개발)',
   overview: {
     hook: '"지금 시간대는 정상 운행 중입니다"... 그 말을 믿고 지각한 적은 없으신가요?',
-    body:
-      '기존 환승 안내는 "현재"의 지연밖에 알려 주지 않습니다. 이 앱은 <strong>미래의 지연 리스크를 예측</strong>하여 "절대 지각할 수 없는 사람"을 목적지까지 안전하게 데려다주는 경로 검색 앱입니다. 수개월분의 실시간 운행 데이터를 축적·분석하여 통계적 리스크를 시각화합니다.',
+    body: '기존 환승 안내는 "현재"의 지연밖에 알려 주지 않습니다. 이 앱은 <strong>미래의 지연 리스크를 예측</strong>하여 "절대 지각할 수 없는 사람"을 목적지까지 안전하게 데려다주는 경로 검색 앱입니다. 수개월분의 실시간 운행 데이터를 축적·분석하여 통계적 리스크를 시각화합니다.',
   },
   features: {
     heading: '주요 기능·기술적 고민',

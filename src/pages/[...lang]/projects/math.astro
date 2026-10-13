@@ -18,11 +18,9 @@ const l = (p: string) => localizePath(p, locale);
 
 // Render LaTeX to HTML at build time (no client-side JS, KaTeX CSS only).
 const M = (s: string) => katex.renderToString(s, { throwOnError: false });
-const D = (s: string) =>
-  katex.renderToString(s, { displayMode: true, throwOnError: false });
+const D = (s: string) => katex.renderToString(s, { displayMode: true, throwOnError: false });
 // Dictionary paragraphs are HTML we author; inline `$...$` is expanded to KaTeX.
-const rich = (s: string) =>
-  s.replace(/\$([^$]+)\$/g, (_, tex: string) => `<span>${M(tex)}</span>`);
+const rich = (s: string) => s.replace(/\$([^$]+)\$/g, (_, tex: string) => `<span>${M(tex)}</span>`);
 
 const TECHS = [
   { name: 'TypeScript', cls: 'bg-blue-50 text-blue-700' },
@@ -33,115 +31,139 @@ const TECHS = [
 ];
 ---
 
-<BaseLayout
-  title={t.title}
-  description={t.description}
-  path="/projects/math"
->
-  <main class="pt-20 pb-8 px-4 max-w-4xl mx-auto">
+<BaseLayout title={t.title} description={t.description} path="/projects/math">
+  <main class="mx-auto max-w-4xl px-4 pt-20 pb-8">
     <ProjectBackLink />
 
-    <div class="mb-12 opacity-0 animate-fade-in-up">
-      <div class="flex items-center gap-3 flex-wrap">
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+    <div class="animate-fade-in-up mb-12 opacity-0">
+      <div class="flex flex-wrap items-center gap-3">
+        <h1 class="text-3xl font-bold tracking-tight md:text-4xl">
           {t.heading}
         </h1>
-        <span class="px-3 py-1 bg-emerald-100 text-emerald-800 rounded-full text-xs font-medium">
+        <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
           {t.badges.thesis}
         </span>
-        <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-medium">
+        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
           {t.badges.restricted}
         </span>
       </div>
-      <p class="text-gray-500 mt-2">{t.period}</p>
+      <p class="mt-2 text-gray-500">{t.period}</p>
     </div>
 
-    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-100">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{c.overview}</h2>
-      <p class="text-gray-600 leading-relaxed mb-4" set:html={rich(t.overview.intro)} />
-      <p class="text-gray-600 leading-relaxed mb-4 text-sm" set:html={t.overview.citation} />
-      <p class="text-gray-600 leading-relaxed" set:html={rich(t.overview.body)} />
+    <section
+      class="animate-fade-in-up animation-delay-100 mb-6 rounded-3xl border border-gray-200 bg-white p-8 opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{c.overview}</h2>
+      <p class="mb-4 leading-relaxed text-gray-600" set:html={rich(t.overview.intro)} />
+      <p class="mb-4 text-sm leading-relaxed text-gray-600" set:html={t.overview.citation} />
+      <p class="leading-relaxed text-gray-600" set:html={rich(t.overview.body)} />
     </section>
 
-    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-200">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{t.math.heading}</h2>
+    <section
+      class="animate-fade-in-up animation-delay-200 mb-6 rounded-3xl border border-gray-200 bg-white p-8 opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.math.heading}</h2>
 
       <div class="space-y-6 text-gray-600">
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">{t.math.target.heading}</h3>
-          <p class="text-sm mb-3">
+          <h3 class="mb-2 font-bold text-gray-900">{t.math.target.heading}</h3>
+          <p class="mb-3 text-sm">
             {t.math.target.intro}
           </p>
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v_t + \\left(\\tfrac{v^2}{2}\\right)_x = \\varepsilon\\, v_{xx} \\qquad (\\varepsilon > 0)')} />
-          <p class="text-sm mt-3" set:html={rich(t.math.target.question)} />
+          <div
+            class="overflow-x-auto rounded-2xl bg-gray-900 px-5 py-4 text-center text-gray-100"
+            set:html={D(
+              'v_t + \\left(\\tfrac{v^2}{2}\\right)_x = \\varepsilon\\, v_{xx} \\qquad (\\varepsilon > 0)',
+            )}
+          />
+          <p class="mt-3 text-sm" set:html={rich(t.math.target.question)} />
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">{t.math.wave.heading}</h3>
-          <p class="text-sm mb-3" set:html={rich(t.math.wave.body)} />
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto space-y-2">
+          <h3 class="mb-2 font-bold text-gray-900">{t.math.wave.heading}</h3>
+          <p class="mb-3 text-sm" set:html={rich(t.math.wave.body)} />
+          <div
+            class="space-y-2 overflow-x-auto rounded-2xl bg-gray-900 px-5 py-4 text-center text-gray-100"
+          >
             <div set:html={D('s = \\frac{v_+ + v_-}{2}')} />
-            <div set:html={D('V(\\xi) = \\frac{v_+ + v_-}{2} - \\frac{v_- - v_+}{2}\\,\\tanh\\!\\left(\\frac{v_- - v_+}{4\\varepsilon}\\,(\\xi - x_0)\\right)')} />
+            <div
+              set:html={D(
+                'V(\\xi) = \\frac{v_+ + v_-}{2} - \\frac{v_- - v_+}{2}\\,\\tanh\\!\\left(\\frac{v_- - v_+}{4\\varepsilon}\\,(\\xi - x_0)\\right)',
+              )}
+            />
           </div>
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">{t.math.stability.heading}</h3>
-          <p class="text-sm mb-3" set:html={rich(t.math.stability.body)} />
+          <h3 class="mb-2 font-bold text-gray-900">{t.math.stability.heading}</h3>
+          <p class="mb-3 text-sm" set:html={rich(t.math.stability.body)} />
         </div>
 
         <div>
-          <h3 class="font-bold text-gray-900 mb-2">{t.math.conclusion.heading}</h3>
-          <p class="text-sm mb-3" set:html={rich(t.math.conclusion.body)} />
-          <div class="bg-gray-900 text-gray-100 rounded-2xl px-5 py-4 text-center overflow-x-auto" set:html={D('v(x,t) - V(x - st) = O\\!\\left(\\exp\\!\\left(-\\frac{(v_- - v_+)^2}{16\\varepsilon}\\,t\\right)\\right) \\qquad (t \\to \\infty)')} />
+          <h3 class="mb-2 font-bold text-gray-900">{t.math.conclusion.heading}</h3>
+          <p class="mb-3 text-sm" set:html={rich(t.math.conclusion.body)} />
+          <div
+            class="overflow-x-auto rounded-2xl bg-gray-900 px-5 py-4 text-center text-gray-100"
+            set:html={D(
+              'v(x,t) - V(x - st) = O\\!\\left(\\exp\\!\\left(-\\frac{(v_- - v_+)^2}{16\\varepsilon}\\,t\\right)\\right) \\qquad (t \\to \\infty)',
+            )}
+          />
         </div>
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-300">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{t.points.heading}</h2>
-      <div class="space-y-4 text-gray-600 text-sm">
+    <section
+      class="animate-fade-in-up animation-delay-300 mb-6 rounded-3xl border border-gray-200 bg-white p-8 opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.points.heading}</h2>
+      <div class="space-y-4 text-sm text-gray-600">
         {t.points.paragraphs.map((p) => <p set:html={rich(p)} />)}
       </div>
     </section>
 
-    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{t.structure.heading}</h2>
-      <ul class="space-y-2 text-gray-600 text-sm">
+    <section
+      class="animate-fade-in-up animation-delay-400 mb-6 rounded-3xl border border-gray-200 bg-white p-8 opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.structure.heading}</h2>
+      <ul class="space-y-2 text-sm text-gray-600">
         {t.structure.items.map((item) => <li set:html={rich(item)} />)}
       </ul>
     </section>
 
-    <section class="bg-white rounded-3xl border border-gray-200 p-8 mb-6 opacity-0 animate-fade-in-up animation-delay-400">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{t.tech.heading}</h2>
-      <div class="flex flex-wrap gap-2 mb-5">
-        {TECHS.map(({ name, cls }) => {
-          const icon = getTechIcon(name);
-          return (
-            <span
-              class={`inline-flex items-center gap-1.5 px-3 py-1.5 ${cls} rounded-full text-sm`}
-            >
-              {icon && (
-                <img src={icon} class="w-4 h-4 flex-shrink-0" alt="" loading="lazy" />
-              )}
-              {name}
-            </span>
-          );
-        })}
+    <section
+      class="animate-fade-in-up animation-delay-400 mb-6 rounded-3xl border border-gray-200 bg-white p-8 opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.tech.heading}</h2>
+      <div class="mb-5 flex flex-wrap gap-2">
+        {
+          TECHS.map(({ name, cls }) => {
+            const icon = getTechIcon(name);
+            return (
+              <span
+                class={`inline-flex items-center gap-1.5 px-3 py-1.5 ${cls} rounded-full text-sm`}
+              >
+                {icon && <img src={icon} class="h-4 w-4 flex-shrink-0" alt="" loading="lazy" />}
+                {name}
+              </span>
+            );
+          })
+        }
       </div>
-      <ul class="space-y-2 text-gray-600 text-sm">
+      <ul class="space-y-2 text-sm text-gray-600">
         {t.tech.items.map((item) => <li set:html={rich(item)} />)}
       </ul>
     </section>
 
-    <section class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 text-white opacity-0 animate-fade-in-up animation-delay-500">
-      <h2 class="text-xl font-bold tracking-tight mb-4">{t.access.heading}</h2>
-      <p class="text-white/70 text-sm leading-relaxed mb-5">
+    <section
+      class="animate-fade-in-up animation-delay-500 rounded-3xl bg-gradient-to-br from-gray-900 to-gray-800 p-8 text-white opacity-0"
+    >
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.access.heading}</h2>
+      <p class="mb-5 text-sm leading-relaxed text-white/70">
         {t.access.body}
       </p>
       <a
         href={l('/contact')}
-        class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
+        class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 transition-colors hover:bg-white/20"
       >
         {c.contact}
       </a>

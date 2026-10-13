@@ -39,7 +39,7 @@ const allPlaceholders: { category: ArtworkCategory; note: string }[] = [
   { category: 'web', note: t.placeholders.web },
 ];
 const placeholders = allPlaceholders.filter(
-  (slot) => !artworks.some((work) => work.category === slot.category)
+  (slot) => !artworks.some((work) => work.category === slot.category),
 );
 ---
 
@@ -53,7 +53,10 @@ const placeholders = allPlaceholders.filter(
     </div>
 
     <!-- カーソル追従のスポットライト + 残光トレイル (hover デバイスのみ、script 側で有効化) -->
-    <canvas id="cursor-spotlight" class="pointer-events-none fixed inset-0 z-10 h-full w-full" aria-hidden="true"></canvas>
+    <canvas
+      id="cursor-spotlight"
+      class="pointer-events-none fixed inset-0 z-10 h-full w-full"
+      aria-hidden="true"></canvas>
 
     <div class="relative mx-auto max-w-5xl px-6 pt-8 pb-20">
       <!-- root へ戻るリンク + 言語切替 -->
@@ -123,9 +126,7 @@ const placeholders = allPlaceholders.filter(
                   </span>
                   <span class="font-mono text-[10px] text-[#98989f]">{work.date}</span>
                 </div>
-                <h2 class="mt-2 font-semibold text-white">
-                  {work.title}
-                </h2>
+                <h2 class="mt-2 font-semibold text-white">{work.title}</h2>
                 <p class="mt-2 text-sm leading-relaxed text-[#98989f]">{work.description}</p>
               </div>
             </a>
@@ -134,19 +135,19 @@ const placeholders = allPlaceholders.filter(
 
         {
           placeholders.map((slot, index) => (
-              <div
-                class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
-                style={`opacity:0;animation-delay:${500 + index * 100}ms`}
-              >
-                <span class="font-mono text-xs tracking-wider text-white/80 uppercase">
-                  {categoryLabels[slot.category]}
-                </span>
-                <p class="text-sm text-[#98989f]">{slot.note}</p>
-                <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#98989f]">
-                  coming soon
-                </span>
-              </div>
-            ))
+            <div
+              class="animate-fade-in flex aspect-[4/3] flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-white/15 bg-white/[0.02] transition-colors duration-300 hover:border-white/30 hover:bg-white/[0.04]"
+              style={`opacity:0;animation-delay:${500 + index * 100}ms`}
+            >
+              <span class="font-mono text-xs tracking-wider text-white/80 uppercase">
+                {categoryLabels[slot.category]}
+              </span>
+              <p class="text-sm text-[#98989f]">{slot.note}</p>
+              <span class="rounded-full border border-white/10 px-3 py-1 font-mono text-[10px] text-[#98989f]">
+                coming soon
+              </span>
+            </div>
+          ))
         }
       </section>
 

@@ -81,43 +81,48 @@ const xDefault = `${ORIGIN}${localizePath(basePath, DEFAULT_LOCALE)}`;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'Person',
-      name: t.person.name,
-      alternateName: ['Tatsuki Kitamura', '北村健紀', 'きたむらたつき', 'Kitamura Tatsuki'],
-      url: 'https://tatsuki.dev/',
-      image: 'https://tatsuki.dev/images/main.jpg',
-      jobTitle: t.person.jobTitle,
-      description: t.person.description,
-      alumniOf: {
-        '@type': 'CollegeOrUniversity',
-        name: t.person.university,
-        sameAs: 'https://www.waseda.jp/',
-      },
-      knowsAbout: [
-        'Ruby on Rails',
-        'React',
-        'SwiftUI',
-        'Python',
-        'C++',
-        'FastAPI',
-        'PostgreSQL',
-        t.person.competitiveProgramming,
-      ],
-      sameAs: [
-        'https://github.com/tatsukikitamura',
-        'https://atcoder.jp/users/oreccchi',
-      ],
-    })} />
-    <script type="application/ld+json" is:inline set:html={JSON.stringify({
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'tatsuki.dev',
-      url: 'https://tatsuki.dev/',
-      inLanguage: meta.htmlLang,
-      author: { '@type': 'Person', name: t.person.name },
-    })} />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: t.person.name,
+        alternateName: ['Tatsuki Kitamura', '北村健紀', 'きたむらたつき', 'Kitamura Tatsuki'],
+        url: 'https://tatsuki.dev/',
+        image: 'https://tatsuki.dev/images/main.jpg',
+        jobTitle: t.person.jobTitle,
+        description: t.person.description,
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: t.person.university,
+          sameAs: 'https://www.waseda.jp/',
+        },
+        knowsAbout: [
+          'Ruby on Rails',
+          'React',
+          'SwiftUI',
+          'Python',
+          'C++',
+          'FastAPI',
+          'PostgreSQL',
+          t.person.competitiveProgramming,
+        ],
+        sameAs: ['https://github.com/tatsukikitamura', 'https://atcoder.jp/users/oreccchi'],
+      })}
+    />
+    <script
+      type="application/ld+json"
+      is:inline
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: 'tatsuki.dev',
+        url: 'https://tatsuki.dev/',
+        inLanguage: meta.htmlLang,
+        author: { '@type': 'Person', name: t.person.name },
+      })}
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -126,10 +131,7 @@ const xDefault = `${ORIGIN}${localizePath(basePath, DEFAULT_LOCALE)}`;
       rel="stylesheet"
     />
 
-    <script
-      is:inline
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-MWZJZWMLW8"></script>
+    <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-MWZJZWMLW8"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
       // Google's official snippet: gtag.js expects the `arguments` object, not an array.
@@ -144,7 +146,7 @@ const xDefault = `${ORIGIN}${localizePath(basePath, DEFAULT_LOCALE)}`;
   <body>
     {
       frame ? (
-        <div class="min-h-screen flex flex-col bg-white">
+        <div class="flex min-h-screen flex-col bg-white">
           <Header />
           <main class="flex-1">
             <slot />

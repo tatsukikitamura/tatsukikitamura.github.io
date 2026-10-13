@@ -67,15 +67,21 @@ export function localizePath(path: string, locale: Locale): string {
  *   stripLocale('/en/about') → { locale: 'en', path: '/about' }
  *   stripLocale('/about')    → { locale: 'ja', path: '/about' }
  *   stripLocale('/en')       → { locale: 'en', path: '/' }
+ * File-format builds expose `.html` paths through Astro.url; normalize them
+ * to the public extensionless URLs before resolving the locale.
  */
 export function stripLocale(pathname: string): { locale: Locale; path: string } {
-  const match = pathname.match(/^\/([a-z]{2})(?=\/|$)/);
+  const normalized =
+    pathname
+      .replace(/\/index\.html$/, '/')
+      .replace(/\.html$/, '')
+      .replace(/\/$/, '') || '/';
+  const match = normalized.match(/^\/([a-z]{2})(?=\/|$)/);
   if (match && isLocale(match[1]) && match[1] !== DEFAULT_LOCALE) {
-    const rest = pathname.slice(match[0].length).replace(/\/$/, '');
+    const rest = normalized.slice(match[0].length);
     return { locale: match[1], path: rest || '/' };
   }
-  const path = pathname.replace(/\/$/, '') || '/';
-  return { locale: DEFAULT_LOCALE, path };
+  return { locale: DEFAULT_LOCALE, path: normalized };
 }
 
 /** Resolve the locale for the current request from its URL. */

@@ -2,8 +2,7 @@ import type { Locale } from '../config';
 
 /** One block inside a timeline card: a small heading followed by bullets or a paragraph. */
 export type ExperienceSection =
-  | { heading: string; bullets: string[] }
-  | { heading: string; paragraph: string };
+  { heading: string; bullets: string[] } | { heading: string; paragraph: string };
 
 /** One timeline card. Which optional keys are present decides which body markup is rendered. */
 export type ExperienceEntry = {

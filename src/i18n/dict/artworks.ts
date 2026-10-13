@@ -5,7 +5,10 @@ const ja = {
   description:
     '北村健紀（Tatsuki Kitamura）のアートワーク集。フライヤー、Tシャツ、Web ページなどのグラフィック制作物をまとめています。',
   /** Two lines of the hero paragraph (joined by a responsive <br />). */
-  hero: ['フライヤー、Tシャツ、Web ページ。', '手を動かして作ったグラフィックをここに集めていきます。'],
+  hero: [
+    'フライヤー、Tシャツ、Web ページ。',
+    '手を動かして作ったグラフィックをここに集めていきます。',
+  ],
   works: {
     bubbles: {
       title: '気泡とり',

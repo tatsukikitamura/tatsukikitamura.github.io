@@ -13,8 +13,8 @@ const t = problemDict[locale];
 ---
 
 <BaseLayout title={t.title} description={t.description} path="/problem">
-  <main class="pt-24 pb-16 px-6">
-    <div class="max-w-4xl mx-auto">
+  <main class="px-6 pt-24 pb-16">
+    <div class="mx-auto max-w-4xl">
       <PageHeader command="open -a Terminal problems/">{t.heading}</PageHeader>
       <ProblemTerminal client:load locale={locale} />
     </div>

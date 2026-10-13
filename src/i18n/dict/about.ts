@@ -53,7 +53,7 @@ const en: AboutDict = {
     heading: 'How I got into programming',
     paragraphs: [
       'In my last year of junior high, when all I did was play Fortnite, my dad brought home a book on Unity. I gave it a try and got bored almost immediately. Building exactly what the book told me to was no fun.',
-      "Later, without any idea how to set up a server, I built a fan site for my favourite rapper and was the only person who ever looked at it. In hindsight it was a pretty niche hobby.",
+      'Later, without any idea how to set up a server, I built a fan site for my favourite rapper and was the only person who ever looked at it. In hindsight it was a pretty niche hobby.',
       'When I decided to become an engineer in my third year of university, the honest reason was that job hunting as a maths major looked rough. But once I tried Progate I was hooked, and from there it spread to AtCoder, personal projects and contest submissions.',
       'The kid who hated following a book step by step now finds nothing more fun than taking his own idea all the way to a working implementation.',
     ],

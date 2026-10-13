@@ -30,114 +30,120 @@ const ENTRIES: { icon: typeof WorkIcon; delay: string; data: ExperienceEntry }[]
 ---
 
 <BaseLayout title={t.title} description={t.description} path="/experience">
-  <div class="pt-24 pb-16 px-6">
-    <div class="max-w-3xl mx-auto">
+  <div class="px-6 pt-24 pb-16">
+    <div class="mx-auto max-w-3xl">
       <PageHeader command="git log --pretty=experience" subtitle={t.subtitle}>
         {t.heading}
       </PageHeader>
 
       <section class="mb-12">
-        <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6">
+        <h2 class="mb-6 text-xs font-semibold tracking-widest text-gray-400 uppercase">
           {t.workHeading}
         </h2>
 
         <div class="relative">
-          <div class="absolute left-5 top-0 bottom-0 w-px bg-gray-200"></div>
+          <div class="absolute top-0 bottom-0 left-5 w-px bg-gray-200"></div>
 
           <div class="space-y-6">
-            {ENTRIES.map(({ icon: Icon, delay, data }) => (
-              <article class={`relative pl-14 animate-fade-in ${delay}`}>
-                <div
-                  class="absolute left-3 top-1 w-4 h-4 rounded-full bg-white border-2 flex items-center justify-center"
-                  style="border-color:#0a66c2"
-                >
-                  <div class="w-1.5 h-1.5 rounded-full" style="background:#0a66c2"></div>
-                </div>
-                <div class="bg-white border border-gray-200 rounded-xl p-6">
-                  <div class="flex items-start gap-3 mb-3">
-                    <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2]">
-                      <Icon />
-                    </div>
-                    <div class="flex-1 min-w-0">
-                      <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
-                        <h3 class="font-semibold text-gray-900">{data.title}</h3>
-                        <span class="text-xs text-gray-400">{data.period}</span>
-                      </div>
-                      {data.org && <p class="text-sm text-gray-500 mt-0.5">{data.org}</p>}
-                    </div>
+            {
+              ENTRIES.map(({ icon: Icon, delay, data }) => (
+                <article class={`animate-fade-in relative pl-14 ${delay}`}>
+                  <div
+                    class="absolute top-1 left-3 flex h-4 w-4 items-center justify-center rounded-full border-2 bg-white"
+                    style="border-color:#0a66c2"
+                  >
+                    <div class="h-1.5 w-1.5 rounded-full" style="background:#0a66c2" />
                   </div>
-                  {data.sections && (
-                    <div class="space-y-4 text-sm text-gray-600 mt-4">
-                      {data.sections.map((section) => (
-                        <div>
-                          <h4 class="font-medium text-gray-800 mb-1.5">{section.heading}</h4>
-                          {'bullets' in section ? (
-                            <ul class="space-y-1 text-xs leading-relaxed">
-                              {section.bullets.map((item) => (
-                                <li class="flex gap-2">
-                                  <span class="text-gray-300 mt-0.5">—</span>
-                                  <span>{item}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <p class="text-xs leading-relaxed">{section.paragraph}</p>
-                          )}
+                  <div class="rounded-xl border border-gray-200 bg-white p-6">
+                    <div class="mb-3 flex items-start gap-3">
+                      <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#0a66c2]">
+                        <Icon />
+                      </div>
+                      <div class="min-w-0 flex-1">
+                        <div class="flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                          <h3 class="font-semibold text-gray-900">{data.title}</h3>
+                          <span class="text-xs text-gray-400">{data.period}</span>
                         </div>
-                      ))}
-                    </div>
-                  )}
-                  {data.paragraphs && (
-                    <div class="space-y-4 text-sm text-gray-600 mt-4">
-                      <div class="space-y-2 text-xs text-gray-600 leading-relaxed">
-                        {data.paragraphs.map((p) => <p>{p}</p>)}
+                        {data.org && <p class="mt-0.5 text-sm text-gray-500">{data.org}</p>}
                       </div>
                     </div>
-                  )}
-                  {data.paragraph && (
-                    <div class="space-y-4 text-sm text-gray-600 mt-4">
-                      <p class="text-xs text-gray-600 leading-relaxed">{data.paragraph}</p>
-                    </div>
-                  )}
-                  {data.tags && (
-                    <div class="flex flex-wrap gap-2 mt-4">
-                      {data.tags.map((tag) => (
-                        <span class="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded font-medium">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </article>
-            ))}
+                    {data.sections && (
+                      <div class="mt-4 space-y-4 text-sm text-gray-600">
+                        {data.sections.map((section) => (
+                          <div>
+                            <h4 class="mb-1.5 font-medium text-gray-800">{section.heading}</h4>
+                            {'bullets' in section ? (
+                              <ul class="space-y-1 text-xs leading-relaxed">
+                                {section.bullets.map((item) => (
+                                  <li class="flex gap-2">
+                                    <span class="mt-0.5 text-gray-300">—</span>
+                                    <span>{item}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            ) : (
+                              <p class="text-xs leading-relaxed">{section.paragraph}</p>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                    {data.paragraphs && (
+                      <div class="mt-4 space-y-4 text-sm text-gray-600">
+                        <div class="space-y-2 text-xs leading-relaxed text-gray-600">
+                          {data.paragraphs.map((p) => (
+                            <p>{p}</p>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                    {data.paragraph && (
+                      <div class="mt-4 space-y-4 text-sm text-gray-600">
+                        <p class="text-xs leading-relaxed text-gray-600">{data.paragraph}</p>
+                      </div>
+                    )}
+                    {data.tags && (
+                      <div class="mt-4 flex flex-wrap gap-2">
+                        {data.tags.map((tag) => (
+                          <span class="rounded bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </article>
+              ))
+            }
           </div>
         </div>
       </section>
 
       <section class="animate-fade-in animation-delay-500">
-        <h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6">
+        <h2 class="mb-6 text-xs font-semibold tracking-widest text-gray-400 uppercase">
           {t.educationHeading}
         </h2>
 
         <div class="relative">
-          <div class="absolute left-5 top-0 bottom-0 w-px bg-gray-200"></div>
+          <div class="absolute top-0 bottom-0 left-5 w-px bg-gray-200"></div>
 
           <article class="relative pl-14">
             <div
-              class="absolute left-3 top-1 w-4 h-4 rounded-full bg-white border-2 flex items-center justify-center"
+              class="absolute top-1 left-3 flex h-4 w-4 items-center justify-center rounded-full border-2 bg-white"
               style="border-color:#0a66c2"
             >
-              <div class="w-1.5 h-1.5 rounded-full" style="background:#0a66c2"></div>
+              <div class="h-1.5 w-1.5 rounded-full" style="background:#0a66c2"></div>
             </div>
-            <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <div class="rounded-xl border border-gray-200 bg-white p-6">
               <div class="flex items-start gap-3">
-                <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center text-[#0a66c2]">
-                  <EduIcon className="w-5 h-5" />
+                <div
+                  class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-50 text-[#0a66c2]"
+                >
+                  <EduIcon className="h-5 w-5" />
                 </div>
                 <div>
                   <h3 class="font-semibold text-gray-900">{t.education.school}</h3>
-                  <p class="text-sm text-gray-500 mt-0.5">{t.education.department}</p>
+                  <p class="mt-0.5 text-sm text-gray-500">{t.education.department}</p>
                 </div>
               </div>
             </div>

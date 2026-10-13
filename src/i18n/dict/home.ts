@@ -14,9 +14,21 @@ const ja = {
   },
   featuredHeading: '━━━ FEATURED WORK ━━━',
   featured: {
-    yamatomo: { title: 'Yamatomo', sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。', kind: 'iOS / Web App' },
-    atcoder: { title: 'AtCoder', sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。', kind: 'Competitive Prog.' },
-    math: { title: 'Burgers 方程式', sub: '進行波解の安定性を扱う卒業研究の数式サイト。', kind: 'Research / Math' },
+    yamatomo: {
+      title: 'Yamatomo',
+      sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。',
+      kind: 'iOS / Web App',
+    },
+    atcoder: {
+      title: 'AtCoder',
+      sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。',
+      kind: 'Competitive Prog.',
+    },
+    math: {
+      title: 'Burgers 方程式',
+      sub: '進行波解の安定性を扱う卒業研究の数式サイト。',
+      kind: 'Research / Math',
+    },
     mbti: { title: 'MBTI × AI', sub: '物語形式の MBTI 診断 × 生成AI。', kind: 'Web App / LLM' },
   },
   allProjects: '$ ls projects/ --all →',
@@ -38,10 +50,26 @@ const en: HomeDict = {
   },
   featuredHeading: '━━━ FEATURED WORK ━━━',
   featured: {
-    yamatomo: { title: 'Yamatomo', sub: 'Community app for hikers. iOS and web built in parallel.', kind: 'iOS / Web App' },
-    atcoder: { title: 'AtCoder', sub: 'Algorithm brown / Heuristic blue (1603). Two years and counting.', kind: 'Competitive Prog.' },
-    math: { title: 'Burgers equation', sub: 'Math site for my thesis on the stability of travelling waves.', kind: 'Research / Math' },
-    mbti: { title: 'MBTI × AI', sub: 'Story-driven MBTI test powered by generative AI.', kind: 'Web App / LLM' },
+    yamatomo: {
+      title: 'Yamatomo',
+      sub: 'Community app for hikers. iOS and web built in parallel.',
+      kind: 'iOS / Web App',
+    },
+    atcoder: {
+      title: 'AtCoder',
+      sub: 'Algorithm brown / Heuristic blue (1603). Two years and counting.',
+      kind: 'Competitive Prog.',
+    },
+    math: {
+      title: 'Burgers equation',
+      sub: 'Math site for my thesis on the stability of travelling waves.',
+      kind: 'Research / Math',
+    },
+    mbti: {
+      title: 'MBTI × AI',
+      sub: 'Story-driven MBTI test powered by generative AI.',
+      kind: 'Web App / LLM',
+    },
   },
   allProjects: '$ ls projects/ --all →',
 };
@@ -60,9 +88,21 @@ const zh: HomeDict = {
   },
   featuredHeading: '━━━ 精选作品 ━━━',
   featured: {
-    yamatomo: { title: 'Yamatomo', sub: '登山者社区应用。iOS 与 Web 并行开发。', kind: 'iOS / Web App' },
-    atcoder: { title: 'AtCoder', sub: 'Algorithm 棕色 / Heuristic 蓝色（1603）。持续约两年。', kind: 'Competitive Prog.' },
-    math: { title: 'Burgers 方程', sub: '关于行波解稳定性的毕业研究数学网站。', kind: 'Research / Math' },
+    yamatomo: {
+      title: 'Yamatomo',
+      sub: '登山者社区应用。iOS 与 Web 并行开发。',
+      kind: 'iOS / Web App',
+    },
+    atcoder: {
+      title: 'AtCoder',
+      sub: 'Algorithm 棕色 / Heuristic 蓝色（1603）。持续约两年。',
+      kind: 'Competitive Prog.',
+    },
+    math: {
+      title: 'Burgers 方程',
+      sub: '关于行波解稳定性的毕业研究数学网站。',
+      kind: 'Research / Math',
+    },
     mbti: { title: 'MBTI × AI', sub: '故事形式的 MBTI 测试 × 生成式 AI。', kind: 'Web App / LLM' },
   },
   allProjects: '$ ls projects/ --all →',
@@ -82,10 +122,26 @@ const ko: HomeDict = {
   },
   featuredHeading: '━━━ 대표 작업 ━━━',
   featured: {
-    yamatomo: { title: 'Yamatomo', sub: '등산객 커뮤니티 앱. iOS와 웹을 병행 개발.', kind: 'iOS / Web App' },
-    atcoder: { title: 'AtCoder', sub: 'Algorithm 갈색 / Heuristic 파랑(1603). 약 2년째 계속 중.', kind: 'Competitive Prog.' },
-    math: { title: 'Burgers 방정식', sub: '진행파 해의 안정성을 다룬 졸업 연구 수식 사이트.', kind: 'Research / Math' },
-    mbti: { title: 'MBTI × AI', sub: '이야기 형식의 MBTI 진단 × 생성형 AI.', kind: 'Web App / LLM' },
+    yamatomo: {
+      title: 'Yamatomo',
+      sub: '등산객 커뮤니티 앱. iOS와 웹을 병행 개발.',
+      kind: 'iOS / Web App',
+    },
+    atcoder: {
+      title: 'AtCoder',
+      sub: 'Algorithm 갈색 / Heuristic 파랑(1603). 약 2년째 계속 중.',
+      kind: 'Competitive Prog.',
+    },
+    math: {
+      title: 'Burgers 방정식',
+      sub: '진행파 해의 안정성을 다룬 졸업 연구 수식 사이트.',
+      kind: 'Research / Math',
+    },
+    mbti: {
+      title: 'MBTI × AI',
+      sub: '이야기 형식의 MBTI 진단 × 생성형 AI.',
+      kind: 'Web App / LLM',
+    },
   },
   allProjects: '$ ls projects/ --all →',
 };

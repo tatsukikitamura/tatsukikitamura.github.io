@@ -15,42 +15,44 @@ const navItems = [
 ];
 ---
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200">
-  <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+<nav class="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white">
+  <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
     <a
       href={l('/')}
-      class="font-bold text-lg tracking-tight text-gray-900 hover:text-[#0a66c2] transition-colors"
+      class="text-lg font-bold tracking-tight text-gray-900 transition-colors hover:text-[#0a66c2]"
     >
       tatsuki.dev
     </a>
 
-    <ul class="hidden md:flex items-center gap-8">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={l(item.to)}
-            class="text-gray-600 hover:text-[#0a66c2] transition-colors text-sm"
-            aria-current={pathname === item.to ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
+    <ul class="hidden items-center gap-8 md:flex">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={l(item.to)}
+              class="text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
+              aria-current={pathname === item.to ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
       <li>
         <a
           href={l('/contact')}
-          class="px-4 py-2 rounded-lg text-sm font-medium text-white transition-colors"
+          class="rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
           style="background:#0a66c2"
         >
           {t.nav.request}
         </a>
       </li>
-      <li class="pl-2 border-l border-gray-200">
+      <li class="border-l border-gray-200 pl-2">
         <LanguageSwitcher />
       </li>
     </ul>
 
-    <div class="md:hidden flex items-center gap-3">
+    <div class="flex items-center gap-3 md:hidden">
       <LanguageSwitcher />
       <button
         id="header-menu-toggle"
@@ -60,7 +62,7 @@ const navItems = [
         aria-expanded="false"
         aria-controls="header-mobile-menu"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -71,26 +73,25 @@ const navItems = [
     </div>
   </div>
 
-  <div
-    id="header-mobile-menu"
-    class="md:hidden bg-white border-t border-gray-100 hidden"
-  >
-    <ul class="px-6 py-4 space-y-4">
-      {navItems.map((item) => (
-        <li>
-          <a
-            href={l(item.to)}
-            class="block text-gray-600 hover:text-[#0a66c2] transition-colors text-sm"
-            aria-current={pathname === item.to ? 'page' : undefined}
-          >
-            {item.label}
-          </a>
-        </li>
-      ))}
+  <div id="header-mobile-menu" class="hidden border-t border-gray-100 bg-white md:hidden">
+    <ul class="space-y-4 px-6 py-4">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={l(item.to)}
+              class="block text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
+              aria-current={pathname === item.to ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
       <li>
         <a
           href={l('/contact')}
-          class="block text-gray-600 hover:text-[#0a66c2] transition-colors text-sm"
+          class="block text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
         >
           {t.nav.request}
         </a>

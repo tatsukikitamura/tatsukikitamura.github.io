@@ -7,15 +7,15 @@ const t = common[locale];
 const year = new Date().getFullYear();
 ---
 
-<footer class="relative z-10 border-t border-gray-200 py-12 px-6">
-  <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-    <p class="text-gray-500 text-sm">© {year} Tatsuki Kitamura. {t.footer.rights}</p>
+<footer class="relative z-10 border-t border-gray-200 px-6 py-12">
+  <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
+    <p class="text-sm text-gray-500">© {year} Tatsuki Kitamura. {t.footer.rights}</p>
     <div class="flex items-center gap-6">
       <a
         href="https://github.com/tatsukikitamura"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-gray-500 hover:text-[#0a66c2] transition-colors text-sm"
+        class="text-sm text-gray-500 transition-colors hover:text-[#0a66c2]"
       >
         GitHub
       </a>
@@ -23,13 +23,13 @@ const year = new Date().getFullYear();
         href="https://atcoder.jp/users/oreccchi"
         target="_blank"
         rel="noopener noreferrer"
-        class="text-gray-500 hover:text-[#0a66c2] transition-colors text-sm"
+        class="text-sm text-gray-500 transition-colors hover:text-[#0a66c2]"
       >
         AtCoder
       </a>
       <a
         href={localizePath('/contact', locale)}
-        class="text-gray-500 hover:text-[#0a66c2] transition-colors text-sm"
+        class="text-sm text-gray-500 transition-colors hover:text-[#0a66c2]"
       >
         {t.footer.request}
       </a>

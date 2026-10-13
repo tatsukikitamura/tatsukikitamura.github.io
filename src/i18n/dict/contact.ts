@@ -83,7 +83,8 @@ const ja = {
       emph: '要相談',
       after: 'とさせていただいています。',
     },
-    detail: 'サイトの規模・ご要望・納期によって変動するため、まずはお話を伺った上で、お見積もりをお出しします。',
+    detail:
+      'サイトの規模・ご要望・納期によって変動するため、まずはお話を伺った上で、お見積もりをお出しします。',
     freeEmph: 'ご相談・お見積もりは無料です。',
     freeAfter: 'お気軽にお問い合わせください。',
     extrasHeading: '別途必要となる費用',
@@ -209,7 +210,8 @@ const en: ContactDict = {
       emph: 'quoted per project',
       after: '.',
     },
-    detail: 'It depends on the size of the site, your requirements and the deadline, so I put together a quote after we have talked.',
+    detail:
+      'It depends on the size of the site, your requirements and the deadline, so I put together a quote after we have talked.',
     freeEmph: 'Consultations and quotes are free.',
     // Leading space: the page renders this right after the emphasised sentence.
     freeAfter: ' Feel free to reach out.',
@@ -458,7 +460,8 @@ const ko: ContactDict = {
       emph: '상담 후 결정',
       after: '으로 하고 있습니다.',
     },
-    detail: '사이트 규모·요구 사항·납기에 따라 달라지므로, 먼저 이야기를 들은 뒤에 견적을 드립니다.',
+    detail:
+      '사이트 규모·요구 사항·납기에 따라 달라지므로, 먼저 이야기를 들은 뒤에 견적을 드립니다.',
     freeEmph: '상담·견적은 무료입니다.',
     // Leading space: the page renders this right after the emphasised sentence.
     freeAfter: ' 부담 없이 문의해 주세요.',
