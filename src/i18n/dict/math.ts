@@ -10,7 +10,7 @@ const ja = {
   heading: 'Burgers 方程式の進行波解の安定性',
   badges: {
     thesis: '卒業研究',
-    restricted: '限定公開',
+    public: 'ノート公開',
   },
   period: '2026年5月〜現在（個人開発・卒業研究）',
   overview: {
@@ -72,13 +72,14 @@ const ja = {
     // rich
     items: [
       '• <strong>KaTeX</strong> による数式組版と <strong>markdown-it</strong> での執筆で、論文レベルの数式を破綻なく表示',
-      '• サーバを持たずに限定公開するため、全コンテンツを <strong>AES-GCM でビルド前に暗号化</strong>。配信されるのは暗号文のみで、ブラウザの Web Crypto API で復号する自作パスワードゲートを実装',
-      '• 開発時は平文 Markdown を直接読み込み、本番ビルドでは暗号文経由へ自動で切り替わる編集フローを構築',
+      '• 卒業論文・講義・補足ノートは公開し、翻訳資料と私用の裏ノートは <strong>AES-GCM でビルド前に暗号化</strong>。限定資料を開くときだけ Web Crypto API で復号し、既存のパスワード・保存済みログインを維持',
+      '• 開発時は平文 Markdown を直接読み込み、本番ビルドでは限定資料だけ暗号文を読み込む編集フローを構築',
     ],
   },
   access: {
     heading: '閲覧について',
-    body: '本サイトはパスワードで保護した限定公開です。内容をご覧になりたい方は、お気軽にお問い合わせください。個別にご案内します。',
+    body: '卒業論文・講義ノート・補足証明・可視化は、ログインなしで閲覧できます。原論文の翻訳と私用の裏ノートは限定公開で、これまでと同じパスワードを使用できます。',
+    openSite: '数学ノートを開く',
   },
 };
 
@@ -92,7 +93,7 @@ const en: MathDict = {
   heading: 'Stability of Travelling Wave Solutions of the Burgers Equation',
   badges: {
     thesis: 'Graduation research',
-    restricted: 'Restricted access',
+    public: 'Public notes',
   },
   period: 'May 2026 — present (personal project / graduation research)',
   overview: {
@@ -145,13 +146,14 @@ const en: MathDict = {
     heading: 'Tech stack and implementation notes',
     items: [
       '• Equations typeset with <strong>KaTeX</strong> and written in <strong>markdown-it</strong>, so paper-grade mathematics renders without breaking',
-      '• To publish privately without running a server, all content is <strong>encrypted with AES-GCM before the build</strong>. Only ciphertext is served, and a hand-built password gate decrypts it in the browser with the Web Crypto API',
-      '• An editing workflow in which plain-text Markdown is loaded directly during development, while the production build switches automatically to the encrypted path',
+      '• The thesis, lectures and supplementary notes are public. Translations and private notes are <strong>encrypted with AES-GCM before the build</strong> and decrypted with the Web Crypto API when opened, preserving existing passwords and saved logins',
+      '• Development loads plain-text Markdown directly; production loads encrypted content only for restricted materials',
     ],
   },
   access: {
     heading: 'Access',
-    body: 'This site is password-protected and available on request. If you would like to read it, feel free to get in touch and I will send you the details individually.',
+    body: 'The thesis, lecture notes, detailed proofs and visualisations are available without logging in. Paper translations and private notes remain restricted, with the same password as before.',
+    openSite: 'Open the maths notes',
   },
 };
 
@@ -162,7 +164,7 @@ const zh: MathDict = {
   heading: 'Burgers 方程行波解的稳定性',
   badges: {
     thesis: '毕业研究',
-    restricted: '限定公开',
+    public: '笔记公开',
   },
   period: '2026年5月〜至今（个人开发・毕业研究）',
   overview: {
@@ -213,13 +215,14 @@ const zh: MathDict = {
     heading: '使用技术与实现上的巧思',
     items: [
       '• 用 <strong>KaTeX</strong> 排版公式、用 <strong>markdown-it</strong> 撰写，论文级别的数学公式也能完整无误地显示',
-      '• 为了在没有服务器的情况下限定公开，所有内容都<strong>在构建前用 AES-GCM 加密</strong>。分发的只有密文，并自行实现了通过浏览器 Web Crypto API 解密的密码门',
-      '• 构建了开发时直接读取明文 Markdown、生产构建时自动切换为密文路径的编辑流程',
+      '• 毕业论文、讲义与补充笔记公开。翻译资料与私人笔记<strong>在构建前用 AES-GCM 加密</strong>，打开限定资料时通过 Web Crypto API 解密，保留原有密码与已保存的登录信息',
+      '• 开发时直接读取明文 Markdown，生产构建时仅限定资料通过密文读取',
     ],
   },
   access: {
     heading: '关于阅览',
-    body: '本网站采用密码保护的限定公开方式。如果您想阅读其内容，欢迎随时联系我，我会单独告知访问方式。',
+    body: '毕业论文、讲义笔记、详细证明与可视化无需登录即可阅读。原论文翻译与私人笔记仍限定公开，可使用原有密码。',
+    openSite: '打开数学笔记',
   },
 };
 
@@ -230,7 +233,7 @@ const ko: MathDict = {
   heading: 'Burgers 방정식 진행파 해의 안정성',
   badges: {
     thesis: '졸업 연구',
-    restricted: '한정 공개',
+    public: '노트 공개',
   },
   period: '2026년 5월〜현재 (개인 개발·졸업 연구)',
   overview: {
@@ -282,13 +285,14 @@ const ko: MathDict = {
     heading: '사용 기술과 구현상의 고민',
     items: [
       '• <strong>KaTeX</strong>에 의한 수식 조판과 <strong>markdown-it</strong>을 이용한 집필로, 논문 수준의 수식을 깨짐 없이 표시',
-      '• 서버 없이 한정 공개하기 위해 전체 콘텐츠를 <strong>빌드 전에 AES-GCM으로 암호화</strong>. 배포되는 것은 암호문뿐이며, 브라우저의 Web Crypto API로 복호화하는 자체 제작 비밀번호 게이트를 구현',
-      '• 개발 시에는 평문 Markdown을 직접 읽어 들이고, 프로덕션 빌드에서는 암호문 경유로 자동 전환되는 편집 플로를 구축',
+      '• 졸업 논문·강의·보충 노트는 공개하고, 번역 자료와 개인 노트는 <strong>빌드 전에 AES-GCM으로 암호화</strong>. 한정 자료를 열 때만 Web Crypto API로 복호화하며 기존 비밀번호와 저장된 로그인 정보를 유지',
+      '• 개발 시에는 평문 Markdown을 직접 읽고, 프로덕션에서는 한정 자료만 암호문으로 읽는 편집 플로를 구축',
     ],
   },
   access: {
     heading: '열람 안내',
-    body: '이 사이트는 비밀번호로 보호된 한정 공개입니다. 내용을 보고 싶으신 분은 부담 없이 문의해 주세요. 개별적으로 안내해 드리겠습니다.',
+    body: '졸업 논문·강의 노트·상세한 증명·시각화는 로그인 없이 읽을 수 있습니다. 원논문 번역과 개인 노트는 한정 공개이며 기존과 같은 비밀번호를 사용할 수 있습니다.',
+    openSite: '수학 노트 열기',
   },
 };
 

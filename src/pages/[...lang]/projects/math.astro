@@ -1,5 +1,5 @@
 ---
-import { localePaths, localeFromParam, localizePath } from '../../../i18n';
+import { localePaths, localeFromParam } from '../../../i18n';
 export function getStaticPaths() {
   return localePaths();
 }
@@ -14,7 +14,6 @@ import mathDict from '../../../i18n/dict/math';
 const locale = localeFromParam(Astro.params.lang);
 const c = commonDict[locale];
 const t = mathDict[locale];
-const l = (p: string) => localizePath(p, locale);
 
 // Render LaTeX to HTML at build time (no client-side JS, KaTeX CSS only).
 const M = (s: string) => katex.renderToString(s, { throwOnError: false });
@@ -43,11 +42,17 @@ const TECHS = [
         <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-800">
           {t.badges.thesis}
         </span>
-        <span class="rounded-full bg-amber-100 px-3 py-1 text-xs font-medium text-amber-800">
-          {t.badges.restricted}
+        <span class="rounded-full bg-blue-100 px-3 py-1 text-xs font-medium text-blue-800">
+          {t.badges.public}
         </span>
       </div>
       <p class="mt-2 text-gray-500">{t.period}</p>
+      <a
+        href="https://tatsuki.dev/math/"
+        class="mt-5 inline-flex items-center gap-2 rounded-full bg-gray-900 px-5 py-2.5 text-sm text-white transition-colors hover:bg-gray-800"
+      >
+        {t.access.openSite}
+      </a>
     </div>
 
     <section
@@ -162,10 +167,10 @@ const TECHS = [
         {t.access.body}
       </p>
       <a
-        href={l('/contact')}
+        href="https://tatsuki.dev/math/"
         class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 transition-colors hover:bg-white/20"
       >
-        {c.contact}
+        {t.access.openSite}
       </a>
     </section>
   </main>

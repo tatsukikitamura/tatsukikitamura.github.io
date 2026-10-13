@@ -1,7 +1,7 @@
 import type { Locale } from '../config';
 import type { Project } from '../../types';
 
-// Project list page (/projects). `link` is locale-less; the page wraps it with localizePath().
+// Project list page (/projects). Internal links are locale-less; external URLs stay unchanged.
 const ja = {
   title: 'Projects - 北村健紀の制作物',
   description:
@@ -34,11 +34,11 @@ const ja = {
       id: 'math',
       title: 'Burgers 方程式の進行波解の安定性（卒業研究）',
       description:
-        '粘性 Burgers 方程式の進行波解（衝撃波層）の漸近安定性を、Hopf–Cole 変換による線形化を通じて減衰率まで精密に評価する卒業研究。西原 (1985) の全訳・講義ノート・卒業論文を、KaTeX による数式組版とクライアント暗号化したパスワードゲートでまとめた数式サイト。',
+        '粘性 Burgers 方程式の進行波解（衝撃波層）の漸近安定性を、Hopf–Cole 変換による線形化を通じて減衰率まで精密に評価する卒業研究。卒業論文・講義ノート・補足証明・動く可視化を公開する数学サイト。KaTeX で数式を組版し、論文の翻訳資料はクライアント暗号化で保護。',
       period: '2026年5月〜現在（個人開発・卒業研究）',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: '/projects/math',
+      link: 'https://tatsuki.dev/math/',
     },
     {
       id: 'mbti-app',
@@ -97,11 +97,11 @@ const en: ProjectsDict = {
       id: 'math',
       title: 'Stability of travelling-wave solutions of the Burgers equation (graduation research)',
       description:
-        'Graduation research estimating the asymptotic stability of travelling-wave (shock-layer) solutions of the viscous Burgers equation, down to the decay rate, via linearization through the Hopf–Cole transform. A maths site collecting a full translation of Nishihara (1985), lecture notes and the thesis, typeset with KaTeX and protected by a client-side-encrypted password gate.',
+        'Graduation research estimating the asymptotic stability of travelling-wave (shock-layer) solutions of the viscous Burgers equation, down to the decay rate, via linearization through the Hopf–Cole transform. A public maths site with the thesis, lecture notes, detailed proofs and interactive visualisations, typeset with KaTeX. Paper translations remain protected by client-side encryption.',
       period: 'May 2026 — present (solo project / graduation research)',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: '/projects/math',
+      link: 'https://tatsuki.dev/math/',
     },
     {
       id: 'mbti-app',
@@ -158,11 +158,11 @@ const zh: ProjectsDict = {
       id: 'math',
       title: 'Burgers 方程行波解的稳定性（毕业研究）',
       description:
-        '通过 Hopf–Cole 变换进行线性化，对粘性 Burgers 方程行波解（激波层）的渐近稳定性进行精确到衰减率的评估的毕业研究。将西原 (1985) 的全文翻译、讲义笔记与毕业论文汇集成一个数学网站，采用 KaTeX 排版公式，并设有客户端加密的密码门。',
+        '通过 Hopf–Cole 变换进行线性化，对粘性 Burgers 方程行波解（激波层）的渐近稳定性进行精确到衰减率的评估的毕业研究。公开毕业论文、讲义笔记、详细证明与交互可视化的数学网站，采用 KaTeX 排版公式。论文翻译资料仍通过客户端加密保护。',
       period: '2026年5月〜至今（个人开发・毕业研究）',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: '/projects/math',
+      link: 'https://tatsuki.dev/math/',
     },
     {
       id: 'mbti-app',
@@ -219,11 +219,11 @@ const ko: ProjectsDict = {
       id: 'math',
       title: 'Burgers 방정식 진행파 해의 안정성 (졸업 연구)',
       description:
-        '점성 Burgers 방정식의 진행파 해(충격파층)의 점근 안정성을 Hopf–Cole 변환에 의한 선형화를 통해 감쇠율까지 정밀하게 평가하는 졸업 연구. 니시하라 (1985)의 전문 번역, 강의 노트, 졸업 논문을 KaTeX 수식 조판과 클라이언트 측 암호화 비밀번호 게이트로 정리한 수학 사이트.',
+        '점성 Burgers 방정식의 진행파 해(충격파층)의 점근 안정성을 Hopf–Cole 변환에 의한 선형화를 통해 감쇠율까지 정밀하게 평가하는 졸업 연구. 졸업 논문·강의 노트·상세한 증명·인터랙티브 시각화를 공개하는 수학 사이트. KaTeX로 수식을 조판하고 논문 번역 자료는 클라이언트 측 암호화로 보호한다.',
       period: '2026년 5월〜현재 (개인 개발·졸업 연구)',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: '/projects/math',
+      link: 'https://tatsuki.dev/math/',
     },
     {
       id: 'mbti-app',
