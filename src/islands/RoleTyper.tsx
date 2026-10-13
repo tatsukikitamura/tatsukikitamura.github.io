@@ -1,16 +1,21 @@
 import { useEffect, useState } from 'react';
 
-const ROLES = ['Software Engineer', 'Web Developer', 'Competitive Programmer'];
+const DEFAULT_ROLES = ['Software Engineer', 'Web Developer', 'Competitive Programmer'];
 
 type Phase = 'typing' | 'hold' | 'erasing';
 
-export default function RoleTyper() {
+type Props = {
+  /** Phrases to cycle through. Defaults to the English role names. */
+  roles?: string[];
+};
+
+export default function RoleTyper({ roles = DEFAULT_ROLES }: Props) {
   const [idx, setIdx] = useState(0);
   const [partial, setPartial] = useState('');
   const [phase, setPhase] = useState<Phase>('typing');
 
   useEffect(() => {
-    const target = ROLES[idx]!;
+    const target = roles[idx] ?? '';
     let timer: ReturnType<typeof setTimeout> | undefined;
     if (phase === 'typing') {
       if (partial.length < target.length) {
@@ -27,7 +32,7 @@ export default function RoleTyper() {
         // Advance on the next tick rather than synchronously inside the effect
         // (react-hooks/set-state-in-effect); keeps the typing loop timer-driven.
         timer = setTimeout(() => {
-          setIdx((i) => (i + 1) % ROLES.length);
+          setIdx((i) => (i + 1) % roles.length);
           setPhase('typing');
         }, 0);
       }
@@ -35,7 +40,7 @@ export default function RoleTyper() {
     return () => {
       if (timer) clearTimeout(timer);
     };
-  }, [partial, phase, idx]);
+  }, [partial, phase, idx, roles]);
 
   return (
     <span className="inline-flex min-w-[200px] items-center border-b border-[#0a66c2]/30 pb-0.5 font-semibold text-[#0a66c2] sm:min-w-[260px]">

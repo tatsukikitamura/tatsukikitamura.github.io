@@ -1,18 +1,24 @@
 ---
-const navItems = [
-  { to: '/about', label: 'About' },
-  { to: '/projects', label: 'Projects' },
-  { to: '/experience', label: 'Experience' },
-  { to: '/problem', label: 'Problem' },
-];
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { localizePath, stripLocale } from '../i18n';
+import common from '../i18n/dict/common';
 
-const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
+const { locale, path: pathname } = stripLocale(Astro.url.pathname);
+const t = common[locale];
+const l = (p: string) => localizePath(p, locale);
+
+const navItems = [
+  { to: '/about', label: t.nav.about },
+  { to: '/projects', label: t.nav.projects },
+  { to: '/experience', label: t.nav.experience },
+  { to: '/problem', label: t.nav.problem },
+];
 ---
 
 <nav class="fixed top-0 right-0 left-0 z-50 border-b border-gray-200 bg-white">
   <div class="mx-auto flex max-w-4xl items-center justify-between px-6 py-4">
     <a
-      href="/"
+      href={l('/')}
       class="text-lg font-bold tracking-tight text-gray-900 transition-colors hover:text-[#0a66c2]"
     >
       tatsuki.dev
@@ -23,7 +29,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
         navItems.map((item) => (
           <li>
             <a
-              href={item.to}
+              href={l(item.to)}
               class="text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
               aria-current={pathname === item.to ? 'page' : undefined}
             >
@@ -34,31 +40,37 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       }
       <li>
         <a
-          href="/contact"
+          href={l('/contact')}
           class="rounded-lg px-4 py-2 text-sm font-medium text-white transition-colors"
           style="background:#0a66c2"
         >
-          Request
+          {t.nav.request}
         </a>
+      </li>
+      <li class="border-l border-gray-200 pl-2">
+        <LanguageSwitcher />
       </li>
     </ul>
 
-    <button
-      id="header-menu-toggle"
-      type="button"
-      class="p-2 text-gray-600 hover:text-gray-900 md:hidden"
-      aria-label="メニューを開く"
-      aria-expanded="false"
-      aria-controls="header-mobile-menu"
-    >
-      <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 6h16M4 12h16M4 18h16"></path>
-      </svg>
-    </button>
+    <div class="flex items-center gap-3 md:hidden">
+      <LanguageSwitcher />
+      <button
+        id="header-menu-toggle"
+        type="button"
+        class="p-2 text-gray-600 hover:text-gray-900"
+        aria-label={t.menuOpen}
+        aria-expanded="false"
+        aria-controls="header-mobile-menu"
+      >
+        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
   </div>
 
   <div id="header-mobile-menu" class="hidden border-t border-gray-100 bg-white md:hidden">
@@ -67,7 +79,7 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
         navItems.map((item) => (
           <li>
             <a
-              href={item.to}
+              href={l(item.to)}
               class="block text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
               aria-current={pathname === item.to ? 'page' : undefined}
             >
@@ -78,10 +90,10 @@ const pathname = Astro.url.pathname.replace(/\/$/, '') || '/';
       }
       <li>
         <a
-          href="/contact"
+          href={l('/contact')}
           class="block text-sm text-gray-600 transition-colors hover:text-[#0a66c2]"
         >
-          Request
+          {t.nav.request}
         </a>
       </li>
     </ul>

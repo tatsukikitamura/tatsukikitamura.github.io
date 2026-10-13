@@ -1,9 +1,19 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import NoiseCanvas from '../islands/NoiseCanvas.tsx';
-import RoleTyper from '../islands/RoleTyper.tsx';
-import { GitHubIcon, InstagramIcon } from '../components/Icons';
-import { getTechIcon } from '../lib/techIcons';
+import { localePaths, localeFromParam, localizePath } from '../../i18n';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import NoiseCanvas from '../../islands/NoiseCanvas.tsx';
+import RoleTyper from '../../islands/RoleTyper.tsx';
+import { GitHubIcon, InstagramIcon } from '../../components/Icons';
+import { getTechIcon } from '../../lib/techIcons';
+import homeDict from '../../i18n/dict/home';
+
+export function getStaticPaths() {
+  return localePaths();
+}
+
+const locale = localeFromParam(Astro.params.lang);
+const t = homeDict[locale];
+const l = (p: string) => localizePath(p, locale);
 
 const ASCII_LINES = [
   '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
@@ -18,51 +28,40 @@ const FEATURED = [
   {
     id: '01',
     to: '/projects/yamatomo',
-    title: 'Yamatomo',
-    sub: '登山者のコミュニティアプリ。iOS + Web 並行開発。',
+    ...t.featured.yamatomo,
     tags: ['SwiftUI', 'React', 'Firebase'],
     accent: '#059669',
-    kind: 'iOS / Web App',
   },
   {
     id: '02',
     to: '/projects/atcoder',
-    title: 'AtCoder',
-    sub: 'Algorithm 茶 / Heuristic 青（1603）。約2年継続中。',
+    ...t.featured.atcoder,
     tags: ['Python', 'C++'],
     accent: '#d97706',
-    kind: 'Competitive Prog.',
   },
   {
     id: '03',
     to: '/projects/math',
-    title: 'Burgers 方程式',
-    sub: '進行波解の安定性を扱う卒業研究の数式サイト。',
+    ...t.featured.math,
     tags: ['TypeScript', 'Vite', 'KaTeX'],
     accent: '#7c3aed',
-    kind: 'Research / Math',
   },
   {
     id: '04',
     to: '/projects/mbti-app',
-    title: 'MBTI × AI',
-    sub: '物語形式の MBTI 診断 × 生成AI。',
+    ...t.featured.mbti,
     tags: ['Rails', 'OpenAI', 'Redis'],
     accent: '#4f46e5',
-    kind: 'Web App / LLM',
   },
 ];
-
-const HOME_DESCRIPTION =
-  '北村健紀（Tatsuki Kitamura）のポートフォリオ。早稲田大学教育学部数学科4年。Ruby on Rails / React / SwiftUI を中心に Web・iOS アプリ開発、AtCoder（Algorithm 茶 / Heuristic 青）に取り組んでいます。';
 ---
 
-<BaseLayout title="ポートフォリオ" description={HOME_DESCRIPTION} path="/">
+<BaseLayout title={t.title} description={t.description} path="/">
   <section class="relative overflow-hidden">
     <NoiseCanvas client:load />
     <div class="relative mx-auto max-w-5xl px-6 pt-32 pb-12">
       <div class="animate-fade-in mb-5 font-mono text-[11px] tracking-[0.22em] text-gray-500">
-        <span class="text-[#0a66c2]">●</span>&nbsp;&nbsp;ONLINE — TOKYO
+        <span class="text-[#0a66c2]">●</span>&nbsp;&nbsp;{t.status}
       </div>
 
       <div
@@ -85,8 +84,8 @@ const HOME_DESCRIPTION =
         class="animate-fade-in animation-delay-200 mt-7 flex items-baseline gap-3 font-mono text-base sm:text-lg"
       >
         <span class="text-gray-400">&gt;</span>
-        <span class="whitespace-nowrap text-gray-900">I am a</span>
-        <RoleTyper client:load />
+        <span class="whitespace-nowrap text-gray-900">{t.iAm}</span>
+        <RoleTyper client:load roles={t.roles} />
       </div>
 
       <div
@@ -99,22 +98,22 @@ const HOME_DESCRIPTION =
         class="animate-fade-in animation-delay-400 mt-7 flex flex-wrap items-center gap-2 font-mono text-[11px] sm:gap-3 sm:text-sm"
       >
         <a
-          href="/projects"
+          href={l('/projects')}
           class="rounded bg-[#0a66c2] px-3 py-2 font-semibold tracking-wide whitespace-nowrap text-white transition-colors hover:bg-[#004182] sm:px-5 sm:py-2.5"
         >
-          projects
+          {t.buttons.projects}
         </a>
         <a
-          href="/experience"
+          href={l('/experience')}
           class="rounded border border-gray-300 bg-white px-3 py-2 font-medium whitespace-nowrap text-gray-900 transition-colors hover:border-gray-500 sm:px-5 sm:py-2.5"
         >
-          experience
+          {t.buttons.experience}
         </a>
         <a
-          href="/artworks"
+          href={l('/artworks')}
           class="rounded bg-[#101010] px-3 py-2 font-semibold tracking-wide whitespace-nowrap text-white transition-colors hover:bg-[#2a2a2e] sm:px-5 sm:py-2.5"
         >
-          artworks
+          {t.buttons.artworks}
         </a>
         <span class="hidden w-px self-stretch bg-gray-300 sm:block" aria-hidden="true"></span>
         <div class="flex items-center gap-1">
@@ -144,13 +143,13 @@ const HOME_DESCRIPTION =
   <section class="px-6 py-14">
     <div class="mx-auto max-w-5xl">
       <div class="mb-4 font-mono text-[11px] tracking-[0.22em] text-gray-500">
-        ━━━ FEATURED WORK ━━━
+        {t.featuredHeading}
       </div>
       <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {
           FEATURED.map((p) => (
             <a
-              href={p.to}
+              href={l(p.to)}
               class="group relative block overflow-hidden rounded-lg border border-gray-200 bg-white p-5 font-mono transition-all duration-300 hover:-translate-y-1 hover:border-[var(--accent)] hover:shadow-xl"
               style={`--accent:${p.accent}`}
             >
@@ -188,19 +187,19 @@ const HOME_DESCRIPTION =
                   {p.sub}
                 </div>
                 <div class="flex flex-wrap items-center gap-3 border-t border-gray-100 pt-3">
-                  {p.tags.map((t) => {
-                    const icon = getTechIcon(t);
+                  {p.tags.map((tag) => {
+                    const icon = getTechIcon(tag);
                     return icon ? (
                       <img
                         src={icon}
                         class="h-6 w-6 flex-shrink-0"
-                        alt={t}
-                        title={t}
+                        alt={tag}
+                        title={tag}
                         loading="lazy"
                       />
                     ) : (
                       <span class="text-xs font-semibold tracking-wide" style="color:var(--accent)">
-                        {t}
+                        {tag}
                       </span>
                     );
                   })}
@@ -211,7 +210,9 @@ const HOME_DESCRIPTION =
         }
       </div>
       <div class="mt-7 font-mono text-xs text-gray-500">
-        <a href="/projects" class="text-[#0a66c2] hover:underline"> $ ls projects/ --all → </a>
+        <a href={l('/projects')} class="text-[#0a66c2] hover:underline">
+          {t.allProjects}
+        </a>
       </div>
     </div>
   </section>

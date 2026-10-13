@@ -1,10 +1,15 @@
 ---
+import { getLocale, localizePath } from '../i18n';
+import common from '../i18n/dict/common';
+
+const locale = getLocale(Astro);
+const t = common[locale];
 const year = new Date().getFullYear();
 ---
 
 <footer class="relative z-10 border-t border-gray-200 px-6 py-12">
   <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 md:flex-row">
-    <p class="text-sm text-gray-500">© {year} Tatsuki Kitamura. All rights reserved.</p>
+    <p class="text-sm text-gray-500">© {year} Tatsuki Kitamura. {t.footer.rights}</p>
     <div class="flex items-center gap-6">
       <a
         href="https://github.com/tatsukikitamura"
@@ -22,8 +27,11 @@ const year = new Date().getFullYear();
       >
         AtCoder
       </a>
-      <a href="/contact" class="text-sm text-gray-500 transition-colors hover:text-[#0a66c2]">
-        Request
+      <a
+        href={localizePath('/contact', locale)}
+        class="text-sm text-gray-500 transition-colors hover:text-[#0a66c2]"
+      >
+        {t.footer.request}
       </a>
     </div>
   </div>

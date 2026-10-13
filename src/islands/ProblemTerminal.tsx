@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState, type KeyboardEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
+import { localizePath, type Locale } from '../i18n/config';
+import problemDict, { type ProblemDict } from '../i18n/dict/problem';
 
 const CLEARED_ASCII = String.raw`
  ██████╗██╗     ███████╗ █████╗ ██████╗ ███████╗██████╗
@@ -30,234 +32,236 @@ type Problem = {
 
 const PROMPT = 'tatsuki@dev ~ %';
 
-const PROBLEMS: Problem[] = [
-  {
-    id: 1,
-    title: 'Problem 1: 答えを読め',
-    hint: ['まず周りに何があるか確かめてみよう。'],
-    files: {
-      'answer.md': 'success',
-    },
-    helpLines: [
-      'available commands:',
-      '  ls            list directory contents',
-      '  cat <file>    print file contents',
-      '  hint          show a hint for this problem',
-      '  clear         clear the screen',
-      '  next          go to the next problem',
-    ],
-    successCommand: 'cat answer.md',
-  },
-  {
-    id: 2,
-    title: 'Problem 2: 紛れたコマンドを探せ',
-    hint: ['help の中に一つだけ毛色の違うやつがいる。'],
-    files: {},
-    helpLines: [
-      'available commands:',
-      '  ls            list directory contents',
-      '  cat <file>    print file contents',
-      '  pwd           print working directory',
-      '  echo <text>   display a line of text',
-      '  whoami        print effective user',
-      '  hint          show a hint for this problem',
-      '  clear         clear the terminal',
-      '  hadouken      ???',
-    ],
-    customCommands: {
-      hadouken: ['     ⊂(◉‿◉)つ━☆ﾟ.*･｡ﾟ', '       波動拳！！！'],
-    },
-    successCommand: 'hadouken',
-  },
-  {
-    id: 3,
-    title: 'Problem 3: 隠されたメッセージ',
-    hint: ['`ls` はデフォルトでは全部を見せない。'],
-    files: {
-      'README.md': 'メッセージは表に出していない。\n中身は 13 文字ずらしてある。',
-      '.encoded': 'fhpprff',
-    },
-    helpLines: [
-      'available commands:',
-      '  ls [-a]         list directory contents (-a: include hidden)',
-      '  cat <file>      print file contents',
-      '  decode <text>   rot13 decode',
-      '  hint            show a hint for this problem',
-      '  clear           clear the screen',
-      '  next            go to the next problem',
-    ],
-    successCommand: 'decode fhpprff',
-  },
-  {
-    id: 4,
-    title: 'Problem 4: 鍵を探して暗号を解け',
-    hint: ['鍵は普段見えない場所に置かれているもの。'],
-    files: {
-      'README.md':
-        'lock.txt はシーザー暗号でロックした。\n鍵 (シフト量) は環境ファイルに保存してある。',
-      '.env': 'KEY=7',
-      'lock.txt': 'zbjjlzz',
-    },
-    helpLines: [
-      'available commands:',
-      '  ls [-a]              list directory contents',
-      '  cat <file>           print file contents',
-      '  caesar <text> <n>    Caesar shift by n (negative reverses)',
-      '  decode <text>        rot13 decode',
-      '  hint                 show a hint for this problem',
-      '  clear                clear the screen',
-      '  next                 go to the next problem',
-    ],
-    successCommand: ['caesar zbjjlzz -7', 'caesar zbjjlzz 19'],
-  },
-  {
-    id: 5,
-    title: 'Problem 5: 文書化されていないもの',
-    hint: ['ドキュメントが揃っているものだけが本物。'],
-    files: {
-      'README.md':
-        '3つの ritual がある。正しく invoke できるのは1つだけ。\n.rituals を読み、各 ritual を確認せよ。',
-      '.rituals': 'nheben\nrpyvcfr\nfbyfgvpr',
-    },
-    helpLines: [
-      'available commands:',
-      '  ls [-a]              list directory contents',
-      '  cat <file>           print file contents',
-      '  man <cmd>            show manual page for cmd',
-      '  decode <text>        rot13 decode',
-      '  invoke <ritual>      perform a registered ritual',
-      '  hint                 show a hint for this problem',
-      '  clear                clear the screen',
-      '  next                 go to the next problem',
-    ],
-    manPages: {
-      ls: [
-        'LS(1)                          Manual                          LS(1)',
-        '',
-        'NAME',
-        '       ls -- list directory contents',
-        '',
-        'SYNOPSIS',
-        '       ls [-a]',
-        '',
-        'DESCRIPTION',
-        '       List files in the current directory. -a includes hidden entries.',
-        '',
-        'SEE ALSO',
-        '       cat(1), man(1), head(1)',
-      ],
-      cat: [
-        'CAT(1)                         Manual                         CAT(1)',
-        '',
-        'NAME',
-        '       cat -- print file contents',
-        '',
-        'SYNOPSIS',
-        '       cat <file>',
-        '',
-        'SEE ALSO',
-        '       head(1), tail(1), man(1)',
-      ],
-      man: [
-        'MAN(1)                         Manual                         MAN(1)',
-        '',
-        'NAME',
-        '       man -- system manual interface',
-        '',
-        'SYNOPSIS',
-        '       man <command>',
-        '',
-        'DESCRIPTION',
-        '       Format and display the on-line manual pages.',
-        '',
-        'SEE ALSO',
-        '       apropos(1), invoke(8), intro(7)',
-      ],
-      apropos: [
-        'APROPOS(1)                     Manual                     APROPOS(1)',
-        '',
-        'NAME',
-        '       apropos -- search descriptions',
-        '',
-        'DESCRIPTION',
-        '       Not implemented in this shell. Refer to invoke(8) instead.',
-      ],
-      invoke: [
-        'INVOKE(8)                  System Manager                  INVOKE(8)',
-        '',
-        'NAME',
-        '       invoke -- perform a registered ritual',
-        '',
-        'SYNOPSIS',
-        '       invoke <ritual>',
-        '',
-        'DESCRIPTION',
-        '       Each ritual must have a manual entry to be safely invoked.',
-        '       Ritual names live in the hidden manifest .rituals',
-        '       (rot13-encoded; pipe each entry through decode(1)).',
-        '',
-        'SEE ALSO',
-        '       rituals(5), decode(1)',
-      ],
-      rituals: [
-        'RITUALS(5)                File Formats                   RITUALS(5)',
-        '',
-        'NAME',
-        '       rituals -- ritual manifest format',
-        '',
-        'DESCRIPTION',
-        '       The .rituals file lists known ritual names, one per line,',
-        '       rot13-encoded. Decode each entry with decode(1), then consult',
-        '       its corresponding man page. Only documented rituals can be',
-        '       invoked.',
-      ],
-      decode: [
-        'DECODE(1)                      Manual                     DECODE(1)',
-        '',
-        'NAME',
-        '       decode -- rot13 decoder',
-        '',
-        'SYNOPSIS',
-        '       decode <text>',
-      ],
-      eclipse: [
-        'ECLIPSE(7)                    Manual                    ECLIPSE(7)',
-        '',
-        'NAME',
-        '       eclipse -- the ritual of binding',
-        '',
-        'DESCRIPTION',
-        '       The only fully documented ritual in this system. May be',
-        '       invoked at any time to complete the rite.',
-        '',
-        'EXAMPLE',
-        '       invoke eclipse',
-      ],
-    },
-    dynamicCommands: {
-      invoke: (args) => {
-        if (args.length === 0) {
-          return [{ text: 'usage: invoke <ritual>', variant: 'error' }];
-        }
-        const name = args[0]!;
-        if (name === 'eclipse') {
-          return [
-            { text: 'invoke: binding to ritual "eclipse"...' },
-            { text: 'invoke: rite completed.' },
-            { text: 'success', variant: 'success' },
-          ];
-        }
-        return [
-          {
-            text: `invoke: ritual "${name}" failed: no incantation found`,
-            variant: 'error',
-          },
-        ];
+// Only the human-facing text (titles, hints, README contents, the hadouken
+// line) comes from the dictionary; commands, file names and outputs are fixed.
+function buildProblems(t: ProblemDict): Problem[] {
+  return [
+    {
+      id: 1,
+      title: t.problems.p1.title,
+      hint: t.problems.p1.hint,
+      files: {
+        'answer.md': 'success',
       },
+      helpLines: [
+        'available commands:',
+        '  ls            list directory contents',
+        '  cat <file>    print file contents',
+        '  hint          show a hint for this problem',
+        '  clear         clear the screen',
+        '  next          go to the next problem',
+      ],
+      successCommand: 'cat answer.md',
     },
-    successCommand: 'invoke eclipse',
-  },
-];
+    {
+      id: 2,
+      title: t.problems.p2.title,
+      hint: t.problems.p2.hint,
+      files: {},
+      helpLines: [
+        'available commands:',
+        '  ls            list directory contents',
+        '  cat <file>    print file contents',
+        '  pwd           print working directory',
+        '  echo <text>   display a line of text',
+        '  whoami        print effective user',
+        '  hint          show a hint for this problem',
+        '  clear         clear the terminal',
+        '  hadouken      ???',
+      ],
+      customCommands: {
+        hadouken: ['     ⊂(◉‿◉)つ━☆ﾟ.*･｡ﾟ', `       ${t.problems.p2.hadouken}`],
+      },
+      successCommand: 'hadouken',
+    },
+    {
+      id: 3,
+      title: t.problems.p3.title,
+      hint: t.problems.p3.hint,
+      files: {
+        'README.md': t.problems.p3.readme,
+        '.encoded': 'fhpprff',
+      },
+      helpLines: [
+        'available commands:',
+        '  ls [-a]         list directory contents (-a: include hidden)',
+        '  cat <file>      print file contents',
+        '  decode <text>   rot13 decode',
+        '  hint            show a hint for this problem',
+        '  clear           clear the screen',
+        '  next            go to the next problem',
+      ],
+      successCommand: 'decode fhpprff',
+    },
+    {
+      id: 4,
+      title: t.problems.p4.title,
+      hint: t.problems.p4.hint,
+      files: {
+        'README.md': t.problems.p4.readme,
+        '.env': 'KEY=7',
+        'lock.txt': 'zbjjlzz',
+      },
+      helpLines: [
+        'available commands:',
+        '  ls [-a]              list directory contents',
+        '  cat <file>           print file contents',
+        '  caesar <text> <n>    Caesar shift by n (negative reverses)',
+        '  decode <text>        rot13 decode',
+        '  hint                 show a hint for this problem',
+        '  clear                clear the screen',
+        '  next                 go to the next problem',
+      ],
+      successCommand: ['caesar zbjjlzz -7', 'caesar zbjjlzz 19'],
+    },
+    {
+      id: 5,
+      title: t.problems.p5.title,
+      hint: t.problems.p5.hint,
+      files: {
+        'README.md': t.problems.p5.readme,
+        '.rituals': 'nheben\nrpyvcfr\nfbyfgvpr',
+      },
+      helpLines: [
+        'available commands:',
+        '  ls [-a]              list directory contents',
+        '  cat <file>           print file contents',
+        '  man <cmd>            show manual page for cmd',
+        '  decode <text>        rot13 decode',
+        '  invoke <ritual>      perform a registered ritual',
+        '  hint                 show a hint for this problem',
+        '  clear                clear the screen',
+        '  next                 go to the next problem',
+      ],
+      manPages: {
+        ls: [
+          'LS(1)                          Manual                          LS(1)',
+          '',
+          'NAME',
+          '       ls -- list directory contents',
+          '',
+          'SYNOPSIS',
+          '       ls [-a]',
+          '',
+          'DESCRIPTION',
+          '       List files in the current directory. -a includes hidden entries.',
+          '',
+          'SEE ALSO',
+          '       cat(1), man(1), head(1)',
+        ],
+        cat: [
+          'CAT(1)                         Manual                         CAT(1)',
+          '',
+          'NAME',
+          '       cat -- print file contents',
+          '',
+          'SYNOPSIS',
+          '       cat <file>',
+          '',
+          'SEE ALSO',
+          '       head(1), tail(1), man(1)',
+        ],
+        man: [
+          'MAN(1)                         Manual                         MAN(1)',
+          '',
+          'NAME',
+          '       man -- system manual interface',
+          '',
+          'SYNOPSIS',
+          '       man <command>',
+          '',
+          'DESCRIPTION',
+          '       Format and display the on-line manual pages.',
+          '',
+          'SEE ALSO',
+          '       apropos(1), invoke(8), intro(7)',
+        ],
+        apropos: [
+          'APROPOS(1)                     Manual                     APROPOS(1)',
+          '',
+          'NAME',
+          '       apropos -- search descriptions',
+          '',
+          'DESCRIPTION',
+          '       Not implemented in this shell. Refer to invoke(8) instead.',
+        ],
+        invoke: [
+          'INVOKE(8)                  System Manager                  INVOKE(8)',
+          '',
+          'NAME',
+          '       invoke -- perform a registered ritual',
+          '',
+          'SYNOPSIS',
+          '       invoke <ritual>',
+          '',
+          'DESCRIPTION',
+          '       Each ritual must have a manual entry to be safely invoked.',
+          '       Ritual names live in the hidden manifest .rituals',
+          '       (rot13-encoded; pipe each entry through decode(1)).',
+          '',
+          'SEE ALSO',
+          '       rituals(5), decode(1)',
+        ],
+        rituals: [
+          'RITUALS(5)                File Formats                   RITUALS(5)',
+          '',
+          'NAME',
+          '       rituals -- ritual manifest format',
+          '',
+          'DESCRIPTION',
+          '       The .rituals file lists known ritual names, one per line,',
+          '       rot13-encoded. Decode each entry with decode(1), then consult',
+          '       its corresponding man page. Only documented rituals can be',
+          '       invoked.',
+        ],
+        decode: [
+          'DECODE(1)                      Manual                     DECODE(1)',
+          '',
+          'NAME',
+          '       decode -- rot13 decoder',
+          '',
+          'SYNOPSIS',
+          '       decode <text>',
+        ],
+        eclipse: [
+          'ECLIPSE(7)                    Manual                    ECLIPSE(7)',
+          '',
+          'NAME',
+          '       eclipse -- the ritual of binding',
+          '',
+          'DESCRIPTION',
+          '       The only fully documented ritual in this system. May be',
+          '       invoked at any time to complete the rite.',
+          '',
+          'EXAMPLE',
+          '       invoke eclipse',
+        ],
+      },
+      dynamicCommands: {
+        invoke: (args) => {
+          if (args.length === 0) {
+            return [{ text: 'usage: invoke <ritual>', variant: 'error' }];
+          }
+          const name = args[0]!;
+          if (name === 'eclipse') {
+            return [
+              { text: 'invoke: binding to ritual "eclipse"...' },
+              { text: 'invoke: rite completed.' },
+              { text: 'success', variant: 'success' },
+            ];
+          }
+          return [
+            {
+              text: `invoke: ritual "${name}" failed: no incantation found`,
+              variant: 'error',
+            },
+          ];
+        },
+      },
+      successCommand: 'invoke eclipse',
+    },
+  ];
+}
 
 function caesar(s: string, n: number): string {
   const shift = ((n % 26) + 26) % 26;
@@ -276,12 +280,12 @@ function rot13(s: string): string {
   });
 }
 
-function welcomeLines(): Line[] {
+function welcomeLines(t: ProblemDict): Line[] {
   return [
     { text: 'Last login: ' + new Date().toString(), variant: 'dim' },
     { text: '' },
     { text: 'Welcome to tatsuki.dev problems shell.' },
-    { text: '`success` を出力できればクリア。`help` でコマンド一覧。', variant: 'dim' },
+    { text: t.welcome, variant: 'dim' },
   ];
 }
 
@@ -308,11 +312,18 @@ function variantClass(v?: Variant): string {
   }
 }
 
-export default function ProblemTerminal() {
+type Props = {
+  /** Locale of the page hosting the terminal. Defaults to Japanese. */
+  locale?: Locale;
+};
+
+export default function ProblemTerminal({ locale = 'ja' }: Props) {
+  const t = problemDict[locale];
+  const PROBLEMS = useMemo(() => buildProblems(t), [t]);
   const [problemIdx, setProblemIdx] = useState(0);
   const [solved, setSolved] = useState<Set<number>>(new Set());
   const [lines, setLines] = useState<Line[]>(() => [
-    ...welcomeLines(),
+    ...welcomeLines(t),
     ...buildIntro(PROBLEMS[0]!),
   ]);
   const [input, setInput] = useState('');
@@ -428,12 +439,12 @@ export default function ProblemTerminal() {
       case 'next': {
         if (!solved.has(current.id)) {
           return {
-            output: [{ text: 'まずこの問題をクリアしてください。', variant: 'error' }],
+            output: [{ text: t.solveFirst, variant: 'error' }],
           };
         }
         if (problemIdx + 1 >= PROBLEMS.length) {
           return {
-            output: [{ text: '🎉 全ての問題をクリア済みです。', variant: 'success' }],
+            output: [{ text: t.allCleared, variant: 'success' }],
           };
         }
         return { output: [], advance: true };
@@ -455,13 +466,13 @@ export default function ProblemTerminal() {
     const { output, clear, advance } = runCommand(raw);
 
     if (clear) {
-      setLines(welcomeLines());
+      setLines(welcomeLines(t));
       return;
     }
 
     if (advance) {
       const nextProblem = PROBLEMS[problemIdx + 1]!;
-      setLines([...welcomeLines(), ...buildIntro(nextProblem)]);
+      setLines([...welcomeLines(t), ...buildIntro(nextProblem)]);
       setProblemIdx(problemIdx + 1);
       return;
     }
@@ -481,10 +492,10 @@ export default function ProblemTerminal() {
         variant: 'success',
       });
       if (problemIdx + 1 < PROBLEMS.length) {
-        newLines.push({ text: '`next` で次の問題へ。', variant: 'dim' });
+        newLines.push({ text: t.nextHint, variant: 'dim' });
       } else {
         newLines.push({
-          text: '🎉 これが最後の問題でした。下に進め。',
+          text: t.lastCleared,
           variant: 'success',
         });
         setTimeout(() => setShowCelebration(true), 1200);
@@ -567,25 +578,25 @@ export default function ProblemTerminal() {
               {CLEARED_ASCII}
             </pre>
             <h2 className="mt-8 text-2xl font-bold text-gray-900">
-              🎉 全 {PROBLEMS.length} 問クリアおめでとう！
+              {t.celebration.heading.replace('{count}', String(PROBLEMS.length))}
             </h2>
             <p className="mx-auto mt-3 max-w-md text-sm leading-relaxed text-gray-500">
-              お疲れさま。
+              {t.celebration.line1}
               <br />
-              これからも、お互いいいコード書いていこう。
+              {t.celebration.line2}
             </p>
             <div className="mt-8 font-mono text-xs text-gray-400">
               <span className="text-[#0a66c2]">$</span> echo $? &nbsp;→&nbsp; 0
             </div>
             <div className="mt-10 flex flex-wrap justify-center gap-3 font-mono text-sm">
               <a
-                href="/projects"
+                href={localizePath('/projects', locale)}
                 className="rounded bg-[#0a66c2] px-5 py-2.5 font-semibold tracking-wide text-white transition-colors hover:bg-[#004182]"
               >
                 ./view-projects.sh
               </a>
               <a
-                href="/contact"
+                href={localizePath('/contact', locale)}
                 className="rounded border border-gray-300 bg-white px-5 py-2.5 font-medium text-gray-900 transition-colors hover:border-gray-500"
               >
                 cat contact.md

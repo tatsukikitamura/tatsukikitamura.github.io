@@ -1,0 +1,229 @@
+---
+import { localePaths, localeFromParam } from '../../i18n';
+export function getStaticPaths() {
+  return localePaths();
+}
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import { GitHubIcon, InstagramIcon, MailIcon } from '../../components/Icons';
+import { getTechIcon } from '../../lib/techIcons';
+import contactDict from '../../i18n/dict/contact';
+
+const locale = localeFromParam(Astro.params.lang);
+const t = contactDict[locale];
+
+const TECH_STACK = {
+  frontend: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Next.js', 'Astro'],
+  backend: ['Ruby on Rails', 'Python', 'PostgreSQL', 'MySQL'],
+  infra: ['GitHub Pages', 'Vercel', 'AWS', 'Docker', 'Git'],
+};
+---
+
+<BaseLayout title={t.title} description={t.description} path="/contact">
+  <main class="mx-auto max-w-4xl px-4 pt-24 pb-8">
+    <PageHeader command="cat contact.md">
+      {t.heading.line1}<br class="sm:hidden" />{t.heading.line2}
+    </PageHeader>
+
+    <section class="animate-fade-in-up animation-delay-100 mb-12 px-2 text-zinc-700 opacity-0">
+      <h2 class="mb-4 text-2xl font-bold">{t.intro.heading}</h2>
+      <p class="leading-relaxed">
+        {
+          t.intro.lines.map((line, i) => (
+            <>
+              {i > 0 && <br />}
+              {line}
+            </>
+          ))
+        }
+      </p>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-200 mb-12 px-2 opacity-0">
+      <h2 class="mb-2 text-xl font-bold tracking-tight">{t.services.heading}</h2>
+      <p class="mb-6 text-sm text-gray-500">{t.services.lead}</p>
+      <div class="grid gap-4 md:grid-cols-2">
+        {
+          t.services.items.map((item) => (
+            <div class="rounded-2xl border border-gray-200 p-5 transition-colors hover:border-gray-400">
+              <span class="mb-2 inline-block rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-semibold tracking-wider text-indigo-600">
+                {item.tag}
+              </span>
+              <h3 class="mb-1 font-semibold text-gray-900">{item.title}</h3>
+              <p class="mb-3 text-sm leading-relaxed text-gray-500">{item.desc}</p>
+              <ul class="space-y-1">
+                {item.points.map((p) => (
+                  <li class="flex items-start gap-1.5 text-xs text-gray-600">
+                    <span class="mt-0.5 text-indigo-500">▸</span>
+                    <span>{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+      <p class="mt-5 text-xs text-gray-500">{t.services.note}</p>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-300 mb-12 px-2 opacity-0">
+      <h2 class="mb-6 text-xl font-bold tracking-tight">{t.flow.heading}</h2>
+      <ol class="grid gap-4 md:grid-cols-2">
+        {
+          t.flow.steps.map((step, i) => (
+            <li class="flex gap-4 rounded-2xl border border-gray-200 p-5">
+              <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-gray-900 text-sm font-semibold text-white">
+                {i + 1}
+              </div>
+              <div class="min-w-0">
+                <h3 class="mb-1 font-semibold text-gray-900">{step.title}</h3>
+                <p class="mb-2 text-sm leading-relaxed text-gray-600">{step.desc}</p>
+                <p class="text-xs text-gray-500">{step.note}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-400 mb-12 px-2 opacity-0">
+      <h2 class="mb-6 text-xl font-bold tracking-tight">{t.tech.heading}</h2>
+      <div class="space-y-5">
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-gray-500">{t.tech.frontend}</p>
+          <div class="flex flex-wrap gap-2">
+            {
+              TECH_STACK.frontend.map((name) => {
+                const icon = getTechIcon(name);
+                return (
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 px-3 py-1 text-sm font-medium text-indigo-700">
+                    {icon && <img src={icon} class="h-4 w-4 flex-shrink-0" alt="" loading="lazy" />}
+                    {name}
+                  </span>
+                );
+              })
+            }
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-gray-500">{t.tech.backend}</p>
+          <div class="flex flex-wrap gap-2">
+            {
+              TECH_STACK.backend.map((name) => {
+                const icon = getTechIcon(name);
+                return (
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-3 py-1 text-sm font-medium text-emerald-700">
+                    {icon && <img src={icon} class="h-4 w-4 flex-shrink-0" alt="" loading="lazy" />}
+                    {name}
+                  </span>
+                );
+              })
+            }
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 text-xs font-semibold tracking-wide text-gray-500">{t.tech.infra}</p>
+          <div class="flex flex-wrap gap-2">
+            {
+              TECH_STACK.infra.map((name) => {
+                const icon = getTechIcon(name);
+                return (
+                  <span class="inline-flex items-center gap-1.5 rounded-full bg-amber-50 px-3 py-1 text-sm font-medium text-amber-700">
+                    {icon && <img src={icon} class="h-4 w-4 flex-shrink-0" alt="" loading="lazy" />}
+                    {name}
+                  </span>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-500 mb-12 px-2 opacity-0">
+      <h2 class="mb-4 text-xl font-bold tracking-tight">{t.pricing.heading}</h2>
+      <div class="space-y-4 leading-relaxed text-gray-700">
+        <p>
+          {t.pricing.main.before}<span class="font-semibold text-gray-900"
+            >{t.pricing.main.emph}</span
+          >{t.pricing.main.after}
+        </p>
+        <p class="text-sm text-gray-600">
+          {t.pricing.detail}
+          <br />
+          <span class="font-medium text-gray-800">{t.pricing.freeEmph}</span>
+          {t.pricing.freeAfter}
+        </p>
+      </div>
+
+      <div class="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-5">
+        <p class="mb-3 text-xs font-semibold tracking-wide text-gray-500">
+          {t.pricing.extrasHeading}
+        </p>
+        <ul class="space-y-1.5 text-sm text-gray-700">
+          {
+            t.pricing.extras.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-0.5 text-gray-400">▸</span>
+                <span>{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-600 mb-12 px-2 opacity-0">
+      <h2 class="mb-2 text-xl font-bold tracking-tight">{t.contact.heading}</h2>
+      <p class="mb-6 text-sm text-gray-500">{t.contact.lead}</p>
+
+      <div class="mb-5 flex flex-col gap-3 sm:flex-row">
+        <a
+          href="https://instagram.com/t4t2uk1/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-tr from-[#feda75] via-[#d62976] to-[#4f5bd5] px-6 py-3 font-medium text-white transition-opacity hover:opacity-90"
+        >
+          <InstagramIcon />
+          {t.contact.instagram}
+        </a>
+        <a
+          href="mailto:tatukikitamura123456@gmail.com"
+          class="inline-flex items-center justify-center gap-2 rounded-full bg-gray-900 px-6 py-3 font-medium text-white transition-colors hover:bg-gray-800"
+        >
+          <MailIcon />
+          {t.contact.mail}
+        </a>
+        <a
+          href="https://github.com/tatsukikitamura"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-2 rounded-full border border-gray-200 bg-white px-6 py-3 font-medium text-gray-900 transition-colors hover:bg-gray-50"
+        >
+          <GitHubIcon />
+          {t.contact.github}
+        </a>
+      </div>
+    </section>
+
+    <section class="animate-fade-in-up animation-delay-800 px-2 opacity-0">
+      <h2 class="mb-6 text-xl font-bold tracking-tight">{t.faq.heading}</h2>
+      <dl class="divide-y divide-gray-100">
+        {
+          t.faq.items.map((item) => (
+            <div class="py-4 first:pt-0 last:pb-0">
+              <dt class="mb-2 flex gap-2 font-semibold text-gray-900">
+                <span class="flex-shrink-0 text-indigo-500">Q.</span>
+                <span>{item.q}</span>
+              </dt>
+              <dd class="flex gap-2 text-sm leading-relaxed text-gray-600">
+                <span class="flex-shrink-0 text-gray-400">A.</span>
+                <span>{item.a}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </section>
+  </main>
+</BaseLayout>
