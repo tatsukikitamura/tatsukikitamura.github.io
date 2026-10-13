@@ -1,12 +1,12 @@
 ---
-import { localePaths, localeFromParam, localizePath } from '../../i18n';
+import { localePaths, localeFromParam, localizePath } from '../../../i18n';
 export function getStaticPaths() {
   return localePaths();
 }
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import LanguageSwitcher from '../../components/LanguageSwitcher.astro';
-import type { Artwork, ArtworkCategory } from '../../types';
-import artworksDict from '../../i18n/dict/artworks';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import LanguageSwitcher from '../../../components/LanguageSwitcher.astro';
+import type { Artwork, ArtworkCategory } from '../../../types';
+import artworksDict from '../../../i18n/dict/artworks';
 
 const locale = localeFromParam(Astro.params.lang);
 const t = artworksDict[locale];

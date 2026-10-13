@@ -29,8 +29,12 @@ export default function RoleTyper({ roles = DEFAULT_ROLES }: Props) {
       if (partial.length > 0) {
         timer = setTimeout(() => setPartial(target.slice(0, partial.length - 1)), 28);
       } else {
-        setIdx((i) => (i + 1) % roles.length);
-        setPhase('typing');
+        // Advance on the next tick rather than synchronously inside the effect
+        // (react-hooks/set-state-in-effect); keeps the typing loop timer-driven.
+        timer = setTimeout(() => {
+          setIdx((i) => (i + 1) % roles.length);
+          setPhase('typing');
+        }, 0);
       }
     }
     return () => {

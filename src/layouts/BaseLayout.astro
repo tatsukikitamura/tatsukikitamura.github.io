@@ -132,7 +132,11 @@ const xDefault = `${ORIGIN}${localizePath(basePath, DEFAULT_LOCALE)}`;
       src="https://www.googletagmanager.com/gtag/js?id=G-MWZJZWMLW8"></script>
     <script is:inline>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){ dataLayer.push(arguments); }
+      // Google's official snippet: gtag.js expects the `arguments` object, not an array.
+      function gtag() {
+        // eslint-disable-next-line prefer-rest-params
+        dataLayer.push(arguments);
+      }
       gtag('js', new Date());
       gtag('config', 'G-MWZJZWMLW8');
     </script>

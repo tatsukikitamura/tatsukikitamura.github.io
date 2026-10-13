@@ -7,16 +7,14 @@ type Props = {
 const { command, subtitle } = Astro.props;
 ---
 
-<div class="mb-10 animate-fade-in">
-  <div class="font-mono text-[11px] text-gray-500 mb-4 tracking-wide">
+<div class="animate-fade-in mb-10">
+  <div class="mb-4 font-mono text-[11px] tracking-wide text-gray-500">
     <span class="text-[#0a66c2]">$</span>
     <span class="page-header-typer" data-command={command}></span>
-    <span
-      class="inline-block w-1.5 h-3 bg-[#0a66c2] ml-1 align-middle cursor-blink"
-    ></span>
+    <span class="cursor-blink ml-1 inline-block h-3 w-1.5 bg-[#0a66c2] align-middle"></span>
   </div>
   <h1 class="text-3xl font-bold text-gray-900"><slot /></h1>
-  {subtitle && <p class="text-gray-500 mt-1 text-sm">{subtitle}</p>}
+  {subtitle && <p class="mt-1 text-sm text-gray-500">{subtitle}</p>}
 </div>
 
 <script>
