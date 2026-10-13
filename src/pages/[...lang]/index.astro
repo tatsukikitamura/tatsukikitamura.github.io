@@ -13,7 +13,7 @@ export function getStaticPaths() {
 
 const locale = localeFromParam(Astro.params.lang);
 const t = homeDict[locale];
-const l = (p: string) => (p.startsWith('https://') ? p : localizePath(p, locale));
+const l = (p: string) => localizePath(p, locale);
 
 const ASCII_LINES = [
   '████████╗ █████╗ ████████╗███████╗██╗   ██╗██╗  ██╗██╗',
@@ -41,7 +41,7 @@ const FEATURED = [
   },
   {
     id: '03',
-    to: 'https://tatsuki.dev/math/',
+    to: '/projects/math',
     ...t.featured.math,
     tags: ['TypeScript', 'Vite', 'KaTeX'],
     accent: '#7c3aed',
