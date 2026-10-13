@@ -1,7 +1,7 @@
 import type { Locale } from '../config';
 import type { Project } from '../../types';
 
-// Project list page (/projects). Internal links are locale-less; external URLs stay unchanged.
+// Project list page (/projects). `link` is locale-less; the page wraps it with localizePath().
 const ja = {
   title: 'Projects - 北村健紀の制作物',
   description:
@@ -38,7 +38,7 @@ const ja = {
       period: '2026年5月〜現在（個人開発・卒業研究）',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: 'https://tatsuki.dev/math/',
+      link: '/projects/math',
     },
     {
       id: 'mbti-app',
@@ -101,7 +101,7 @@ const en: ProjectsDict = {
       period: 'May 2026 — present (solo project / graduation research)',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: 'https://tatsuki.dev/math/',
+      link: '/projects/math',
     },
     {
       id: 'mbti-app',
@@ -162,7 +162,7 @@ const zh: ProjectsDict = {
       period: '2026年5月〜至今（个人开发・毕业研究）',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: 'https://tatsuki.dev/math/',
+      link: '/projects/math',
     },
     {
       id: 'mbti-app',
@@ -223,7 +223,7 @@ const ko: ProjectsDict = {
       period: '2026년 5월〜현재 (개인 개발·졸업 연구)',
       tags: ['TypeScript', 'Vite', 'KaTeX', 'markdown-it'],
       featured: true,
-      link: 'https://tatsuki.dev/math/',
+      link: '/projects/math',
     },
     {
       id: 'mbti-app',
