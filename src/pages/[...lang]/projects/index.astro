@@ -11,7 +11,7 @@ import projectsDict from '../../../i18n/dict/projects';
 
 const locale = localeFromParam(Astro.params.lang);
 const t = projectsDict[locale];
-const l = (p: string) => localizePath(p, locale);
+const l = (p: string) => (p.startsWith('https://') ? p : localizePath(p, locale));
 
 const projects = t.projects;
 ---
